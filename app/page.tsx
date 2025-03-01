@@ -1,10 +1,9 @@
 'use client'
 
 import {useEffect} from "react";
-import {check_login} from "@/features/api";
+import {check_login} from "@/features/home";
 
 export default function Home() {
-
   useEffect(() => {
     check_login()
   }, []);
