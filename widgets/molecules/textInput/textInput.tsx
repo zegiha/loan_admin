@@ -7,12 +7,14 @@ import style from './style.module.css'
 export default function TextInput({
   label,
   value,
+  placeholder,
   onChangeAction,
   error_checker,
   input_type='text'
 }: {
   label?: string
   value: string
+  placeholder?: string
   onChangeAction: (v: string) => void
   error_checker: Array<(v: string) => string | null>
   input_type?: 'text' | 'password'
@@ -35,6 +37,7 @@ export default function TextInput({
       <input
         type={input_type}
         className={error !== null ? style.input_error : style.input}
+        placeholder={placeholder}
         value={value}
         onChange={(e) => {
           handle_error_checker(e.target.value)
