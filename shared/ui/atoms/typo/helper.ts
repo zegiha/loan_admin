@@ -1,4 +1,4 @@
-import {TColor, TTextSize, TTextWidth} from "@/widgets/atoms/typo/type";
+import {TColor, TTextSize, TTextWidth} from "@/shared/ui/atoms/typo/type";
 import {CSSProperties} from "react";
 import {semantic} from "@/shared/lib";
 

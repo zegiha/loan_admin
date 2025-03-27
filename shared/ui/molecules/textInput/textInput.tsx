@@ -1,6 +1,6 @@
 'use client'
 
-import {Typo} from "@/widgets/atoms";
+import {Typo} from "../../atoms";
 import React, {useState} from "react";
 import style from './style.module.css'
 

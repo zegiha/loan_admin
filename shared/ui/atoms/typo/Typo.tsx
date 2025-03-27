@@ -1,5 +1,5 @@
-import {ITypo, TTextSize} from "@/widgets/atoms/typo/type";
-import BaseTypo from "@/widgets/atoms/typo/BaseTypo";
+import {ITypo, TTextSize} from "@/shared/ui/atoms/typo/type";
+import BaseTypo from "@/shared/ui/atoms/typo/BaseTypo";
 
 function createTypoComponent(textSize: TTextSize) {
   return function TypoComponent(props: ITypo) {

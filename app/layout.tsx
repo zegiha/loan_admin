@@ -20,6 +20,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={wantedSans.className}>
         {children}
+      <div id={'modal'}></div>
       </body>
     </html>
   );

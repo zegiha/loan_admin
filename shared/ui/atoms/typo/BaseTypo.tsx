@@ -1,6 +1,6 @@
 import {createElement} from "react";
-import {getColor, getElementType, getFontSize, getWidthByStyle} from "@/widgets/atoms/typo/helper";
-import {IBaseTypo} from "@/widgets/atoms/typo/type";
+import {getColor, getElementType, getFontSize, getWidthByStyle} from "@/shared/ui/atoms/typo/helper";
+import {IBaseTypo} from "@/shared/ui/atoms/typo/type";
 import style from './typo.module.scss';
 
 export default function BaseTypo({
