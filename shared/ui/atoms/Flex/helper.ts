@@ -9,10 +9,10 @@ export function processSortingProp(justifyContents: justifyContents | undefined)
   return 'flex-start';
 }
 
-export function processWidth(width: width | undefined): string {
+export function processWidth(width: width | undefined): string | undefined {
   switch(width) {
     case 'fill': return '100%';
-    case undefined: return '';
+    case undefined: return undefined;
     default: return `${width}px`;
   }
 }

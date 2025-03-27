@@ -1,0 +1,31 @@
+.container {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100vh;
+  padding: 24px;
+  border-radius: 0 8px 8px 0;
+  background-color: var(--container-containerLow);
+}
+
+.iconButton32, .navItem, .navItemActive {
+	transition: all 0.24s cubic-bezier(0.13, 0, 0.41, 1);
+}
+
+.iconButton32 {
+	border-radius: 4px;
+	background-color: transparent;
+}
+
+.navItem {
+	padding: 12px;
+	border-radius: 4px;
+	background-color: transparent;
+}
+.navItemActive {
+	background-color: var(--container-containerHighest);
+}
+
+.navItem:hover, .iconButton32:hover {
+	background-color: var(--container-containerHigh);
+}

@@ -1,9 +1,0 @@
-.container {
-  position: sticky;
-  top: 0;
-  display: flex;
-  height: 100vh;
-  padding: 24px;
-  border-radius: 0 8px 8px 0;
-  background-color: var(--container-containerLow);
-}

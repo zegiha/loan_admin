@@ -1,8 +1,8 @@
 'use client'
 
-import Sidebar from '@/shared/ui/layouts/Slidebar/Sidebar'
 import {useEffect} from "react";
 import {check_login} from "@/features/home";
+import Sidebar from "@/shared/ui/molecules/layouts/Slidebar/Sidebar";
 
 export default function Home() {
   useEffect(() => {

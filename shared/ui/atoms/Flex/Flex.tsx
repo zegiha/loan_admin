@@ -36,9 +36,10 @@ export default function Flex({
       className={className}
       ref={ref}
       onClick={onClick}
+      {...typeof motionProps === 'boolean' ? {} : motionProps}
     >
       {children}
-    </motion.div>;
+    </motion.div>
   } else {
     return <div
       style={{
@@ -50,6 +51,6 @@ export default function Flex({
       onClick={onClick}
     >
       {children}
-    </div>;
+    </div>
   }
 }
