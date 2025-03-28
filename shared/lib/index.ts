@@ -1,5 +1,6 @@
-import semantic from "@/shared/lib/semantic";
+import {processSortingProp, processWidth} from '@/shared/lib/Flex/helper'
 
 export {
-  semantic,
+  processWidth,
+  processSortingProp
 }

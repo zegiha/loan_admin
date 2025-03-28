@@ -1,6 +1,6 @@
-import {IFlex} from '@/shared/ui/atoms/Flex/type'
+import {IFlex} from '@/shared/const'
+import {processSortingProp, processWidth} from '@/shared/lib'
 import {CSSProperties} from "react";
-import {processSortingProp, processWidth} from '@/shared/ui/atoms/Flex/helper'
 import {motion} from 'framer-motion'
 
 export default function Flex({

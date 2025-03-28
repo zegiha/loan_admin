@@ -1,0 +1,10 @@
+.container {
+  background-color: var(--surface-surfaceDim);
+  height: 100%;
+}
+.wrapper {
+  background-color: var(--container-containerLow);
+  min-height: 100vh;
+  border-radius: 8px 0 0 8px;
+  overflow: hidden;
+}

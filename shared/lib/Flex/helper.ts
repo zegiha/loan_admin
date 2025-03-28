@@ -1,4 +1,4 @@
-import {width, justifyContents} from '@/shared/ui/atoms/Flex/type'
+import {justifyContents, width} from '@/shared/const'
 
 export function processSortingProp(justifyContents: justifyContents | undefined): string {
   if(justifyContents === 'start' || justifyContents === 'end') {

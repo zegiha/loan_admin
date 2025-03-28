@@ -1,6 +1,5 @@
-import {TColor, TTextSize, TTextWidth} from "@/shared/ui/atoms/Typo/type";
 import {CSSProperties} from "react";
-import {semantic} from "@/shared/lib";
+import {semantic, TColor, TTextSize, TTextWidth} from '@/shared/const'
 
 export function getElementType(textSize: TTextSize): string {
   switch (textSize) {

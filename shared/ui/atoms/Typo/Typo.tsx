@@ -1,4 +1,4 @@
-import {ITypo, TTextSize} from "@/shared/ui/atoms/Typo/type";
+import {ITypo, TTextSize} from '@/shared/const'
 import BaseTypo from "@/shared/ui/atoms/Typo/BaseTypo";
 
 function createTypoComponent(textSize: TTextSize) {
