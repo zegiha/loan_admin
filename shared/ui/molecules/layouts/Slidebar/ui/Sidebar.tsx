@@ -24,7 +24,7 @@ export default function Sidebar() {
       width: 260,
     },
     close: {
-      width: 96,
+      width: 82
     }
   }
   return (
