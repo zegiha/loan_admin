@@ -7,6 +7,7 @@ export type TIconListKey =
   'advertisementNavigationIcon' |
   'customerCenterNavigationIcon' |
   'certifiedCompanyNavigationIcon' |
+  'loanInquiryNavigationIcon' |
   'star'
 ;
 

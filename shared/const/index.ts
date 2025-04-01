@@ -1,7 +1,7 @@
 import palette from '@/shared/const/design/palette'
 import semantic from '@/shared/const/design/semantic'
 
-import IconList from '@/shared/const/type/Icon/iconList'
+import IconList from '@/shared/const/const/iconList'
 import {TIconListKey, IIcon} from '@/shared/const/type/Icon/iconType'
 
 import {

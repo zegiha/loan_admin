@@ -1,3 +1,4 @@
+import iconList from '@/shared/const/const/iconList'
 import {getColor} from '@/shared/lib/Icon/helper'
 import {IIcon} from '@/shared/const/type/Icon/iconType'
 import {CSSProperties} from "react"
@@ -26,7 +27,7 @@ export default function Icon({
       className={`material-symbols-rounded ${transitionStyle.transition}`}
       style={style}
     >
-      {iconKey}
+      {iconList[iconKey]}
     </div>
   );
   else return (
