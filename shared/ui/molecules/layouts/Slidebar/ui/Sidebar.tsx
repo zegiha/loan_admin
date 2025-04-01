@@ -1,5 +1,6 @@
 'use client'
 
+import {TIconListKey} from '@/shared/const'
 import useSidebarControl from '@/shared/ui/molecules/layouts/Slidebar/store/useSidebarControl'
 import SidebarControl from '@/shared/ui/molecules/layouts/Slidebar/ui/SidebarControl'
 import UserInfo from '@/shared/ui/molecules/layouts/Slidebar/ui/UserInfo'
@@ -8,12 +9,12 @@ import style from './style.module.css'
 import {Col, Divider} from "@/shared/ui/atoms";
 import Navigation from '@/shared/ui/molecules/layouts/Slidebar/ui/Navigation'
 
-const navigationInfo: Array<{iconKey: string, navigationName: string}> = [
-  {iconKey: 'account_circle', navigationName: '유저'},
-  {iconKey: 'ad_group', navigationName: '광고'},
-  {iconKey: 'support_agent', navigationName: '고객센터'},
-  {iconKey: 'article', navigationName: '실시간 대출 문의'},
-  {iconKey: 'verified', navigationName: '정식업체'}
+const navigationInfo: Array<{iconKey: TIconListKey, navigationName: string}> = [
+  {iconKey: 'userNavigationIcon', navigationName: '유저'},
+  {iconKey: 'advertisementNavigationIcon', navigationName: '광고'},
+  {iconKey: 'customerCenterNavigationIcon', navigationName: '고객센터'},
+  {iconKey: 'loanInquiryNavigationIcon', navigationName: '실시간 대출 문의'},
+  {iconKey: 'certifiedCompanyNavigationIcon', navigationName: '정식업체'}
 ]
 
 export default function Sidebar() {
@@ -21,10 +22,10 @@ export default function Sidebar() {
 
   const variants: Variants = {
     open: {
-      width: 260,
+      width: 244,
     },
     close: {
-      width: 82
+      width: 80,
     }
   }
   return (

@@ -33,7 +33,7 @@ export default function() {
         onClick={toggleIsOpen}
       >
         <Icon
-          iconKey={'double_arrow'}
+          iconKey={'sidebarArrow'}
           color={'dim'}
           fill={false}
           deg={isOpen ? -180 : 0}
@@ -47,7 +47,7 @@ export default function() {
         }}
       >
         <Icon
-          iconKey={'settings'}
+          iconKey={'setting'}
           color={'dim'}
           fill={false}
         />

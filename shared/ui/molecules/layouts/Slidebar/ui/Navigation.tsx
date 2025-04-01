@@ -1,3 +1,4 @@
+import {TIconListKey} from '@/shared/const'
 import {Col, Icon, Row, Typo} from '@/shared/ui/atoms'
 import useSidebarControl from '@/shared/ui/molecules/layouts/Slidebar/store/useSidebarControl'
 import style from '@/shared/ui/molecules/layouts/Slidebar/ui/style.module.css'
@@ -16,7 +17,7 @@ function item({
   navigationName,
 }: {
   index: number
-  iconKey: string
+  iconKey: TIconListKey
   navigationName: string
 }) {
   const {isOpen, activeNavIndex, setActiveNavIndex} = useSidebarControl()
