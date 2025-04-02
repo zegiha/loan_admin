@@ -1,0 +1,14 @@
+.small {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: var(--container-containerNormal);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+.small:hover {
+  background-color: var(--container-containerHigh);
+}

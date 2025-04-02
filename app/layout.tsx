@@ -20,7 +20,8 @@ export default function RootLayout({
     <html lang="ko">
       <body className={wantedSans.className}>
         {children}
-      <div id={'modal'}></div>
+      <div id={'modal'}/>
+      <div id={'sidepeek'}/>
       </body>
     </html>
   );

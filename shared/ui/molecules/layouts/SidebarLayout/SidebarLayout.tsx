@@ -1,5 +1,5 @@
 import {Col, Row} from '@/shared/ui/atoms'
-import Sidebar from '@/shared/ui/molecules/layouts/Slidebar/ui/Sidebar'
+import Sidebar from '@/shared/ui/molecules/layouts/Sidebar/ui/Sidebar'
 import {ReactNode} from 'react'
 import style from './style.module.css';
 

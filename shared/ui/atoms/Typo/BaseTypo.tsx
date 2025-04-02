@@ -1,7 +1,7 @@
 import {IBaseTypo} from '@/shared/const'
 import {createElement} from "react";
-import {getColor, getElementType, getFontSize, getWidthByStyle} from "@/shared/lib/Typo/helper";
 import style from './typo.module.css';
+import {Typo as helper} from '@/shared/lib'
 
 export default function BaseTypo({
   textSize,
@@ -15,22 +15,24 @@ export default function BaseTypo({
   userSelect='none',
   underline,
   className,
+  onClick
 }:IBaseTypo) {
   return createElement(
-    isPre ? 'pre' : getElementType(textSize),
+    isPre ? 'pre' : helper.getElementType(textSize),
     {
       style: {
-        fontSize: getFontSize(textSize, !!emphasize),
+        fontSize: helper.getFontSize(textSize, !!emphasize),
         lineHeight: '145%',
         fontWeight: emphasize ? 600 : 400,
         textAlign: textAlign,
         justifyContent: textAlign,
         wordBreak: 'keep-all',
         userSelect: userSelect,
-        ...getWidthByStyle(width),
+        ...helper.getWidthByStyle(width),
         whiteSpace: isPre === undefined ? undefined : typeof isPre === "boolean" || isPre === 'wrap' ? 'pre-wrap' : 'pre',
         textDecoration: underline ? 'underline' : undefined,
-        color: getColor(color)
+        color: helper.getColor(color),
+        cursor: onClick ? 'pointer' : undefined,
       },
       className: `
       ${className}
@@ -40,6 +42,7 @@ export default function BaseTypo({
         textOverflowLine === 2 ?
           style.overflowLine2 : ''}
       `,
+      onClick: onClick ? () => onClick() : undefined,
     },
     children,
   );

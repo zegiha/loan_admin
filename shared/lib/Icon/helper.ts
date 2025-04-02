@@ -1,5 +1,5 @@
 import {semantic} from '@/shared/const'
-import {TColor} from '@/shared/const/type/Icon/iconType'
+import {TColor} from '@/shared/const/Icon/iconType'
 
 export function getColor(color: TColor): string {
   switch (color) {

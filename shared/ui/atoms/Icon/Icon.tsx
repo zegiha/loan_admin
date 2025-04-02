@@ -1,6 +1,6 @@
-import iconList from '@/shared/const/const/iconList'
-import {getColor} from '@/shared/lib/Icon/helper'
-import {IIcon} from '@/shared/const/type/Icon/iconType'
+import iconList from '@/shared/const/Icon/iconList'
+import {Icon as helper} from '@/shared/lib'
+import {IIcon} from '@/shared/const/Icon/iconType'
 import {CSSProperties} from "react"
 import transitionStyle from './style.module.css';
 import {motion} from 'framer-motion'
@@ -18,7 +18,7 @@ export default function Icon({
     fontSize: motionProps !== undefined ? undefined : size,
     fontVariationSettings: `'FILL' ${fill ? '1' : '0'}, 'wght' ${weight}`,
     transform: `rotate(${deg}deg)`,
-    color: color === 'none' ? 'transparent' : getColor(color),
+    color: color === 'none' ? 'transparent' : helper.getColor(color),
     userSelect: 'none',
   }
   if(motionProps === true) motionProps = {};

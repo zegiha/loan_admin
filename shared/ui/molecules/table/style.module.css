@@ -1,0 +1,15 @@
+.table {
+  position: relative;
+  border: 1px solid var(--outline-default);
+  border-radius: 4px;
+  overflow: auto;
+}
+
+.tableRow, .tableHeader {
+  padding: 12px;
+}
+.tableHeader {
+  position: sticky;
+  top: 0;
+  background-color: var(--container-containerNormal);
+}

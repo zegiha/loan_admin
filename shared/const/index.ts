@@ -1,15 +1,15 @@
 import palette from '@/shared/const/design/palette'
 import semantic from '@/shared/const/design/semantic'
 
-import IconList from '@/shared/const/const/iconList'
-import {TIconListKey, IIcon} from '@/shared/const/type/Icon/iconType'
+import IconList from '@/shared/const/Icon/iconList'
+import {TIconListKey, IIcon} from '@/shared/const/Icon/iconType'
 
 import {
   justifyContents,
   width,
   IRowAndCol,
   IFlex
-} from '@/shared/const/type/Flex/type'
+} from '@/shared/const/Flex/type'
 
 import {
   TTextSize,
@@ -17,7 +17,14 @@ import {
   TColor,
   ITypo,
   IBaseTypo,
-} from '@/shared/const/type/Typo/type'
+} from '@/shared/const/Typo/type'
+
+import TReactSetState from '@/shared/const/type/TReactSetState'
+
+import {
+  TIconSize,
+  IIconButton,
+} from '@/shared/const/buttons/IconButton/type'
 
 export {
   palette,
@@ -36,4 +43,7 @@ export type {
   TColor,
   ITypo,
   IBaseTypo,
+  TReactSetState,
+  TIconSize,
+  IIconButton,
 }

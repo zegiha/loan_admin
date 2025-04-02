@@ -9,5 +9,5 @@ export default async function login_action(
 ) {
   const cookie_store = await cookies()
   cookie_store.set('refresh_token', 'test_token')
-  redirect('/')
+  redirect('/user')
 }

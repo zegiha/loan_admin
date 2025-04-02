@@ -68,7 +68,7 @@
 	--outline-active: var(--blue500);
 	--outline-error: var(--red500);
 
-	--shadow-default: rgba(var(--gray300), 0.24);
+	--shadow-default: rgba(215, 220, 224, 0.48);
 
 	--error-error: var(--red800);
 	--error-onError: var(--gray010);
@@ -83,8 +83,9 @@
 }
 
 :root {
-	--onTransition: all 0.28s cubic-bezier(0.56, 0, 0.17, 0.56);
-	--leaveTransition: all 0.18s cubic-bezier(0.56, 0, 0.17, 0.56);
+	--transition-fast: all 0.12s cubic-bezier(.35,.44,.68,1);
+	--transition-normal: all 0.28s cubic-bezier(.35,.44,.68,1);
+	--transition-slow: all 0.32s cubic-bezier(.35,.44,.68,1);
 }
 
 * {
