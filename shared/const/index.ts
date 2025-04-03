@@ -1,6 +1,8 @@
 import palette from '@/shared/const/design/palette'
 import semantic from '@/shared/const/design/semantic'
 
+import transition from '@/shared/const/animation/framerTransition'
+
 import IconList from '@/shared/const/Icon/iconList'
 import {TIconListKey, IIcon} from '@/shared/const/Icon/iconType'
 
@@ -19,7 +21,7 @@ import {
   IBaseTypo,
 } from '@/shared/const/Typo/type'
 
-import TReactSetState from '@/shared/const/type/TReactSetState'
+import TSetState from '@/shared/const/type/TSetState'
 
 import {
   TIconSize,
@@ -29,6 +31,7 @@ import {
 export {
   palette,
   semantic,
+  transition,
   IconList,
 }
 export type {
@@ -43,7 +46,7 @@ export type {
   TColor,
   ITypo,
   IBaseTypo,
-  TReactSetState,
+  TSetState,
   TIconSize,
   IIconButton,
 }

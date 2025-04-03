@@ -1,6 +1,6 @@
 'use client'
 
-import {TIconListKey} from '@/shared/const'
+import {TIconListKey, transition} from '@/shared/const'
 import useSidebarControl from '@/shared/ui/molecules/layouts/Sidebar/store/useSidebarControl'
 import SidebarControl from '@/shared/ui/molecules/layouts/Sidebar/ui/SidebarControl'
 import UserInfo from '@/shared/ui/molecules/layouts/Sidebar/ui/UserInfo'
@@ -35,11 +35,7 @@ export default function Sidebar() {
         initial: isOpen ? 'open' : 'close',
         variants: variants,
         animate: isOpen ? 'open' : 'close',
-        transition: {
-          duration: 0.24,
-          ease: [.35,.44,.68,1],
-          delayChildren: 0
-        }
+        transition: transition.normal
       }}
       gap={isOpen ? 12 : 0}
     >

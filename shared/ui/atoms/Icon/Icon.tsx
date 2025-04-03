@@ -1,5 +1,5 @@
 import iconList from '@/shared/const/Icon/iconList'
-import {Icon as helper} from '@/shared/lib'
+import {IconHelper as helper} from '@/shared/lib'
 import {IIcon} from '@/shared/const/Icon/iconType'
 import {CSSProperties} from "react"
 import transitionStyle from './style.module.css';

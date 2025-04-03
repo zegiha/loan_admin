@@ -1,3 +1,5 @@
+import {CSSProperties} from 'react'
+
 export type TTextSize =
   'display' |
   'header' |
@@ -32,6 +34,7 @@ export interface ITypo {
   textAlign?: 'start' | 'center' | 'end';
   userSelect?: 'none' | 'auto';
   underline?: boolean;
+  style?: CSSProperties;
   className?: string;
   onClick?: () => void;
 }

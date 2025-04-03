@@ -1,7 +1,7 @@
 import {IBaseTypo} from '@/shared/const'
 import {createElement} from "react";
 import style from './typo.module.css';
-import {Typo as helper} from '@/shared/lib'
+import {TypoHelper as helper} from '@/shared/lib'
 
 export default function BaseTypo({
   textSize,
@@ -12,8 +12,9 @@ export default function BaseTypo({
   textOverflowLine,
   textAlign,
   color='generic',
-  userSelect='none',
+  userSelect='auto',
   underline,
+  style: customStyle,
   className,
   onClick
 }:IBaseTypo) {
@@ -33,6 +34,7 @@ export default function BaseTypo({
         textDecoration: underline ? 'underline' : undefined,
         color: helper.getColor(color),
         cursor: onClick ? 'pointer' : undefined,
+        ...customStyle,
       },
       className: `
       ${className}

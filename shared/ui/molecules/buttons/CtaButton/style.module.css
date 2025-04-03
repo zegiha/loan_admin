@@ -1,0 +1,14 @@
+.default {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.gray {background-color: var(--container-containerNormal);}
+.gray:hover {background-color: var(--container-containerHigh);}
+
+.primary {background-color: var(--primary-primaryNormal);}
+.primary:hover {background-color: var(--primary-primaryHigh);}

@@ -1,14 +1,30 @@
-.small {
+.small, .medium {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 32px;
-  height: 32px;
-  background-color: var(--container-containerNormal);
-  border-radius: 4px;
+  background-color: transparent;
   cursor: pointer;
   transition: var(--transition-normal);
 }
-.small:hover {
+.small:hover, .medium:hover {
+  background-color: var(--layer-hover);
+}
+
+.small {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+}
+
+.medium {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+}
+
+.gray {
+  background-color: var(--container-containerNormal);
+}
+.gray:hover {
   background-color: var(--container-containerHigh);
 }

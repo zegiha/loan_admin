@@ -4,7 +4,7 @@ import style from './style.module.css'
 
 export default function SectionHeader({
   headerContents,
-  contentsGap=0,
+  contentsGap=24,
   children,
 }: {
   headerContents: ReactNode

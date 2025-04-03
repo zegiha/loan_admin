@@ -10,13 +10,16 @@ export default function IconButton({
   iconKey,
   fill,
   color,
+  background='gray',
 }: IIconButton) {
-  if(size !== 'small') throw new Error(`IconButton can be small yet`)
+  if(size === 'large') throw new Error(`IconButton can be small, medium yet`)
   return (
     <button
       onClick={() => onClick()}
       className={classNames([
-        size === 'small' && style.small
+        size === 'small' && style.small,
+        size === 'medium' && style.medium,
+        background === 'gray' && style.gray,
       ])}
     >
       <Icon

@@ -14,6 +14,8 @@ const iconList: {[K in TIconListKey]?: string} = {
   reload: 'refresh',
   add: 'add',
   search: 'search',
+  close: 'close',
+  warning: 'warning',
 }
 
 export default iconList

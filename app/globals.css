@@ -79,12 +79,13 @@
 	--statusPositive: var(--green600);
 	--statusCautionary: var(--yellow600);
 
-	--layer-modalBackground: rgba(var(--gray800), 0.64);
+	--layer-modalBackground: rgba(14, 14, 14, 0.64);
+	--layer-hover: rgba(145, 153, 158, 0.16);
 }
 
 :root {
-	--transition-fast: all 0.12s cubic-bezier(.35,.44,.68,1);
-	--transition-normal: all 0.28s cubic-bezier(.35,.44,.68,1);
+	--transition-fast: all 0.16s cubic-bezier(.35,.44,.68,1);
+	--transition-normal: all 0.24s cubic-bezier(.35,.44,.68,1);
 	--transition-slow: all 0.32s cubic-bezier(.35,.44,.68,1);
 }
 

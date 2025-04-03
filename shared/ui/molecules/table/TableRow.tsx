@@ -9,6 +9,7 @@ export default function TableRow({
   return (
     <Row
       className={style.tableRow}
+      alignItems={'center'}
       width={'fill'}
       gap={24}
     >

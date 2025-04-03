@@ -13,7 +13,9 @@ export type TIconListKey =
   'star' |
   'reload' |
   'add' |
-  'search'
+  'search' |
+  'close' |
+  'warning'
 ;
 
 export type TColor = 'dim' | 'normal' | 'variable' | 'primary' | 'none' | 'white';

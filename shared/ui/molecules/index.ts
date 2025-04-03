@@ -7,10 +7,15 @@ import SectionHeader from '@/shared/ui/atoms/sections/SectionHeader/SectionHeade
 import Dropdown from '@/shared/ui/molecules/dropdown/Dropdown'
 
 import IconButton from '@/shared/ui/molecules/buttons/IconButton/IconButton'
+import CtaButton from '@/shared/ui/molecules/buttons/CtaButton/CtaButton'
 
 import Table from '@/shared/ui/molecules/table/Table'
 import TableRow from '@/shared/ui/molecules/table/TableRow'
 import TableHeader from '@/shared/ui/molecules/table/TableHeader'
+import TableLabeledRow from '@/shared/ui/molecules/table/TableLabeledRow'
+
+import Sidepeek from '@/shared/ui/molecules/sidepeek/Sidepeek'
+import Modal from '@/shared/ui/molecules/modal/Modal'
 
 export {
   TextInput,
@@ -18,7 +23,11 @@ export {
   SectionHeader,
   Dropdown,
   IconButton,
+  CtaButton,
   Table,
   TableRow,
   TableHeader,
+  TableLabeledRow,
+  Sidepeek,
+  Modal
 }
