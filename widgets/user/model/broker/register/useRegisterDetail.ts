@@ -1,11 +1,8 @@
 'use client'
 
-import {formatDateDotYmd} from '@/shared/lib'
 import getRegisterReqById from '@/widgets/user/api/broker/register/getRegisterReqById'
 import {
   RegisterReqEntity,
-  registerReqEntityKeyList,
-  registerReqEntityLabel, TRegisterReqEntityKey
 } from '@/widgets/user/const/broker/register/registerEntity'
 import {useEffect, useState} from 'react'
 
@@ -22,16 +19,6 @@ export default function useRegisterDetail(registerReqId: string | null) {
     fetching()
   }, [registerReqId])
 
-  const processRegisterDetailData = (data: RegisterReqEntity | null):
-  Array<{label: string, contents: string}> => {
-    if(data === null) return []
-    const res: Array<{label: string, contents: string}> = []
-    registerReqEntityKeyList.forEach((v: TRegisterReqEntityKey) => {
-      res.push({label: registerReqEntityLabel[v] ?? '', contents: typeof data[v] === 'string' ? data[v] : formatDateDotYmd(data[v])})
-    })
-    return res
-  }
-
   const rejectFunc = () => {
     // TODO API 연결
     console.log('reject')
@@ -43,7 +30,6 @@ export default function useRegisterDetail(registerReqId: string | null) {
 
   return {
     data, setData,
-    processRegisterDetailData,
     approveFunc,
     rejectFunc,
   }
