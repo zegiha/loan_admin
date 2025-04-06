@@ -24,6 +24,7 @@ import CtaButtonHelper from '@/shared/lib/buttons/CtaButton/helper'
 
 import formatDateDotYmd from '@/shared/lib/helper/formatDateDotYmd'
 import {lockScroll, unlockScroll} from '@/shared/lib/helper/scrollControl'
+import parseToTwoDimensionalArray from "@/shared/lib/helper/parseToTwoDimensionalArray";
 
 export {
   processWidth,
@@ -35,4 +36,5 @@ export {
   formatDateDotYmd,
   lockScroll,
   unlockScroll,
+  parseToTwoDimensionalArray
 }

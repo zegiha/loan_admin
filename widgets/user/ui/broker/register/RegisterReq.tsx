@@ -1,10 +1,11 @@
 import {Table} from '@/shared/ui/molecules'
-import TableSection from '@/shared/ui/molecules/layouts/TableSection'
 import useRegisterReq from '@/widgets/user/model/broker/register/useRegisterReq'
 import RegisterDetail from '@/widgets/user/ui/broker/register/RegisterDetail'
 import RegisterReqTableHeader from '@/widgets/user/ui/broker/register/RegisterReqTableHeader'
 import RegisterReqTableRow from '@/widgets/user/ui/broker/register/RegisterReqTableRow'
 import {Typo} from '@/shared/ui/atoms'
+import {TableSection} from "@/shared/ui/organisms";
+import {parseToTwoDimensionalArray} from "@/shared/lib";
 
 export default function RegisterReq() {
   const {
@@ -24,16 +25,21 @@ export default function RegisterReq() {
         setShowRowAction={v => setShowRow(v)}
       >
         {data !== null ? (
-          <Table maxShowingRow={showRow + 1}>
-            <RegisterReqTableHeader/>
-            {data.map((v, i) => (
-              <RegisterReqTableRow
-                key={i}
-                {...v}
-              />
-            ))}
-          </Table>
-        ) : (
+          parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
+            <Table
+              key={i}
+              maxShowingRow={showRow + 1}
+            >
+              <RegisterReqTableHeader/>
+              {v1.map((v2, i) => (
+                <RegisterReqTableRow
+                  key={i}
+                  {...v2}
+                />
+              ))}
+            </Table>
+          ))
+        ):(
           <Typo.Contents>로딩중...</Typo.Contents>
         )}
       </TableSection>

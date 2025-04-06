@@ -28,11 +28,15 @@ import {
   IIconButton,
 } from '@/shared/const/buttons/IconButton/type'
 
+import {tableDropdownOptions} from "@/shared/const/TableSection/const";
+import {ITableSection, ITableSectionHeader} from "@/shared/const/TableSection/type";
+
 export {
   palette,
   semantic,
   transition,
   IconList,
+  tableDropdownOptions
 }
 export type {
   TIconListKey,
@@ -49,4 +53,6 @@ export type {
   TSetState,
   TIconSize,
   IIconButton,
+  ITableSectionHeader,
+  ITableSection
 }

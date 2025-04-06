@@ -13,7 +13,7 @@ export default function Table({
       className={style.table}
       width={'fill'}
       style={{
-        height: maxShowingRow ? maxShowingRow * 47.2 : undefined
+        height: maxShowingRow ? maxShowingRow * 48 : undefined
       }}
     >
       {children}

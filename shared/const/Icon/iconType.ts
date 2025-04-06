@@ -15,7 +15,9 @@ export type TIconListKey =
   'add' |
   'search' |
   'close' |
-  'warning'
+  'warning' |
+  'toFirst' |
+  'toLast'
 ;
 
 export type TColor = 'dim' | 'normal' | 'variable' | 'primary' | 'none' | 'white';

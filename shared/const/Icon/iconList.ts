@@ -16,6 +16,8 @@ const iconList: {[K in TIconListKey]?: string} = {
   search: 'search',
   close: 'close',
   warning: 'warning',
+  toFirst: 'first_page',
+  toLast: 'last_page',
 }
 
 export default iconList

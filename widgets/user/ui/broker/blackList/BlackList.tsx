@@ -1,10 +1,11 @@
 import {Table} from '@/shared/ui/molecules'
-import TableSection from '@/shared/ui/molecules/layouts/TableSection'
 import useBlackList from '@/widgets/user/model/broker/blackList/useBlackList'
 import {Typo} from '@/shared/ui/atoms'
 import BlackListTableHeader from '@/widgets/user/ui/broker/blackList/BlackListTableHeader'
 import BlackListTableRow from '@/widgets/user/ui/broker/blackList/BlackListTableRow'
 import ExcludeModal from '@/widgets/user/ui/broker/blackList/ExcludeModal'
+import {TableSection} from "@/shared/ui/organisms";
+import {parseToTwoDimensionalArray} from "@/shared/lib";
 
 export default function BlackList() {
   const {
@@ -23,21 +24,24 @@ export default function BlackList() {
         showRow={showRow}
         setShowRowAction={v => setShowRow(v)}
       >
-        <Table maxShowingRow={showRow + 1}>
-          {data !== null ? (
-            <>
+        {data !== null ? (
+          parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
+            <Table
+              key={i}
+              maxShowingRow={showRow + 1}
+            >
               <BlackListTableHeader/>
-              {data.map((v, i) => (
+              {v1.map((v2, i) => (
                 <BlackListTableRow
                   key={i}
-                  {...v}
+                  {...v2}
                 />
               ))}
-            </>
-          ):(
-            <Typo.Contents>로딩중...</Typo.Contents>
-          )}
-        </Table>
+            </Table>
+          ))
+        ):(
+          <Typo.Contents>로딩중...</Typo.Contents>
+        )}
       </TableSection>
       <ExcludeModal
         isOpen={isOpen}

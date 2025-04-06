@@ -111,3 +111,11 @@ button {
 body {
 	background-color: var(--surface-surfaceDim);
 }
+
+.swiper {
+	width: 100%;
+}
+
+.swiper-slide {
+	width: 100%;
+}
