@@ -3,18 +3,23 @@ import {Col, Icon, Row, Typo} from '@/shared/ui/atoms'
 import {CtaButton, Modal} from '@/shared/ui/molecules'
 import style from './style.module.css'
 
-export default function ExcludeModal({
+export default function WarningModal({
   isOpen,
   setIsOpen,
-  targetUser,
-  excludeFunc,
+  title,
+  subtitle,
+  submitContents,
+  cancelFunc=() => setIsOpen(false),
+  submitFunc,
 }: {
   isOpen: boolean
   setIsOpen: TSetState<boolean>
-  targetUser: {userId: string, name: string} | null
-  excludeFunc: () => void
+  title: string
+  subtitle: string
+  submitContents: string
+  cancelFunc?: () => void
+  submitFunc: () => void
 }) {
-  if(targetUser === null) return <></>
   return (
     <Modal
       isOpen={isOpen}
@@ -39,10 +44,10 @@ export default function ExcludeModal({
           />
           <Col gap={4}>
             <Typo.Body color={'variable'} emphasize>
-              {targetUser.name}님을 블랙 리스트에서 제외할까요?
+              {title}
             </Typo.Body>
             <Typo.Contents color={'dim'}>
-              {targetUser.name}님을 제외해야하는지 한번 더 확인해주세요
+              {subtitle}
             </Typo.Contents>
           </Col>
         </Col>
@@ -50,16 +55,16 @@ export default function ExcludeModal({
           <CtaButton
             flex={1}
             color={'gray'}
-            onClick={() => setIsOpen(false)}
+            onClick={cancelFunc}
           >
             <Typo.Contents>취소</Typo.Contents>
           </CtaButton>
           <CtaButton
             flex={2}
-            onClick={() => excludeFunc()}
+            onClick={submitFunc}
           >
             <Typo.Contents color={'onPrimary'} emphasize>
-              제외하기
+              {submitContents}
             </Typo.Contents>
           </CtaButton>
         </Row>

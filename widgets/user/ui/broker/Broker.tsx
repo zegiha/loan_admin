@@ -4,6 +4,7 @@ import {
   SectionHeader,
 } from '@/shared/ui/molecules'
 import BlackList from '@/widgets/user/ui/broker/blackList/BlackList'
+import Management from '@/widgets/user/ui/broker/management/Management'
 import RegisterReq from '@/widgets/user/ui/broker/register/RegisterReq'
 
 export default function Broker() {
@@ -14,6 +15,7 @@ export default function Broker() {
     >
       <RegisterReq/>
       <BlackList/>
+      <Management/>
     </SectionHeader>
   )
 }

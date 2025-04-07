@@ -3,8 +3,7 @@ import useBlackList from '@/widgets/user/model/broker/blackList/useBlackList'
 import {Typo} from '@/shared/ui/atoms'
 import BlackListTableHeader from '@/widgets/user/ui/broker/blackList/BlackListTableHeader'
 import BlackListTableRow from '@/widgets/user/ui/broker/blackList/BlackListTableRow'
-import ExcludeModal from '@/widgets/user/ui/broker/blackList/ExcludeModal'
-import {TableSection} from "@/shared/ui/organisms";
+import {TableSection, WarningModal} from "@/shared/ui/organisms";
 import {parseToTwoDimensionalArray} from "@/shared/lib";
 
 export default function BlackList() {
@@ -43,12 +42,16 @@ export default function BlackList() {
           <Typo.Contents>로딩중...</Typo.Contents>
         )}
       </TableSection>
-      <ExcludeModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        targetUser={targetUser}
-        excludeFunc={excludeFunc}
-      />
+      {targetUser !== null && (
+        <WarningModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          title={`${targetUser.name}님을 블랙리스트에서 제외할까요?`}
+          subtitle={`${targetUser.name}님을 제외해야하는지 한번 더 확인해주세요`}
+          submitContents={'제외하기'}
+          submitFunc={excludeFunc}
+        />
+      )}
     </>
   )
 }

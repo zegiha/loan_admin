@@ -15,6 +15,8 @@ import TableHeader from '@/shared/ui/molecules/table/TableHeader'
 import TableLabeledRow from '@/shared/ui/molecules/table/TableLabeledRow'
 
 import Sidepeek from '@/shared/ui/molecules/sidepeek/Sidepeek'
+import SidepeekHeaderSection from '@/shared/ui/molecules/sidepeek/SidepeekHeaderSection'
+
 import Modal from '@/shared/ui/molecules/modal/Modal'
 
 export {
@@ -29,5 +31,6 @@ export {
   TableHeader,
   TableLabeledRow,
   Sidepeek,
+  SidepeekHeaderSection,
   Modal
 }

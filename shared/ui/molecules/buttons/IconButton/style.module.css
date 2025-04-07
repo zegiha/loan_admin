@@ -28,9 +28,6 @@
   border-radius: 6px;
 }
 
-.gray {
-  background-color: var(--container-containerNormal);
-}
-.gray:hover, .grayActive {
-	background-color: var(--container-containerHigh);
-}
+.gray {background-color: var(--container-containerNormal);}
+.gray:hover {background-color: var(--container-containerHigh);}
+.grayActive, .grayActive:hover {background-color: var(--container-containerHighest);}

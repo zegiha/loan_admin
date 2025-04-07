@@ -1,5 +1,5 @@
-import {Col, Row} from '@/shared/ui/atoms'
-import {IconButton, Sidepeek, Table, TableLabeledRow} from '@/shared/ui/molecules'
+import {Col} from '@/shared/ui/atoms'
+import {Sidepeek, SidepeekHeaderSection, Table, TableLabeledRow} from '@/shared/ui/molecules'
 import useRegisterDetail from '@/widgets/user/model/broker/register/useRegisterDetail'
 import {Typo} from '@/shared/ui/atoms'
 import Certificate from '@/widgets/user/ui/broker/register/Certificate'
@@ -19,19 +19,15 @@ export default function RegisterDetail({
   } = useRegisterDetail(registerReqId)
 
   return data !== null ? (
-    <Sidepeek isOpen={isOpen} setIsOpenAction={setIsOpen}>
-      <Col width={'fill'} gap={24}>
-        <Row width={'fill'} justifyContents={'space-between'} alignItems={'center'}>
-          <Typo.Body emphasize color={'variable'}>
-            회원가입 요청 세부정보
-          </Typo.Body>
-          <IconButton
-            iconKey={'close'}
-            size={'small'}
-            background={'transparent'}
-            onClick={() => setIsOpen(false)}
-          />
-        </Row>
+    <Sidepeek
+      isOpen={isOpen}
+      setIsOpenAction={setIsOpen}
+      gap={24}
+    >
+      <SidepeekHeaderSection
+        header={'회원가입 요청 세부정보'}
+        closeFunc={() => setIsOpen(false)}
+      >
         {processRegisterDetailData(data).map((v1, i) => (
           <Col key={i} width={'fill'} gap={2}>
             <Typo.Caption>{v1.subtitle}</Typo.Caption>
@@ -56,7 +52,7 @@ export default function RegisterDetail({
           rejectFunc={rejectFunc}
           approveFunc={approveFunc}
         />
-      </Col>
+      </SidepeekHeaderSection>
     </Sidepeek>
   ) : <></>
 }

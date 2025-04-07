@@ -1,7 +1,0 @@
-.modalContainer {
-  width: 33%;
-  padding: 16px;
-  border: 2px solid var(--outline-default);
-  background-color: var(--surface-surface);
-  border-radius: 8px;
-}
