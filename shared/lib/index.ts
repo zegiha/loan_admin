@@ -22,9 +22,13 @@ const TypoHelper = {
 
 import CtaButtonHelper from '@/shared/lib/buttons/CtaButton/helper'
 
+import axiosWithToken from '@/shared/lib/axios/axiosWithToken'
+
 import formatDateDotYmd from '@/shared/lib/helper/formatDateDotYmd'
 import {lockScroll, unlockScroll} from '@/shared/lib/helper/scrollControl'
 import parseToTwoDimensionalArray from "@/shared/lib/helper/parseToTwoDimensionalArray";
+
+import useTableSection from '@/shared/lib/swiper/TableSection/useTableSection'
 
 export {
   processWidth,
@@ -33,8 +37,10 @@ export {
   IconHelper,
   TypoHelper,
   CtaButtonHelper,
+  axiosWithToken,
   formatDateDotYmd,
   lockScroll,
   unlockScroll,
-  parseToTwoDimensionalArray
+  parseToTwoDimensionalArray,
+  useTableSection,
 }

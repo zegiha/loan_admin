@@ -1,47 +1,23 @@
 'use client'
 
-import {parseToTwoDimensionalArray} from '@/shared/lib'
+import {parseToTwoDimensionalArray, useTableSection} from '@/shared/lib'
 import {Typo} from '@/shared/ui/atoms'
 import {Table} from '@/shared/ui/molecules'
 import {TableSection, WarningModal} from '@/shared/ui/organisms'
-import getBroker from '@/widgets/user/api/broker/getBroker'
-import {IManagementTableRow} from '@/widgets/user/const/broker/management/type'
+import useManagement from '@/widgets/user/model/broker/management/useManagement'
 import ManagementTableHeader from '@/widgets/user/ui/broker/management/ManagementTableHeader'
 import ManagementTableRow from '@/widgets/user/ui/broker/management/ManagementTableRow'
 import MoreInfoSidepeek from '@/widgets/user/ui/broker/management/MoreInfoSidepeek'
-import {useEffect, useState} from 'react'
 
 export default function Management() {
-  const [showRow, setShowRow] = useState<number>(10)
-  const [data, setData] = useState<Array<IManagementTableRow> | null>(null)
-  const [isLogoutOpen, setIsLogoutOpen] = useState<boolean>(false)
-  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false)
-  const [isSidepeekOpen, setIsSidepeekOpen] = useState<boolean>(false)
-  const [targetUser, setTargetUser] = useState<{id: string, userId: string} | null>(null)
-
-  useEffect(() => {
-    setData(() => {
-      const newData: Array<IManagementTableRow> = []
-      getBroker().forEach(v => {
-        newData.push({
-          ...v,
-          moreInfoSidepeekFunc: () => {
-            setTargetUser({...v})
-            setIsSidepeekOpen(true)
-          },
-          logoutModalFunc: () => {
-            setTargetUser({...v})
-            setIsLogoutOpen(true)
-          },
-          deleteUserModalFunc: () => {
-            setTargetUser({...v})
-            setIsDeleteOpen(true)
-          }
-        })
-      })
-      return [...newData]
-    })
-  }, [])
+  const {showRow, setShowRow} = useTableSection()
+  const {
+    isLogoutOpen, setIsLogoutOpen,
+    isDeleteOpen, setIsDeleteOpen,
+    isSidepeekOpen, setIsSidepeekOpen,
+    targetUser,
+    status, data, error, refetch
+  } = useManagement()
 
   return (
     <>
@@ -49,8 +25,9 @@ export default function Management() {
         tableTitle={'대부업자 관리'}
         showRow={showRow}
         setShowRowAction={setShowRow}
+        reloadFunc={refetch}
       >
-        {data !== null ? (
+        {status === 'success' && (
           parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
             <Table
               key={i}
@@ -65,8 +42,12 @@ export default function Management() {
               ))}
             </Table>
           ))
-        ) : (<Typo.Contents>로딩중...</Typo.Contents>)}
+        )}
       </TableSection>
+      {status === 'pending' &&
+        <Typo.Contents>로딩중...</Typo.Contents>}
+      {status === 'error' &&
+        <Typo.Contents color={'error'}>{error?.message}</Typo.Contents>}
       {targetUser !== null && (
         <WarningModal
           isOpen={isLogoutOpen}

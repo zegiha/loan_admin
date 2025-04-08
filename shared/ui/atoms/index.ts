@@ -4,6 +4,7 @@ import Row from "@/shared/ui/atoms/Flex/Row";
 import Flex from "@/shared/ui/atoms/Flex/Flex";
 import Divider from "@/shared/ui/atoms/Divider/Divider";
 import Icon from '@/shared/ui/atoms/Icon/Icon'
+import TanStackQueryLayout from '@/shared/ui/atoms/layouts/TanStackQueryLayout'
 
 export {
   Typo,
@@ -12,4 +13,5 @@ export {
   Flex,
   Divider,
   Icon,
+  TanStackQueryLayout,
 }

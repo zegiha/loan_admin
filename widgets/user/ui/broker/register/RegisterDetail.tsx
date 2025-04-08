@@ -1,8 +1,8 @@
 import {Col} from '@/shared/ui/atoms'
 import {Sidepeek, SidepeekHeaderSection, Table, TableLabeledRow} from '@/shared/ui/molecules'
+import {Certificate} from '@/shared/ui/organisms'
 import useRegisterDetail from '@/widgets/user/model/broker/register/useRegisterDetail'
 import {Typo} from '@/shared/ui/atoms'
-import Certificate from '@/widgets/user/ui/broker/register/Certificate'
 import RegisterDetailSubmit from '@/widgets/user/ui/broker/register/RegisterDetailSubmit'
 import {IRegisterDetail} from "@/widgets/user/const/broker/register/type";
 import processRegisterDetailData from "@/widgets/user/lib/broker/register/processRegisterDetailData";
@@ -38,10 +38,7 @@ export default function RegisterDetail({
                   label={v2.label}
                   contents={v2.label !== '대부업 등록증' && v2.label !== '사업자 등록증' ?
                     v2.contents :
-                    <Col gap={2}>
-                      <Certificate src={v2.contents} alt={v2.label}/>
-                      <Typo.Caption color={'dim'}>이미지 눌러서 크게 보기</Typo.Caption>
-                    </Col>
+                    <Certificate src={v2.contents} alt={v2.label}/>
                   }
                 />
               ))}

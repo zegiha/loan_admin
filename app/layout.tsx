@@ -1,3 +1,4 @@
+import {TanStackQueryLayout} from '@/shared/ui/atoms'
 import type { Metadata } from "next";
 import "./globals.css";
 import "swiper/css"
@@ -20,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={wantedSans.className}>
+      <TanStackQueryLayout>
         {children}
         <div id={'modalRoot'}/>
         <div id={'sidepeekRoot'}/>
+      </TanStackQueryLayout>
       </body>
     </html>
   );

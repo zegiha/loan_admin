@@ -9,16 +9,18 @@ export default function WarningModal({
   title,
   subtitle,
   submitContents,
-  cancelFunc=() => setIsOpen(false),
+  cancelContents,
   submitFunc,
+  cancelFunc,
 }: {
   isOpen: boolean
   setIsOpen: TSetState<boolean>
   title: string
   subtitle: string
   submitContents: string
-  cancelFunc?: () => void
+  cancelContents?: string
   submitFunc: () => void
+  cancelFunc?: () => void
 }) {
   return (
     <Modal
@@ -43,7 +45,7 @@ export default function WarningModal({
             fill={true}
           />
           <Col gap={4}>
-            <Typo.Body color={'variable'} emphasize>
+            <Typo.Body color={'variable'} isPre={'wrap'} emphasize>
               {title}
             </Typo.Body>
             <Typo.Contents color={'dim'}>
@@ -55,13 +57,19 @@ export default function WarningModal({
           <CtaButton
             flex={1}
             color={'gray'}
-            onClick={cancelFunc}
+            onClick={() => {
+              if(cancelFunc !== undefined) cancelFunc()
+              setIsOpen(false)
+            }}
           >
-            <Typo.Contents>취소</Typo.Contents>
+            <Typo.Contents>{cancelContents ?? '취소'}</Typo.Contents>
           </CtaButton>
           <CtaButton
             flex={2}
-            onClick={submitFunc}
+            onClick={() => {
+              submitFunc()
+              setIsOpen(false)
+            }}
           >
             <Typo.Contents color={'onPrimary'} emphasize>
               {submitContents}

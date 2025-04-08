@@ -4,8 +4,11 @@ import TableSection from "@/shared/ui/organisms/layouts/TableSection/TableSectio
 
 import WarningModal from '@/shared/ui/organisms/modals/WarningModal/WarningModal'
 
+import Certificate from '@/shared/ui/organisms/Certificate/Certificate'
+
 export {
   Swiper,
   TableSection,
   WarningModal,
+  Certificate,
 }

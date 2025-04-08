@@ -50,6 +50,7 @@ const semantic = {
     errorContainer: palette.red[100],
     onErrorContainer: palette.red[800],
   },
+  green: palette.green[600],
   layer: {
     modalBackground: 'rgba(20, 20, 20, 0.64)', // rgba(palette.gray800)
   },

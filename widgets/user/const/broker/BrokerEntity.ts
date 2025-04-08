@@ -6,7 +6,8 @@ export interface BrokerEntitySummary {
   companyName: string
 }
 
-export interface BrokerEntity extends BrokerEntitySummary, RegisterReqEntity {
+export interface BrokerEntity extends RegisterReqEntity {
   // TODO 추가로 사용자 정보에 들어갈만한거 있으면 넣기
+  userId: string
   blackListStatus: boolean
 }

@@ -1,11 +1,11 @@
 'use client'
 
 import {transition} from '@/shared/const'
-import {Row} from '@/shared/ui/atoms'
+import {Col, Row, Typo} from '@/shared/ui/atoms'
 import {IconButton, Modal} from '@/shared/ui/molecules'
 import {useState} from 'react'
 import Image from 'next/image'
-import style from './style.module.css'
+import style from '../../../../widgets/user/ui/broker/register/style.module.css'
 
 export default function Certificate({
   src,
@@ -17,7 +17,7 @@ export default function Certificate({
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <>
+    <Col gap={2}>
       <Image
         src={src}
         alt={alt}
@@ -26,6 +26,7 @@ export default function Certificate({
         className={style.certificatePreview}
         onClick={() => setIsOpen(true)}
       />
+      <Typo.Caption color={'dim'}>이미지 눌러서 크게 보기</Typo.Caption>
       <Modal
         isOpen={isOpen}
         setIsOpenAction={setIsOpen}
@@ -63,6 +64,6 @@ export default function Certificate({
           </div>
         </Row>
       </Modal>
-    </>
+    </Col>
   )
 }

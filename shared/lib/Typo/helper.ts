@@ -43,6 +43,8 @@ export function getColor(color: TColor): string {
     case 'onPrimary': return semantic.primary.onPrimary;
     case 'onPrimaryDim': return semantic.primary.onPrimaryDim;
     case 'error': return semantic.errorContainer.onErrorContainer;
+    case 'red': return semantic.errorContainer.onErrorContainer;
+    case 'green': return semantic.green;
     default: return '';
   }
 }
