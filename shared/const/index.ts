@@ -22,6 +22,7 @@ import {
 } from '@/shared/const/Typo/type'
 
 import TSetState from '@/shared/const/type/TSetState'
+import TAdminAuthority from '@/shared/const/type/TAdminAuthority'
 
 import {
   TIconSize,
@@ -51,6 +52,7 @@ export type {
   ITypo,
   IBaseTypo,
   TSetState,
+  TAdminAuthority,
   TIconSize,
   IIconButton,
   ITableSectionHeader,
