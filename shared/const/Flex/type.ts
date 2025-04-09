@@ -1,5 +1,5 @@
 import {MotionProps} from 'framer-motion'
-import {CSSProperties, MouseEventHandler} from "react";
+import React, {CSSProperties, MouseEventHandler} from "react";
 
 export type  justifyContents =
   'start' |
@@ -15,6 +15,7 @@ export type alignItems =
 export type width = 'fill' | number
 
 export interface IRowAndCol {
+  key?: React.Key | null
   justifyContents?: justifyContents
   alignItems?: alignItems
   wrap?: boolean

@@ -18,6 +18,7 @@ import Sidepeek from '@/shared/ui/molecules/sidepeek/Sidepeek'
 import SidepeekHeaderSection from '@/shared/ui/molecules/sidepeek/SidepeekHeaderSection'
 
 import Modal from '@/shared/ui/molecules/modal/Modal'
+import ModalContainer from '@/shared/ui/molecules/modal/ModalContainer'
 
 export {
   TextInput,
@@ -32,5 +33,6 @@ export {
   TableLabeledRow,
   Sidepeek,
   SidepeekHeaderSection,
-  Modal
+  Modal,
+  ModalContainer,
 }

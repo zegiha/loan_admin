@@ -1,3 +1,5 @@
+type THeight = 'normal' | 'large' | 'small'
+
 const getWidth = (width: 'fill' | 'hug' | number | undefined) => {
   if(width === undefined) return undefined
   switch(width) {
@@ -6,23 +8,25 @@ const getWidth = (width: 'fill' | 'hug' | number | undefined) => {
     default: return width
   }
 }
-const getHeight = (height: 'normal' | 'large') => {
+const getHeight = (height: THeight) => {
   switch(height) {
+    case 'small': return 40
     case 'normal': return 48
     case 'large': return 56
   }
 }
-const getRadius = (height: 'normal' | 'large') => {
+const getPadding = (height: THeight) => {
   switch(height) {
-    case 'normal': return 4
-    case 'large': return 6
+    case 'small': return '10px 12px'
+    case 'normal': return '12px 16px'
+    case 'large': return '14px 22px'
   }
 }
 
 const CtaButtonHelper = {
   getWidth,
   getHeight,
-  getRadius,
+  getPadding,
 }
 
 export default CtaButtonHelper

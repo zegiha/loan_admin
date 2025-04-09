@@ -8,7 +8,8 @@ export default function useBlackList() {
   const [showRow, setShowRow] = useState<number>(1)
   const [data, setData] = useState<Array<IBlackListTableRow> | null>(null)
   const [targetUser, setTargetUser] = useState<{userId: string, name: string} | null>(null)
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
+  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false)
 
   const fetching = () => {
     const fetchData = getBlackList()
@@ -16,7 +17,7 @@ export default function useBlackList() {
     fetchData.forEach(v => {
       newData.push({...v, excludeModalOpenFunc: () => {
           setTargetUser({userId: v.userId, name: v.id})
-          setIsOpen(true)
+          setIsDeleteModalOpen(true)
         }})
     })
     setData([...newData])
@@ -28,14 +29,15 @@ export default function useBlackList() {
 
   const excludeFunc = () => {
     // TODO 블랙리스트 제외
-    setIsOpen(false)
+    setIsDeleteModalOpen(false)
   }
 
   return {
     showRow, setShowRow,
     data, fetching,
     targetUser, setTargetUser,
-    isOpen, setIsOpen,
+    isDeleteModalOpen, setIsDeleteModalOpen,
+    isAddModalOpen, setIsAddModalOpen,
     excludeFunc
   }
 }

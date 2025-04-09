@@ -1,56 +1,166 @@
 'use client'
 
-import {Typo} from "../../atoms";
-import React, {useState} from "react";
+import {TIconListKey, transition} from '@/shared/const'
+import {Col, Icon, Row, Typo} from '@/shared/ui/atoms'
+import classNames from 'classnames'
+import {AnimatePresence} from 'framer-motion'
+import React, {ReactNode, useEffect, useRef, useState} from "react";
 import style from './style.module.css'
 
 export default function TextInput({
   label,
   value,
   placeholder,
+  placeholderIcon,
   onChangeAction,
   error_checker,
-  input_type='text'
+  input_type='text',
+  selectionPlaceholder,
+  selections,
 }: {
   label?: string
   value: string
   placeholder?: string
+  placeholderIcon?: TIconListKey
   onChangeAction: (v: string) => void
-  error_checker: Array<(v: string) => string | null>
+  error_checker?: Array<(v: string) => string | null>
   input_type?: 'text' | 'password'
+  selectionPlaceholder?: string
+  selections?: Array<string>
 }) {
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null)
+  const [isFocus, setIsFocus] = useState<boolean>(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if(isFocus && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [isFocus])
+
   const handle_error_checker = (checked_value: string) => {
-    error_checker.some((v) => {
-      const new_error = v(checked_value)
-      setError(new_error)
-      return new_error
-    })
+    if(error_checker) {
+      error_checker.some((v) => {
+        const new_error = v(checked_value)
+        setError(new_error)
+        return new_error
+      })
+    }
   }
+
   return (
-    <div className={style.input_wrapper}>
-      {label && (
-        <Typo.Caption color={'dim'}>
-          {label}
-        </Typo.Caption>
-      )}
-      <input
-        type={input_type}
-        className={error !== null ? style.input_error : style.input}
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => {
-          handle_error_checker(e.target.value)
-          onChangeAction(e.target.value)
-        }}
-        onFocus={() => handle_error_checker(value)}
-        onBlur={() => handle_error_checker(value)}
-      />
-      {error && (
-        <Typo.Caption color={'error'}>
-          {error}
-        </Typo.Caption>
-      )}
+    <div className={style.container}>
+      <Col width={'fill'} gap={2}>
+        {label && (
+          <Typo.Caption color={'dim'}>
+            {label}
+          </Typo.Caption>
+        )}
+        <Row
+          className={classNames([
+            error !== null && style.inputContainerError,
+            isFocus && style.inputContainerActive,
+            style.inputContainer,
+          ])}
+          width={'fill'}
+          alignItems={'center'}
+          gap={4}
+          onClick={() => setIsFocus(true)}
+        >
+          {placeholderIcon && value === '' && (
+            <Icon
+              iconKey={placeholderIcon}
+              color={'dim'}
+            />
+          )}
+          <input
+            ref={inputRef}
+            className={style.input}
+            type={input_type}
+            placeholder={placeholder}
+            value={value}
+            onChange={(e) => {
+              handle_error_checker(e.target.value)
+              onChangeAction(e.target.value)
+            }}
+            onFocus={() => {
+              handle_error_checker(value)
+              setIsFocus(true)
+            }}
+            onBlur={() => {
+              handle_error_checker(value)
+              setIsFocus(false)
+            }}
+          />
+        </Row>
+        {error && (
+          <Typo.Caption color={'error'}>
+            {error}
+          </Typo.Caption>
+        )}
+      </Col>
+        <AnimatePresence>
+          {selections && (
+            <Selection>
+              {selections.map((v, i) => (
+                <Row
+                  key={i}
+                  className={classNames([
+                    style.selection,
+                    value === v && style.selectionActive
+                  ])}
+                  width={'fill'}
+                  onClick={() => onChangeAction(v)}
+                >
+                  <Typo.Contents>{v}</Typo.Contents>
+                </Row>
+              ))}
+            </Selection>
+          )}
+          {selectionPlaceholder && value !== '' && !selections && (
+            <Selection>
+              <Row
+                className={style.selectionDisabled}
+                width={'fill'}
+              >
+                <Typo.Contents color={'dim'}>
+                  {selectionPlaceholder}
+                </Typo.Contents>
+              </Row>
+            </Selection>
+          )}
+        </AnimatePresence>
     </div>
+  )
+}
+
+function Selection({
+  children
+}: {
+  children: ReactNode
+}) {
+  return (
+    <Col
+      className={style.selectionContainer}
+      width={'fill'}
+      motion={{
+        initial: {opacity: 0, height: 48},
+        animate: {opacity: 1, height: 'auto'},
+        exit: {opacity: 0, height: 0, padding: 0},
+        transition: transition.fastest,
+      }}
+    >
+      <Col
+        className={style.selectionWrapper}
+        width={'fill'}
+        motion={{
+          initial: {opacity: 0},
+          animate: {opacity: 1},
+          exit: {opacity: 0},
+        }}
+      >
+        {children}
+      </Col>
+    </Col>
   )
 }

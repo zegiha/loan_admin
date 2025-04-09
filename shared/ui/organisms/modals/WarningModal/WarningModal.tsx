@@ -1,7 +1,6 @@
-import {transition, TSetState} from '@/shared/const'
+import {TSetState} from '@/shared/const'
 import {Col, Icon, Row, Typo} from '@/shared/ui/atoms'
-import {CtaButton, Modal} from '@/shared/ui/molecules'
-import style from './style.module.css'
+import {CtaButton, Modal, ModalContainer} from '@/shared/ui/molecules'
 
 export default function WarningModal({
   isOpen,
@@ -27,16 +26,7 @@ export default function WarningModal({
       isOpen={isOpen}
       setIsOpenAction={setIsOpen}
     >
-      <Col
-        className={style.modalContainer}
-        gap={32}
-        onClick={e => e.stopPropagation()}
-        motion={{
-          initial: { opacity: 0, y: -12 },
-          animate: { opacity: 1, y: 0 },
-          transition: transition.normal
-        }}
-      >
+      <ModalContainer size={'small'} gap={24}>
         <Col gap={8}>
           <Icon
             iconKey={'warning'}
@@ -76,7 +66,7 @@ export default function WarningModal({
             </Typo.Contents>
           </CtaButton>
         </Row>
-      </Col>
+      </ModalContainer>
     </Modal>
   )
 }

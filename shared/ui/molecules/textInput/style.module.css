@@ -1,11 +1,11 @@
-.input_wrapper {
+.container {
 	display: flex;
 	flex-direction: column;
-	gap: 4px;
 	width: 100%;
 }
 
-.input, .input_error {
+.inputContainer {
+	width: 100%;
 	background-color: var(--container-containerNormal);
 	padding: 8px 12px;
 	border: 1px solid var(--outline-default);
@@ -14,20 +14,54 @@
 	font-size: 16px;
 	color: var(--onGeneric-onGenericVariable);
 
-	transition: var(--leaveTransition);
+	transition: var(--transition-fast);
+}
+
+.input {
+	width: 100%;
+	height: 24px;
+	background-color: transparent;
+	font-size: 16px;
+	color: var(--onGeneric-onGenericVariable);
 
 	outline: none;
+	border: none;
 }
 .input::placeholder {
 	font-size: 16px;
 	color: var(--onGeneric-onGenericDim);
 }
 
-.input:focus {
-	transition: var(--onTransition);
+.inputContainerActive {
+	transition: var(--transition-normal);
 	border-color: var(--outline-active);
 }
 
-.input_error {
+.inputContainerError {
 	border-color: var(--outline-error);
 }
+
+.selectionContainer {
+	padding: 8px 6px;
+	background-color: var(--container-containerLow);
+	box-shadow: 0 0 1px 1px var(--outline-default);
+	border-radius: 8px;
+	max-height: 172px;
+	overflow: hidden;
+	transform: translateY(4px);
+}
+.selectionWrapper {
+	height: 100%;
+	overflow-y: auto;
+}
+
+.selection {
+	padding: 4px 6px;
+	border-radius: 4px;
+	background-color: transparent;
+	cursor: pointer;
+	transition: var(--transition-fast);
+}
+
+.selection:hover {background-color: var(--container-containerNormal);}
+.selectionActive, .selectionActive:hover {background-color: var(--container-containerHigh)}

@@ -34,7 +34,6 @@ export interface ITypo {
   textOverflowLine?: number;
   color?: TColor,
   textAlign?: 'start' | 'center' | 'end';
-  userSelect?: 'none' | 'auto';
   underline?: boolean;
   style?: CSSProperties;
   className?: string;

@@ -1,6 +1,7 @@
 import {Table} from '@/shared/ui/molecules'
 import useBlackList from '@/widgets/user/model/broker/blackList/useBlackList'
 import {Typo} from '@/shared/ui/atoms'
+import BlackListAddModal from '@/widgets/user/ui/broker/blackList/BlackListAddModal'
 import BlackListTableHeader from '@/widgets/user/ui/broker/blackList/BlackListTableHeader'
 import BlackListTableRow from '@/widgets/user/ui/broker/blackList/BlackListTableRow'
 import {TableSection, WarningModal} from "@/shared/ui/organisms";
@@ -11,7 +12,8 @@ export default function BlackList() {
     showRow, setShowRow,
     data, fetching,
     targetUser,
-    isOpen, setIsOpen,
+    isDeleteModalOpen, setIsDeleteModalOpen,
+    isAddModalOpen, setIsAddModalOpen,
     excludeFunc,
   } = useBlackList()
 
@@ -20,6 +22,7 @@ export default function BlackList() {
       <TableSection
         tableTitle={'블랙 리스트'}
         reloadFunc={() => fetching()}
+        addFunc={() => setIsAddModalOpen(true)}
         showRow={showRow}
         setShowRowAction={v => setShowRow(v)}
       >
@@ -44,12 +47,18 @@ export default function BlackList() {
       </TableSection>
       {targetUser !== null && (
         <WarningModal
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
+          isOpen={isDeleteModalOpen}
+          setIsOpen={setIsDeleteModalOpen}
           title={`${targetUser.name}님을 블랙리스트에서 제외할까요?`}
           subtitle={`${targetUser.name}님을 제외해야하는지 한번 더 확인해주세요`}
           submitContents={'제외하기'}
           submitFunc={excludeFunc}
+        />
+      )}
+      {isAddModalOpen && (
+        <BlackListAddModal
+          isOpen={isAddModalOpen}
+          setIsOpen={setIsAddModalOpen}
         />
       )}
     </>

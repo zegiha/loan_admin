@@ -15,13 +15,13 @@ export default function CtaButton({
   children: ReactNode
   width?: 'fill' | 'hug' | number
   flex?: number
-  height?: 'normal' | 'large'
+  height?: 'normal' | 'large' | 'small'
   color?: 'primary' | 'gray'
 }) {
   const {
     getWidth,
     getHeight,
-    getRadius,
+    getPadding
   } = CtaButtonHelper
 
   return <button
@@ -29,7 +29,8 @@ export default function CtaButton({
     style={{
       height: getHeight(height),
       width: getWidth(width),
-      borderRadius: getRadius(height),
+      borderRadius: 4,
+      padding: width === 'hug' ? getPadding(height) : undefined,
       flex: `${flex} 0 0`,
     }}
     onClick={() => onClick()}

@@ -4,6 +4,7 @@ import {CSSProperties} from "react";
 import {motion} from 'framer-motion'
 
 export default function Flex({
+  key,
   width,
   flexDirection,
   justifyContents,
@@ -29,6 +30,7 @@ export default function Flex({
   };
   if(motionProps !== undefined) {
     return <motion.div
+      key={key}
       style={{
         ...genericStyle,
         ...style
@@ -42,6 +44,7 @@ export default function Flex({
     </motion.div>
   } else {
     return <div
+      key={key}
       style={{
         ...genericStyle,
         ...style
