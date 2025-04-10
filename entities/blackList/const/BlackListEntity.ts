@@ -1,4 +1,4 @@
-export interface IBlack {
+export default interface BlackListEntity {
   userId: string
   id: string
   companyName: string

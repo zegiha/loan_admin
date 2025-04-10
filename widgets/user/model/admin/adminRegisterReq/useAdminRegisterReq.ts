@@ -1,6 +1,6 @@
 'use client'
 
-import getAdminRegisterReq from '@/widgets/user/api/admin/adminRegisterReq/getAdminRegisterReq'
+import getAdminRegisterReq from '@/entities/admin/adminRegisterReq/getAdminRegisterReq'
 import {AdminRegisterEntity} from '@/widgets/user/const/admin/adminRegisterReq/AdminRegisterEntity'
 import {IAdminRegisterReqTableRow} from '@/widgets/user/const/admin/adminRegisterReq/type'
 import {useQuery} from '@tanstack/react-query'

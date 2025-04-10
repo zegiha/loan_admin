@@ -1,7 +1,7 @@
 'use client'
 
-import getBlackList from '@/widgets/user/api/broker/blackList/getBlackList'
-import {IBlackListTableRow} from '@/widgets/user/const/broker/blackList/type'
+import getBlackList from '@/entities/blackList/api/getBlackList'
+import {IBlackListTableRow} from '@/entities/blackList/const/BlackListEntity'
 import {useEffect, useState} from 'react'
 
 export default function useBlackList() {

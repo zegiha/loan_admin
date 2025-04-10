@@ -1,4 +1,4 @@
-import {BrokerEntitySummary} from '@/widgets/user/const/broker/BrokerEntity'
+import {BrokerEntitySummary} from '@/entities/broker/const/BrokerEntity'
 
 export interface IManagementTableRow extends Omit<BrokerEntitySummary, 'userId'> {
   moreInfoSidepeekFunc: () => void

@@ -1,14 +1,14 @@
 import {formatDateDotYmd} from '@/shared/lib'
 import {TableRow} from '@/shared/ui/molecules'
-import {IRegisterReqTableRow} from '@/widgets/user/const/broker/register/type'
 import {Typo} from '@/shared/ui/atoms'
+import {IRegisterReqTableRow} from '@/widgets/user/const/broker/register/type'
 
 export default function RegisterReqTableRow({
   id,
   companyName,
   reqDate,
   moreInfoFunc
-}: Omit<IRegisterReqTableRow, 'userId'>) {
+}: Omit<IRegisterReqTableRow, 'reqId'>) {
   return <TableRow>
     <Typo.Contents width={'fill'}>
       {id}

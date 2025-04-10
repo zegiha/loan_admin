@@ -1,9 +1,9 @@
 'use client'
 
 
-import getBroker from '@/widgets/user/api/broker/getBroker'
-import {BrokerEntitySummary} from '@/widgets/user/const/broker/BrokerEntity'
-import {IManagementTableRow} from '@/widgets/user/const/broker/management/type'
+import getBrokerSummary from '@/entities/broker/api/getBrokerSummary'
+import {BrokerEntitySummary} from '@/entities/broker/const/BrokerEntity'
+import {IManagementTableRow} from '@/entities/broker/const/management/type'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'
 
@@ -14,7 +14,7 @@ export default function() {
   const [targetUser, setTargetUser] = useState<{id: string, userId: string} | null>(null)
   const queryRes = useQuery<Array<BrokerEntitySummary>, Error, Array<IManagementTableRow>>({
     queryKey: ['brokerList'],
-    queryFn: getBroker,
+    queryFn: getBrokerSummary,
     select: data => {
       const res: Array<IManagementTableRow> = []
       data.forEach(v => {

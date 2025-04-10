@@ -1,5 +1,5 @@
 import {TableRow} from '@/shared/ui/molecules'
-import {IBlackListTableRow} from '@/widgets/user/const/broker/blackList/type'
+import {IBlackListTableRow} from '@/entities/blackList/const/BlackListEntity'
 import {Typo} from '@/shared/ui/atoms'
 
 export default function BlackListTableRow({

@@ -1,10 +1,10 @@
 import {Col} from '@/shared/ui/atoms'
 import {Sidepeek, SidepeekHeaderSection, Table, TableLabeledRow} from '@/shared/ui/molecules'
 import {Certificate} from '@/shared/ui/organisms'
+import {IRegisterDetail} from '@/widgets/user/const/broker/register/type'
 import useRegisterDetail from '@/widgets/user/model/broker/register/useRegisterDetail'
 import {Typo} from '@/shared/ui/atoms'
 import RegisterDetailSubmit from '@/widgets/user/ui/broker/register/RegisterDetailSubmit'
-import {IRegisterDetail} from "@/widgets/user/const/broker/register/type";
 import processRegisterDetailData from "@/widgets/user/lib/broker/register/processRegisterDetailData";
 
 export default function RegisterDetail({

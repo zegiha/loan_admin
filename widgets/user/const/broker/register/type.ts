@@ -1,14 +1,7 @@
-import {TSetState} from "@/shared/const";
+import {BrokerRegisterSummaryEntity} from '@/entities'
+import {TSetState} from '@/shared/const'
 
-export interface IRegisterReq {
-  userId: string
-  id: string
-  companyName: string
-  reqDate: Date
-}
-
-
-export interface IRegisterReqTableRow extends IRegisterReq {
+export interface IRegisterReqTableRow extends BrokerRegisterSummaryEntity {
   moreInfoFunc: () => void
 }
 

@@ -1,4 +1,4 @@
-import AdminEntity from '@/widgets/user/const/admin/AdminEntity'
+import AdminEntity from '@/entities/admin/AdminEntity'
 
 export default async function(): Promise<Array<AdminEntity>> {
   const dummySuper: AdminEntity = {

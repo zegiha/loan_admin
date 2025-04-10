@@ -1,8 +1,10 @@
-import {RegisterReqEntity} from '@/widgets/user/const/broker/register/registerEntity'
+import BrokerRegisterReqEntity from '@/entities/brokerRegister/const/BrokerRegisterEntity'
 
-export default function getRegisterReqById(registerReqId: string): RegisterReqEntity {
+export default function(registerReqId: string): BrokerRegisterReqEntity {
   // TODO API 연결
   return {
+    reqId: registerReqId,
+    reqDate: new Date(),
     id: "user123",
     password: "securePassword123!",
     phone: "010-1234-5678",

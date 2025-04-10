@@ -1,41 +1,38 @@
-import {
-  RegisterReqEntity,
-  registerReqEntityLabel,
-} from "@/widgets/user/const/broker/register/registerEntity";
-import {IRegisterDetailData} from "@/widgets/user/const/broker/register/type";
+import {BrokerRegisterEntity, registerEntityLabel} from '@/entities'
 import {formatDateDotYmd} from "@/shared/lib";
+import {IRegisterDetailData} from '@/widgets/user/const/broker/register/type'
 
-export default function processRegisterDetailData(data: RegisterReqEntity | null): Array<IRegisterDetailData> {
+export default function processRegisterDetailData(data: BrokerRegisterEntity | null): Array<IRegisterDetailData> {
   if(data === null) return []
 
   const res: Array<IRegisterDetailData> = []
   res.push({
     subtitle: '계정 정보',
     data: [
-      {label: registerReqEntityLabel['id'] ?? '', contents: data['id']},
-      {label: registerReqEntityLabel['password'] ?? '', contents: data['password']},
-      {label: registerReqEntityLabel['phone'] ?? '', contents: data['phone']},
-      {label: registerReqEntityLabel['exponentName'] ?? '', contents: data['exponentName']},
+      {label: registerEntityLabel['id'] ?? '', contents: data['id']},
+      {label: registerEntityLabel['password'] ?? '', contents: data['password']},
+      {label: registerEntityLabel['phone'] ?? '', contents: data['phone']},
+      {label: registerEntityLabel['exponentName'] ?? '', contents: data['exponentName']},
     ]
   })
   res.push({
     subtitle: '대부업 정보',
     data: [
-      {label: registerReqEntityLabel['brokerageNumber'] ?? '', contents: data['brokerageNumber']},
-      {label: registerReqEntityLabel['advertisementPhone'] ?? '', contents: data['advertisementPhone']},
-      {label: registerReqEntityLabel['brokerageStartPeriod'] ?? '', contents: formatDateDotYmd(data['brokerageStartPeriod'])},
-      {label: registerReqEntityLabel['brokerageEndPeriod'] ?? '', contents: formatDateDotYmd(data['brokerageEndPeriod'])},
-      {label: registerReqEntityLabel['brokerageRegistrar'] ?? '', contents: data['brokerageRegistrar']},
-      {label: registerReqEntityLabel['brokerageRegistrationCertificateUrl'] ?? '', contents: data['brokerageRegistrationCertificateUrl']},
+      {label: registerEntityLabel['brokerageNumber'] ?? '', contents: data['brokerageNumber']},
+      {label: registerEntityLabel['advertisementPhone'] ?? '', contents: data['advertisementPhone']},
+      {label: registerEntityLabel['brokerageStartPeriod'] ?? '', contents: formatDateDotYmd(data['brokerageStartPeriod'])},
+      {label: registerEntityLabel['brokerageEndPeriod'] ?? '', contents: formatDateDotYmd(data['brokerageEndPeriod'])},
+      {label: registerEntityLabel['brokerageRegistrar'] ?? '', contents: data['brokerageRegistrar']},
+      {label: registerEntityLabel['brokerageRegistrationCertificateUrl'] ?? '', contents: data['brokerageRegistrationCertificateUrl']},
     ]
   })
   res.push({
     subtitle: '업체 정보',
     data: [
-      {label: registerReqEntityLabel['companyName'] ?? '', contents: data['companyName']},
-      {label: registerReqEntityLabel['companyPhone'] ?? '', contents: data['companyPhone']},
-      {label: registerReqEntityLabel['companyLocation'] ?? '', contents: data['companyLocation']},
-      {label: registerReqEntityLabel['businessRegistrationCertificateUrl'] ?? '', contents: data['businessRegistrationCertificateUrl']},
+      {label: registerEntityLabel['companyName'] ?? '', contents: data['companyName']},
+      {label: registerEntityLabel['companyPhone'] ?? '', contents: data['companyPhone']},
+      {label: registerEntityLabel['companyLocation'] ?? '', contents: data['companyLocation']},
+      {label: registerEntityLabel['businessRegistrationCertificateUrl'] ?? '', contents: data['businessRegistrationCertificateUrl']},
     ]
   })
 

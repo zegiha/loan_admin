@@ -23,6 +23,8 @@ import {
 
 import TSetState from '@/shared/const/type/TSetState'
 import TAdminAuthority from '@/shared/const/type/TAdminAuthority'
+import TLocation from '@/shared/const/type/TLocation'
+import TProduction from '@/shared/const/type/TProduction'
 
 import {
   TIconSize,
@@ -53,6 +55,8 @@ export type {
   IBaseTypo,
   TSetState,
   TAdminAuthority,
+  TLocation,
+  TProduction,
   TIconSize,
   IIconButton,
   ITableSectionHeader,

@@ -1,7 +1,8 @@
 // import {axiosWithToken} from '@/shared/lib'
-import {BrokerEntitySummary} from '@/widgets/user/const/broker/BrokerEntity'
 
-export default async function getBroker(): Promise<Array<BrokerEntitySummary>> {
+import BrokerEntitySummary from '@/entities/broker/const/BrokerSummaryEntity'
+
+export default async function getBrokerSummary(): Promise<Array<BrokerEntitySummary>> {
   // TODO API 연결 시 이용
   // const axios = await axiosWithToken()
   // return axios.get('')

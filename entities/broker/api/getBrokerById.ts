@@ -1,9 +1,9 @@
-import {BrokerEntity} from '@/widgets/user/const/broker/BrokerEntity'
+import BrokerEntity from '@/entities/broker/const/BrokerEntity'
 
 export default async function getBrokerById(userId: string): Promise<BrokerEntity> {
   return {
     // TODO 추가로 사용자 정보에 들어갈만한거 있으면 넣기
-    userId: 'f1eb91d2-c07c-4be0-9efe-be42901cd935',
+    userId: userId,
     id: "ximya_kim",
     password: "securePassword123!",
     phone: "010-1234-5678",

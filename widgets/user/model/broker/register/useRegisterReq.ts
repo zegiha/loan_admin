@@ -1,6 +1,6 @@
 'use client'
 
-import getRegisterReq from '@/widgets/user/api/broker/register/getRegisterReq'
+import getRegisterReqSummary from '@/entities/brokerRegister/api/getBrokerRegisterSummary'
 import {IRegisterReqTableRow} from '@/widgets/user/const/broker/register/type'
 import {useEffect, useState} from 'react'
 
@@ -11,14 +11,14 @@ export default function useRegisterReq() {
   const [registerReqId, setRegisterReqId] = useState<string | null>(null)
 
   const fetching = () => {
-    const newData = getRegisterReq()
+    const newData = getRegisterReqSummary()
     setData(() => {
       const res: Array<IRegisterReqTableRow> = []
       newData.forEach(v => {
         res.push({
           ...v,
           moreInfoFunc: () => {
-            setRegisterReqId(v.userId)
+            setRegisterReqId(v.reqId)
             setIsOpen(true)
           }
         })
