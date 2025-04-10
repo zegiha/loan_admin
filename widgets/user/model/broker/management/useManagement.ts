@@ -1,9 +1,8 @@
 'use client'
 
-
+import {BrokerEntitySummary} from '@/entities'
 import getBrokerSummary from '@/entities/broker/api/getBrokerSummary'
-import {BrokerEntitySummary} from '@/entities/broker/const/BrokerEntity'
-import {IManagementTableRow} from '@/entities/broker/const/management/type'
+import {IManagementTableRow} from '@/widgets/user/const/broker/management/type'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'
 

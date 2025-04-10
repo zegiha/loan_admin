@@ -1,7 +1,6 @@
 'use client'
 
-import getAdmin from '@/entities/admin/adminManagement/getAdmin'
-import AdminEntity from '@/entities/admin/AdminEntity'
+import {AdminEntity, getAdmin} from '@/entities'
 import {IAdminManagementTableRow} from '@/widgets/user/const/admin/adminManagement/type'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'

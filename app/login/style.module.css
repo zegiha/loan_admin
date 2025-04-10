@@ -27,13 +27,13 @@
 	background-color: var(--primary-primaryNormal);
 	border-radius: 6px;
 	cursor: pointer;
-	transition: var(--leaveTransition);
+	transition: var(--transition-fast);
 }
 .button:hover {
-	transition: var(--onTransition);
+	transition: var(--transition-normal);
 	background-color: var(--primary-primaryHigh);
 }
 .button:active {
-	transition: var(--onTransition);
+	transition: var(--transition-normal);
 	background-color: var(--primary-primaryHighest);
 }

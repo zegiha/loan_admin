@@ -1,5 +1,5 @@
-import {BrokerEntity} from '@/entities/broker/const/BrokerEntity'
-import {IBrokerInfo} from '@/entities/broker/const/management/type'
+import {BrokerEntity} from '@/entities'
+import {IBrokerInfo} from '@/widgets/user/const/broker/management/type'
 
 
 export default function(data: BrokerEntity): Array<IBrokerInfo> {

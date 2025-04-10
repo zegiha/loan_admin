@@ -1,6 +1,6 @@
 import {TLocation, TProduction} from '@/shared/const'
 
-type adEntity =
+type AdEntity =
 {
   name: 'premiumBanner'
   title: string
@@ -51,4 +51,4 @@ type adEntity =
   name: 'inquiryCompanyUpload'
 }
 
-export default adEntity
+export default AdEntity

@@ -1,15 +1,15 @@
-import AdminEntity from '@/entities/admin/AdminEntity'
+import AdminEntity from '@/entities/admin/const/adminEntity'
 
 export default async function(): Promise<Array<AdminEntity>> {
   const dummySuper: AdminEntity = {
     userId: '71596114-e63b-452f-981f-d6c8dcb6a591',
-    id: 'wonderfull',
+    id: 'wonderful',
     name: 'stevie wonder',
     authority: 'SUPER',
   }
   const dummyNormal: AdminEntity = {
     userId: '71596114-e63b-452f-981f-d6c8dcb6a591',
-    id: 'wonderfull',
+    id: 'wonderful',
     name: 'stevie wonder',
     authority: 'NORMAL',
   }

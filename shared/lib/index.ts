@@ -27,6 +27,8 @@ import axiosWithToken from '@/shared/lib/axios/axiosWithToken'
 import formatDateDotYmd from '@/shared/lib/helper/formatDateDotYmd'
 import {lockScroll, unlockScroll} from '@/shared/lib/helper/scrollControl'
 import parseToTwoDimensionalArray from "@/shared/lib/helper/parseToTwoDimensionalArray";
+import toCommaString from '@/shared/lib/helper/toCommaString'
+import formatPriceToCommaWithWon from '@/shared/lib/helper/formatPriceToCommaWithWon'
 
 import useTableSection from '@/shared/lib/swiper/TableSection/useTableSection'
 
@@ -42,5 +44,7 @@ export {
   lockScroll,
   unlockScroll,
   parseToTwoDimensionalArray,
+  toCommaString,
+  formatPriceToCommaWithWon,
   useTableSection,
 }

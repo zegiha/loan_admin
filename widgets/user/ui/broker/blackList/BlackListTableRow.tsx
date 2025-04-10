@@ -1,6 +1,6 @@
 import {TableRow} from '@/shared/ui/molecules'
-import {IBlackListTableRow} from '@/entities/blackList/const/BlackListEntity'
 import {Typo} from '@/shared/ui/atoms'
+import {IBlackListTableRow} from '@/widgets/user/const/broker/blackList/type'
 
 export default function BlackListTableRow({
   id,

@@ -8,6 +8,7 @@ import Dropdown from '@/shared/ui/molecules/dropdown/Dropdown'
 
 import IconButton from '@/shared/ui/molecules/buttons/IconButton/IconButton'
 import CtaButton from '@/shared/ui/molecules/buttons/CtaButton/CtaButton'
+import TextButton from '@/shared/ui/molecules/buttons/TextButton/TextButton'
 
 import Table from '@/shared/ui/molecules/table/Table'
 import TableRow from '@/shared/ui/molecules/table/TableRow'
@@ -27,6 +28,7 @@ export {
   Dropdown,
   IconButton,
   CtaButton,
+  TextButton,
   Table,
   TableRow,
   TableHeader,

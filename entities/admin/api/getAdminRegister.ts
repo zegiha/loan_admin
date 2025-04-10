@@ -1,4 +1,4 @@
-import {AdminRegisterEntity} from '@/widgets/user/const/admin/adminRegisterReq/AdminRegisterEntity'
+import AdminRegisterEntity from '@/entities/admin/const/adminRegisterEntity'
 
 export default async function(): Promise<Array<AdminRegisterEntity>> {
   const dummyNormal: AdminRegisterEntity = {

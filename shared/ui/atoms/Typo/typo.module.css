@@ -6,6 +6,7 @@
 }
 
 .overflowLine1 {
+  display: block;
   -webkit-line-clamp: 1;
 }
 
@@ -14,5 +15,5 @@
 }
 
 .textTransition {
-  transition: var(--leaveTransition);
+  transition: var(--transition-fast);
 }

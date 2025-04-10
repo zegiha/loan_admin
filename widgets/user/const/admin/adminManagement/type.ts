@@ -1,4 +1,4 @@
-import AdminEntity from '@/entities/admin/AdminEntity'
+import {AdminEntity} from '@/entities'
 
 export interface IAdminManagementTableRow extends Omit<AdminEntity, 'userId'> {
   deleteFunc: () => void

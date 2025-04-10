@@ -1,6 +1,6 @@
 import {Typo} from '@/shared/ui/atoms'
 import {TableRow} from '@/shared/ui/molecules'
-import {IManagementTableRow} from '@/entities/broker/const/management/type'
+import {IManagementTableRow} from '@/widgets/user/const/broker/management/type'
 
 export default function({
   id,

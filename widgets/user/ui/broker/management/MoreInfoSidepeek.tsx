@@ -1,10 +1,9 @@
+import {BrokerEntity, getBrokerById} from '@/entities'
 import {TSetState} from '@/shared/const'
 import {Typo} from '@/shared/ui/atoms'
 import {Sidepeek, SidepeekHeaderSection, Table, TableLabeledRow} from '@/shared/ui/molecules'
 import {Certificate} from '@/shared/ui/organisms'
-import getBrokerById from '@/entities/broker/api/getBrokerById'
-import {BrokerEntity} from '@/entities/broker/const/BrokerEntity'
-import {IBrokerInfo} from '@/entities/broker/const/management/type'
+import {IBrokerInfo} from '@/widgets/user/const/broker/management/type'
 import fromBrokerEntityToIBrokerInfo from '@/widgets/user/lib/broker/management/fromBrokerEntityToIBrokerInfo'
 import {useQuery} from '@tanstack/react-query'
 

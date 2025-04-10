@@ -1,7 +1,6 @@
 'use client'
 
-import getAdminRegisterReq from '@/entities/admin/adminRegisterReq/getAdminRegisterReq'
-import {AdminRegisterEntity} from '@/widgets/user/const/admin/adminRegisterReq/AdminRegisterEntity'
+import {AdminRegisterEntity, getAdminRegister} from '@/entities'
 import {IAdminRegisterReqTableRow} from '@/widgets/user/const/admin/adminRegisterReq/type'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'
@@ -10,8 +9,8 @@ export default function() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [target, setTarget] = useState<{name: string, id: string, reqId: string} | null>(null)
   const queryReq = useQuery<Array<AdminRegisterEntity>, Error, Array<IAdminRegisterReqTableRow>>({
-    queryKey: ['adminRegisterReq'],
-    queryFn: getAdminRegisterReq,
+    queryKey: ['adminRegister'],
+    queryFn: getAdminRegister,
     select: data => {
       const res: Array<IAdminRegisterReqTableRow> = []
       data.forEach(v => {

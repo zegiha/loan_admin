@@ -53,7 +53,7 @@ export default function() {
           submitFunc={() => {
             // TODO 어드민 삭제
             setTarget(null)
-            alert('삭제되었습니다j')
+            alert('삭제되었습니다')
           }}
           cancelFunc={() => setTarget(null)}
         />
