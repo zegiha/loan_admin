@@ -1,23 +1,24 @@
 import {NextRequest, NextResponse} from 'next/server'
 
 export default async function middleware(req: NextRequest) {
-  if(req.nextUrl.pathname === '/')
-    return NextResponse.redirect(new URL('/user', req.url))
   return loginCheck(req)
 }
 
 function loginCheck(req: NextRequest) {
   const {pathname} = req.nextUrl
   const refreshToken = req.cookies.get('refreshToken')
-  if(refreshToken === undefined) return NextResponse.redirect(new URL('/login', req.url))
+  const isLogin = refreshToken !== undefined;
   // TODO refreshToken 만료 체크 및 만료 시 로그인으로 이동
-
-  const accessToken = req.cookies.get('accessToken')
   // TODO accessToken 만료 체크 및 만료 시 재요청
 
 
-  if(pathname === '/login') return NextResponse.redirect(new URL('/user', req.url))
-  return NextResponse.next()
+  if(!isLogin) {
+    if(pathname !== '/login') return NextResponse.redirect(new URL('/login', req.url))
+    else return NextResponse.next()
+  } else {
+    if(pathname === '/login' || pathname === '/') return NextResponse.redirect(new URL('/user', req.url))
+    return NextResponse.next()
+  }
 }
 
 export const config = {
