@@ -1,0 +1,25 @@
+.modalContainer {
+  height: 100%;
+  padding: 8px;
+  aspect-ratio: 5 / 3;
+  background-color: var(--container-containerLow);
+  border-radius: 8px;
+}
+
+.modalWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.modalControlBox {
+  position: absolute;
+  z-index: 1;
+}
+
+.preview {
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.adImg {border-radius: 8px;}

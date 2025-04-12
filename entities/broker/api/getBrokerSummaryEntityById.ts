@@ -1,7 +1,9 @@
-export default async function(userId: string) {
+import {BrokerEntitySummary} from '@/entities'
+
+export default async function(userId: string): Promise<BrokerEntitySummary> {
   return {
     userId: userId,
-    id: 'cottonscottonscottonscottonscottons',
+    id: 'cottons',
     companyName: 'algorix',
   }
 }

@@ -1,7 +1,7 @@
 import {AdEntity} from '@/entities'
 
 export default interface AdRegisterEntity {
-  adId: string
+  adReqId: string
   userId: string
   ads: Array<AdEntity>
   depositorName: string

@@ -7,12 +7,10 @@ import {useState} from 'react'
 import Image from 'next/image'
 import style from './style.module.css'
 
-export default function Certificate({
+export default function AdImg({
   src,
-  alt
 }: {
   src: string
-  alt: string
 }) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -20,10 +18,10 @@ export default function Certificate({
     <Col gap={2}>
       <Image
         src={src}
-        alt={alt}
+        alt={'광고 이미지'}
         width={100}
-        height={141.4}
-        className={style.certificatePreview}
+        height={60}
+        className={style.preview}
         onClick={() => setIsOpen(true)}
       />
       <Typo.Caption color={'dim'}>이미지 눌러서 크게 보기</Typo.Caption>
@@ -34,7 +32,7 @@ export default function Certificate({
         keepLocked={true}
       >
         <Row
-          className={style.certificateModalContainer}
+          className={style.modalContainer}
           onClick={e => e.stopPropagation()}
           motion={{
             initial: {opacity: 0},
@@ -42,9 +40,9 @@ export default function Certificate({
             transition: transition.fast
           }}
         >
-          <div className={style.certificateModalWrapper}>
+          <div className={style.modalWrapper}>
             <Row
-              className={style.certificateModalControlBox}
+              className={style.modalControlBox}
               width={'fill'}
               justifyContents={'end'}
             >
@@ -57,9 +55,9 @@ export default function Certificate({
             </Row>
             <Image
               src={src}
-              alt={alt}
+              alt={'광고 이미지'}
               fill
-              className={style.certificate}
+              className={style.adImg}
             />
           </div>
         </Row>

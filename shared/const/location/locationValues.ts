@@ -1,0 +1,10 @@
+import TLocation from './TLocation'
+
+const locationValues: Set<TLocation> = new Set([
+  'All', 'Seoul', 'Gyeonggi', 'Incheon', 'Daejeon', 'Daegu',
+  'Busan', 'Gwangju', 'Ulsan', 'Sejong', 'Gangwon',
+  'Chungbuk', 'Chungnam', 'Jeonbuk', 'Jeonnam',
+  'Gyeongbuk', 'Gyeongnam', 'Jeju'
+])
+
+export default locationValues

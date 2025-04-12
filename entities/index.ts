@@ -1,8 +1,10 @@
 import AdEntity from '@/entities/ad/const/AdEntity'
 import AdRegisterEntity from '@/entities/ad/const/AdRegisterEntity'
 import AdRegisterSummaryEntity from '@/entities/ad/const/AdRegisterSummaryEntity'
-import getAdRegisterEntity from '@/entities/ad/api/getAdRegisterEntity'
+import {TAdEntityKeys, TAdEntityValues} from '@/entities/ad/const/AdEntity'
+import getAdRegisterEntityById from '@/entities/ad/api/getAdRegisterEntityById'
 import getAdRegisterSummaryEntity from '@/entities/ad/api/getAdRegisterSummaryEntity'
+import adNameToKorean from '@/entities/ad/lib/adNameToKorean'
 
 import BrokerEntity from '@/entities/broker/const/BrokerEntity'
 import BrokerEntitySummary from '@/entities/broker/const/BrokerSummaryEntity'
@@ -25,8 +27,9 @@ import getAdmin from '@/entities/admin/api/getAdmin'
 import getAdminRegister from '@/entities/admin/api/getAdminRegister'
 
 export {
-  getAdRegisterEntity,
+  getAdRegisterEntityById,
   getAdRegisterSummaryEntity,
+  adNameToKorean,
 
   getBrokerById,
   getBrokerSummary,
@@ -46,6 +49,8 @@ export type {
   AdEntity,
   AdRegisterEntity,
   AdRegisterSummaryEntity,
+  TAdEntityKeys,
+  TAdEntityValues,
 
   BrokerEntity,
   BrokerEntitySummary,

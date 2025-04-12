@@ -1,10 +1,13 @@
 'use client'
 
-import {getAdRegisterSummaryEntity, getBrokerSummaryEntityById} from '@/entities'
+import {BrokerEntitySummary, getAdRegisterSummaryEntity, getBrokerSummaryEntityById} from '@/entities'
 import {IAdRegisterTableRow} from '@/widgets/ad/const/adReq/adRegister/type'
 import {useQuery} from '@tanstack/react-query'
+import {useState} from 'react'
 
 export default function() {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [target, setTarget] = useState<BrokerEntitySummary & {adReqId: string} | null>(null)
   const queryReq = useQuery<Array<IAdRegisterTableRow>, Error>({
     queryKey: ['adRegisterSummary'],
     queryFn: async () => {
@@ -15,7 +18,10 @@ export default function() {
         res.push({
           ...adRegisterSummary[i],
           ...userInfo,
-          detailFunc: () => {}
+          detailFunc: () => {
+            setTarget({...userInfo, ...adRegisterSummary[i]})
+            setIsOpen(true)
+          }
         })
       }
       return res
@@ -23,6 +29,8 @@ export default function() {
   })
 
   return {
+    isOpen, setIsOpen,
+    target, setTarget,
     ...queryReq,
   }
 }

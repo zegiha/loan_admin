@@ -37,6 +37,7 @@ export default function Swiper({
         loop={loop}
         spaceBetween={gap}
         direction={direction}
+        simulateTouch={false}
       >
         {children.map((v, i) => (
           <SwiperSlide key={i}>

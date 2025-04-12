@@ -1,5 +1,15 @@
 import {TLocation, TProduction} from '@/shared/const'
 
+type TAdEntityKeys =
+  | 'name'
+  | 'title'
+  | 'subTitle'
+  | 'contents'
+  | 'location'
+  | 'img'
+  | 'option'
+type TAdEntityValues = string | Array<TLocation> | Array<TProduction>
+
 type AdEntity =
 {
   name: 'premiumBanner'
@@ -52,3 +62,7 @@ type AdEntity =
 }
 
 export default AdEntity
+export type {
+  TAdEntityKeys,
+  TAdEntityValues,
+}

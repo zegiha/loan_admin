@@ -114,6 +114,7 @@ body {
 
 .swiper {
 	width: 100%;
+	user-select: auto;
 }
 
 .swiper-slide {

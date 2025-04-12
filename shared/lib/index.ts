@@ -29,6 +29,9 @@ import {lockScroll, unlockScroll} from '@/shared/lib/helper/scrollControl'
 import parseToTwoDimensionalArray from "@/shared/lib/helper/parseToTwoDimensionalArray";
 import toCommaString from '@/shared/lib/helper/toCommaString'
 import formatPriceToCommaWithWon from '@/shared/lib/helper/formatPriceToCommaWithWon'
+import formatAdContentToLabelAndData from '@/shared/lib/helper/formatAdContentToLabelAndData'
+import isTLocation from '@/shared/lib/helper/isTLocation'
+import isTProduction from '@/shared/lib/helper/isTProduction'
 
 import useTableSection from '@/shared/lib/swiper/TableSection/useTableSection'
 
@@ -46,5 +49,8 @@ export {
   parseToTwoDimensionalArray,
   toCommaString,
   formatPriceToCommaWithWon,
+  formatAdContentToLabelAndData,
+  isTLocation,
+  isTProduction,
   useTableSection,
 }
