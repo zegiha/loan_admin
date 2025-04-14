@@ -6,7 +6,7 @@ import {IAdRegisterDetail} from '@/widgets/ad/const/adReq/adRegister/type'
 import {useQuery} from '@tanstack/react-query'
 
 export default function (target: BrokerEntitySummary & {adReqId: string}) {
-  const queryReq = useQuery<AdRegisterEntity, Error, Array<{label: string, contents: string}>>({
+  const queryReq = useQuery<AdRegisterEntity, Error, Array<IAdRegisterDetail>>({
     queryKey: [`adReq_${target.userId}`],
     queryFn: async () => getAdRegisterEntityById(target.adReqId),
     select: v => {

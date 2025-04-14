@@ -8,10 +8,13 @@ import Certificate from '@/shared/ui/organisms/Certificate/Certificate'
 
 import AdImg from '@/shared/ui/organisms/AdImg/AdImg'
 
+import SidepeekSubmitSection from '@/shared/ui/organisms/SidepeekSubmitSection/SidepeekSubmitSection'
+
 export {
   Swiper,
   TableSection,
   WarningModal,
   Certificate,
   AdImg,
+  SidepeekSubmitSection,
 }

@@ -9,7 +9,7 @@ export default function({
 }: {
   header: string
   closeFunc: () => void
-  children: ReactNode
+  children?: ReactNode
 }) {
   return (
     <>

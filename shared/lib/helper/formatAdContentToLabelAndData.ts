@@ -1,7 +1,6 @@
 import {AdEntity, TAdEntityKeys, TAdEntityValues} from '@/entities'
-import {ITableLabeledRow, locationMap, productionMap} from '@/shared/const'
+import {locationMap, productionMap} from '@/shared/const'
 import {isTLocation, isTProduction} from '@/shared/lib'
-import {AdImg} from '@/shared/ui/organisms'
 
 export default function formatAdContentToLabelAndData(data: AdEntity): Array<{label: string, contents: string}> {
   const res: Array<{label: string, contents: string}> = [];
@@ -25,7 +24,9 @@ export default function formatAdContentToLabelAndData(data: AdEntity): Array<{la
           label: adContentsKeyToKorean(key),
           contents: value.map(v => productionMap[v]).join(', ')
         })
-      } else {
+      } else if(
+        !Array.isArray(value)
+      ) {
         res.push({
           label: adContentsKeyToKorean(key),
           contents: value

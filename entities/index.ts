@@ -26,6 +26,11 @@ import AdminRegisterEntity from '@/entities/admin/const/adminRegisterEntity'
 import getAdmin from '@/entities/admin/api/getAdmin'
 import getAdminRegister from '@/entities/admin/api/getAdminRegister'
 
+import AdEditEntity from '@/entities/ad/const/AdEditEntity'
+import AdEditSummaryEntity from '@/entities/ad/const/AdEditSummaryEntiy'
+import getAdEditEntityById from '@/entities/ad/api/getAdEditEntityById'
+import getAdEditSummaryEntity from '@/entities/ad/api/getAdEditSummaryEntity'
+
 export {
   getAdRegisterEntityById,
   getAdRegisterSummaryEntity,
@@ -43,6 +48,9 @@ export {
 
   getAdmin,
   getAdminRegister,
+
+  getAdEditEntityById,
+  getAdEditSummaryEntity,
 }
 
 export type {
@@ -62,4 +70,7 @@ export type {
 
   AdminEntity,
   AdminRegisterEntity,
+
+  AdEditEntity,
+  AdEditSummaryEntity,
 }
