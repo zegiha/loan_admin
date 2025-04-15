@@ -2,7 +2,7 @@ import {BrokerEntitySummary} from '@/entities'
 import {TSetState} from '@/shared/const'
 import {Col, Typo} from '@/shared/ui/atoms'
 import {Sidepeek, SidepeekHeaderSection, Table, TableLabeledRow} from '@/shared/ui/molecules'
-import {AdImg, SidepeekSubmitSection} from '@/shared/ui/organisms'
+import {AdImg, SubmitSection} from '@/shared/ui/organisms'
 import useAdRegisterDetail from '@/widgets/ad/model/adReq/adRegister/useAdRegisterDetail'
 
 export default function({
@@ -53,7 +53,7 @@ export default function({
              </Table>
            </Col>
          ))}
-         <SidepeekSubmitSection
+         <SubmitSection
            submitContents={'승인'}
            submitFunc={() => {
              // TODO 광고 등록 요청 승인 API

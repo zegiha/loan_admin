@@ -32,6 +32,7 @@ import formatPriceToCommaWithWon from '@/shared/lib/helper/formatPriceToCommaWit
 import formatAdContentToLabelAndData from '@/shared/lib/helper/formatAdContentToLabelAndData'
 import isTLocation from '@/shared/lib/helper/isTLocation'
 import isTProduction from '@/shared/lib/helper/isTProduction'
+import adNameToKorean from '@/shared/lib/helper/adNameToKorean'
 
 import useTableSection from '@/shared/lib/swiper/TableSection/useTableSection'
 
@@ -52,5 +53,6 @@ export {
   formatAdContentToLabelAndData,
   isTLocation,
   isTProduction,
+  adNameToKorean,
   useTableSection,
 }

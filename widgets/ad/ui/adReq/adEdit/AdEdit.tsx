@@ -21,7 +21,7 @@ export default function AdEdit() {
     <>
       {status === 'success' && (
         <TableSection
-          tableTitle={'수정 요청'}
+          tableTitle={'수정'}
           showRow={showRow}
           setShowRowAction={setShowRow}
           reloadFunc={refetch}

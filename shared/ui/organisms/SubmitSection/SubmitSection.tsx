@@ -1,7 +1,7 @@
 import {Row, Typo} from '@/shared/ui/atoms'
 import {CtaButton} from '@/shared/ui/molecules'
 
-export default function SidepeekSubmitSection({
+export default function SubmitSection({
   cancelContents,
   submitContents,
   cancelFunc,

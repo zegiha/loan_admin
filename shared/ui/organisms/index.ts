@@ -8,7 +8,7 @@ import Certificate from '@/shared/ui/organisms/Certificate/Certificate'
 
 import AdImg from '@/shared/ui/organisms/AdImg/AdImg'
 
-import SidepeekSubmitSection from '@/shared/ui/organisms/SidepeekSubmitSection/SidepeekSubmitSection'
+import SubmitSection from '@/shared/ui/organisms/SubmitSection/SubmitSection'
 
 export {
   Swiper,
@@ -16,5 +16,5 @@ export {
   WarningModal,
   Certificate,
   AdImg,
-  SidepeekSubmitSection,
+  SubmitSection,
 }

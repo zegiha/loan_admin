@@ -4,7 +4,6 @@ import AdRegisterSummaryEntity from '@/entities/ad/const/AdRegisterSummaryEntity
 import {TAdEntityKeys, TAdEntityValues} from '@/entities/ad/const/AdEntity'
 import getAdRegisterEntityById from '@/entities/ad/api/getAdRegisterEntityById'
 import getAdRegisterSummaryEntity from '@/entities/ad/api/getAdRegisterSummaryEntity'
-import adNameToKorean from '@/entities/ad/lib/adNameToKorean'
 
 import BrokerEntity from '@/entities/broker/const/BrokerEntity'
 import BrokerEntitySummary from '@/entities/broker/const/BrokerSummaryEntity'
@@ -31,10 +30,12 @@ import AdEditSummaryEntity from '@/entities/ad/const/AdEditSummaryEntiy'
 import getAdEditEntityById from '@/entities/ad/api/getAdEditEntityById'
 import getAdEditSummaryEntity from '@/entities/ad/api/getAdEditSummaryEntity'
 
+import AdProlongationEntity from '@/entities/ad/const/AdProlongationEntity'
+import getAdProlongationEntity from '@/entities/ad/api/getAdProlongationEntity'
+
 export {
   getAdRegisterEntityById,
   getAdRegisterSummaryEntity,
-  adNameToKorean,
 
   getBrokerById,
   getBrokerSummary,
@@ -51,6 +52,8 @@ export {
 
   getAdEditEntityById,
   getAdEditSummaryEntity,
+
+  getAdProlongationEntity,
 }
 
 export type {
@@ -73,4 +76,6 @@ export type {
 
   AdEditEntity,
   AdEditSummaryEntity,
+
+  AdProlongationEntity,
 }

@@ -1,4 +1,4 @@
-import {adNameToKorean} from '@/entities'
+import {adNameToKorean} from '@/shared/lib'
 import {Typo} from '@/shared/ui/atoms'
 import {TableRow, TextButton} from '@/shared/ui/molecules'
 import {IAdEditTableRow} from '@/widgets/ad/const/adReq/adEdit/type'

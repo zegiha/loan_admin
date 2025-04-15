@@ -1,7 +1,7 @@
 import {TSetState} from '@/shared/const'
 import {Col, Typo} from '@/shared/ui/atoms'
 import {Sidepeek, SidepeekHeaderSection, Table, TableLabeledRow} from '@/shared/ui/molecules'
-import {AdImg, SidepeekSubmitSection} from '@/shared/ui/organisms'
+import {AdImg, SubmitSection} from '@/shared/ui/organisms'
 import useAdEditDetail from '@/widgets/ad/model/adReq/adEdit/useAdEditDetail'
 
 export default function AdEditDetail({
@@ -66,7 +66,7 @@ export default function AdEditDetail({
           <Col width={'fill'} gap={2}>
             <Typo.Caption>수정된 광고 정보</Typo.Caption>
             <Table>
-              {data.adCurrent.map((v, i) => (
+              {data.adEdited.map((v, i) => (
                 <TableLabeledRow
                   key={i}
                   label={v.label}
@@ -77,7 +77,7 @@ export default function AdEditDetail({
               ))}
             </Table>
           </Col>
-          <SidepeekSubmitSection
+          <SubmitSection
             submitFunc={() => {
               // TODO API 연결, 광고 수정 승인
               closeFunc()

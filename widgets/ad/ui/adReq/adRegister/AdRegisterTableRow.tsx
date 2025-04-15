@@ -1,5 +1,4 @@
-import {adNameToKorean} from '@/entities'
-import {formatPriceToCommaWithWon, toCommaString} from '@/shared/lib'
+import {adNameToKorean, formatPriceToCommaWithWon, toCommaString} from '@/shared/lib'
 import {Typo} from '@/shared/ui/atoms'
 import {TableRow, TextButton} from '@/shared/ui/molecules'
 import {IAdRegisterTableRow} from '@/widgets/ad/const/adReq/adRegister/type'

@@ -21,7 +21,7 @@ export default function() {
   return (
     <>
       <TableSection
-        tableTitle={'광고 요청'}
+        tableTitle={'등록'}
         showRow={showRow}
         setShowRowAction={setShowRow}
         reloadFunc={() => refetch()}

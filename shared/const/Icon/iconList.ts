@@ -18,6 +18,7 @@ const iconList: {[K in TIconListKey]?: string} = {
   warning: 'warning',
   toFirst: 'first_page',
   toLast: 'last_page',
+  permission: 'approval_delegation',
 }
 
 export default iconList
