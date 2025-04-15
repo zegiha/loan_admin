@@ -10,7 +10,7 @@ export default function TableLabeledRow({
     <TableRow>
       <Typo.Contents style={{flex: '1 0 0'}}>{label}</Typo.Contents>
       {typeof contents === 'string' ? (
-        <Typo.Contents style={{flex: '3 0 0'}}>{contents}</Typo.Contents>
+        <Typo.Contents style={{flex: '3 0 0'}} isPre={'wrap'}>{contents}</Typo.Contents>
       ):(
         <Row style={{flex: '3 0 0'}}>
           {contents}

@@ -1,10 +1,9 @@
 'use client'
 
+import {check_id_and_message, check_password_and_message} from '@/shared/lib'
 import style from './style.module.css'
 import {Typo} from "../../shared/ui/atoms";
 import {useState} from "react";
-import {check_id_and_message} from "@/shared/model";
-import check_password_and_message from "@/shared/model/check_password_and_message";
 import {TextInput} from "../../shared/ui/molecules";
 import {login_action} from "@/features/login";
 

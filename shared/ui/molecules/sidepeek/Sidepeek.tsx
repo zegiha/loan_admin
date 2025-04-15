@@ -10,7 +10,7 @@ import style from './style.module.css'
 export default function Sidepeek({
   isOpen,
   setIsOpenAction: setIsOpen,
-  gap,
+  gap=24,
   keepLocked,
   children,
 }: {
@@ -21,11 +21,20 @@ export default function Sidepeek({
   children: React.ReactNode
 }) {
   useEffect(() => {
-    if(isOpen) {
-      const prevScroll = lockScroll()
-      return () => {if(!keepLocked) unlockScroll(prevScroll)}
+    if (!isOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false)
     }
+    document.addEventListener('keydown', handleKeyDown)
+
+    const prevScroll = lockScroll()
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      if (!keepLocked) unlockScroll(prevScroll)
+    };
   }, [isOpen])
+
 
   return isOpen ? createPortal(
     <div

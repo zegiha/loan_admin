@@ -17,7 +17,7 @@
 	transition: var(--transition-fast);
 }
 
-.input {
+.input, .textarea {
 	width: 100%;
 	height: 24px;
 	background-color: transparent;
@@ -27,17 +27,21 @@
 	outline: none;
 	border: none;
 }
-.input::placeholder {
+.input::placeholder, .textarea::placeholder {
 	font-size: 16px;
 	color: var(--onGeneric-onGenericDim);
 }
 
-.inputContainerActive {
+.textarea {
+	resize: none;
+}
+
+.containerActive {
 	transition: var(--transition-normal);
 	border-color: var(--outline-active);
 }
 
-.inputContainerError {
+.containerError {
 	border-color: var(--outline-error);
 }
 

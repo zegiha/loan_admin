@@ -17,8 +17,7 @@ export default function item({
       className={classNames([style.itemContainer, isSelected && style.itemContainerActive])}
       width={'fill'}
       justifyContents={'space-between'}
-      onClick={e => {
-        e.stopPropagation()
+      onClick={() => {
         setSelected()
       }}
     >

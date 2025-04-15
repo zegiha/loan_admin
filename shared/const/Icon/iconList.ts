@@ -19,6 +19,8 @@ const iconList: {[K in TIconListKey]?: string} = {
   toFirst: 'first_page',
   toLast: 'last_page',
   permission: 'approval_delegation',
+  delete: 'delete',
+  edit: 'edit',
 }
 
 export default iconList

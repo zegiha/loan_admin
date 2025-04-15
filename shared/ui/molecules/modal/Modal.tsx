@@ -20,9 +20,17 @@ export default function Modal({
   children: ReactNode
 }) {
   useEffect(() => {
-    if(isOpen)  {
-      const prevScroll = lockScroll()
-      return () => {if(!keepLocked) unlockScroll(prevScroll)}
+    if (!isOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false)
+    }
+    document.addEventListener('keydown', handleKeyDown)
+
+    const prevScroll = lockScroll()
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      if (!keepLocked) unlockScroll(prevScroll)
     }
   }, [isOpen])
 

@@ -12,7 +12,7 @@ export type alignItems =
   'center' |
   'end'
 
-export type width = 'fill' | number
+export type width = 'fill' | number | string
 
 export interface IRowAndCol {
   key?: React.Key | null

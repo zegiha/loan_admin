@@ -10,9 +10,8 @@ export function processSortingProp(justifyContents: justifyContents | undefined)
 }
 
 export function processWidth(width: width | undefined): string | undefined {
-  switch(width) {
-    case 'fill': return '100%';
-    case undefined: return undefined;
-    default: return `${width}px`;
-  }
+  if(width === undefined) return undefined
+  if(width === 'fill') return '100%'
+  if(typeof width === 'number') return `${width}px`
+  if(width.includes('calc')) return width
 }

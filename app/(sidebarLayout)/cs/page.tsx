@@ -1,7 +1,9 @@
-import {Typo} from '@/shared/ui/atoms'
+import Announcement from '@/widgets/announcement/ui/Announcement'
 
 export default function Page() {
   return (
-    <Typo.Contents>cs</Typo.Contents>
+    <>
+      <Announcement/>
+    </>
   )
 }

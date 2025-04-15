@@ -10,7 +10,7 @@ export default function Box({
   selectedContents,
   children,
 }: {
-  width: number
+  width: number | 'fill'
   selectedContents: string
   children: ReactNode
 }) {
@@ -44,14 +44,17 @@ export default function Box({
   return (
     <Row
       ref={ref}
-      className={style.wrapper}
+      width={width}
     >
       <Row
         className={style.selectContainer}
         width={width}
         justifyContents={'space-between'}
         alignItems={'center'}
-        onClick={() => {setIsOpen(prev => !prev)}}
+        onClick={() => {
+          if(!isOpen)
+            setIsOpen(true)
+        }}
       >
         <Typo.Contents>
           {selectedContents}
@@ -65,12 +68,16 @@ export default function Box({
           {isOpen && (
             <Col
               className={style.optionContainer}
-              width={width+48}
+              width={width}
               motion={{
                 initial: 'close',
                 animate: isOpen ? 'open' : 'close',
                 variants: optionContainerVariants,
                 exit: 'close',
+              }}
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsOpen(false)
               }}
             >
               {children}

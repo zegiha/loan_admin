@@ -17,6 +17,7 @@ export default function TextInput({
   input_type='text',
   selectionPlaceholder,
   selections,
+  height,
 }: {
   label?: string
   value: string
@@ -24,17 +25,20 @@ export default function TextInput({
   placeholderIcon?: TIconListKey
   onChangeAction: (v: string) => void
   error_checker?: Array<(v: string) => string | null>
-  input_type?: 'text' | 'password'
+  input_type?: 'text' | 'password' | 'textarea'
   selectionPlaceholder?: string
   selections?: Array<string>
+  height?: number
 }) {
   const [error, setError] = useState<string | null>(null)
   const [isFocus, setIsFocus] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
-    if(isFocus && inputRef.current) {
-      inputRef.current.focus()
+    if(isFocus) {
+      if(inputRef.current) inputRef.current.focus()
+      if(textareaRef.current) textareaRef.current.focus()
     }
   }, [isFocus])
 
@@ -58,8 +62,8 @@ export default function TextInput({
         )}
         <Row
           className={classNames([
-            error !== null && style.inputContainerError,
-            isFocus && style.inputContainerActive,
+            error !== null && style.containerError,
+            isFocus && style.containerActive,
             style.inputContainer,
           ])}
           width={'fill'}
@@ -73,25 +77,47 @@ export default function TextInput({
               color={'dim'}
             />
           )}
-          <input
-            ref={inputRef}
-            className={style.input}
-            type={input_type}
-            placeholder={placeholder}
-            value={value}
-            onChange={(e) => {
-              handle_error_checker(e.target.value)
-              onChangeAction(e.target.value)
-            }}
-            onFocus={() => {
-              handle_error_checker(value)
-              setIsFocus(true)
-            }}
-            onBlur={() => {
-              handle_error_checker(value)
-              setIsFocus(false)
-            }}
-          />
+          {input_type === 'textarea' ? (
+            <textarea
+              ref={textareaRef}
+              style={{height: height}}
+              className={style.textarea}
+              placeholder={placeholder}
+              value={value}
+              onChange={(e) => {
+                handle_error_checker(e.target.value)
+                onChangeAction(e.target.value)
+              }}
+              onFocus={() => {
+                handle_error_checker(value)
+                setIsFocus(true)
+              }}
+              onBlur={() => {
+                handle_error_checker(value)
+                setIsFocus(false)
+              }}
+            />
+          ) : (
+            <input
+              ref={inputRef}
+              className={style.input}
+              type={input_type}
+              placeholder={placeholder}
+              value={value}
+              onChange={(e) => {
+                handle_error_checker(e.target.value)
+                onChangeAction(e.target.value)
+              }}
+              onFocus={() => {
+                handle_error_checker(value)
+                setIsFocus(true)
+              }}
+              onBlur={() => {
+                handle_error_checker(value)
+                setIsFocus(false)
+              }}
+            />
+          )}
         </Row>
         {error && (
           <Typo.Caption color={'error'}>

@@ -18,7 +18,9 @@ export type TIconListKey =
   'warning' |
   'toFirst' |
   'toLast' |
-  'permission'
+  'permission' |
+  'delete' |
+  'edit'
 ;
 
 export type TColor = 'dim' | 'normal' | 'variable' | 'primary' | 'none' | 'white';

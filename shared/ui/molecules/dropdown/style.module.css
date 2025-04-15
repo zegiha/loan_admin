@@ -3,23 +3,20 @@
   border-radius: 4px;
   border: 1px solid var(--outline-default);
   position: relative;
+  cursor: pointer;
 }
 
 .optionContainer {
   position: absolute;
-  left: calc(-25% - 8px);
-  top: 100%;
+  left: 0;
+  top: calc(100% + 2px);
   z-index: 2;
   padding: 4px 4px;
   border: 1px solid var(--outline-default);
   border-radius: 6px;
   background-color: var(--container-containerLow);
   box-shadow: 0 0 4px 2px var(--shadow-default);
-}
-
-.wrapper {
-  padding: 6px;
-  margin: -6px;
+  cursor: pointer;
 }
 
 .itemContainer, .itemContainerActive {

@@ -33,6 +33,11 @@ import getAdEditSummaryEntity from '@/entities/ad/api/getAdEditSummaryEntity'
 import AdProlongationEntity from '@/entities/ad/const/AdProlongationEntity'
 import getAdProlongationEntity from '@/entities/ad/api/getAdProlongationEntity'
 
+import AnnouncementEntity from '@/entities/announcement/const/AnnouncementEntity'
+import AnnouncementSummaryEntity from '@/entities/announcement/const/AnnouncementSummaryEntity'
+import getAnnouncementEntityById from '@/entities/announcement/api/getAnnouncementEntityById'
+import getAnnouncementSummaryEntity from '@/entities/announcement/api/getAnnouncementSummaryEntity'
+
 export {
   getAdRegisterEntityById,
   getAdRegisterSummaryEntity,
@@ -54,6 +59,9 @@ export {
   getAdEditSummaryEntity,
 
   getAdProlongationEntity,
+
+  getAnnouncementEntityById,
+  getAnnouncementSummaryEntity,
 }
 
 export type {
@@ -78,4 +86,7 @@ export type {
   AdEditSummaryEntity,
 
   AdProlongationEntity,
+
+  AnnouncementEntity,
+  AnnouncementSummaryEntity,
 }
