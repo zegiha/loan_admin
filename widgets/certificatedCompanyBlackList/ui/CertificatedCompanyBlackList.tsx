@@ -59,10 +59,12 @@ export default function CertificatedCompanyBlackList() {
           cancelFunc={() => setTarget(null)}
         />
       )}
-      <CertificatedCompanyBlackListAddModal
-        isOpen={isAddOpen}
-        setIsOpen={setIsAddOpen}
-      />
+      {isAddOpen && (
+        <CertificatedCompanyBlackListAddModal
+          isOpen={isAddOpen}
+          setIsOpen={setIsAddOpen}
+        />
+      )}
     </>
   )
 }

@@ -42,9 +42,11 @@ export default function() {
               </Table>
             ))}
           </TableSection>
-          <AdProlongationPermission
-            {...{isOpen, setIsOpen, targetId, setTargetId}}
-          />
+          {isOpen && (
+            <AdProlongationPermission
+              {...{isOpen, setIsOpen, targetId, setTargetId}}
+            />
+          )}
         </>
       )}
       {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}

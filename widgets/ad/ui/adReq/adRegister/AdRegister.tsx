@@ -44,7 +44,7 @@ export default function() {
       </TableSection>
       {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}
       {status === 'error' && (<Typo.Contents>{error?.message}</Typo.Contents>)}
-      {target !== null && (
+      {target !== null && isOpen && (
         <AdRegisterDetail
           isOpen={isOpen}
           setIsOpen={setIsOpen}

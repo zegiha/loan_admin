@@ -41,7 +41,7 @@ export default function Inquiry() {
       )}
       {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}
       {status === 'error' && (<Typo.Contents>{error?.message}</Typo.Contents>)}
-      {targetId !== null && (
+      {targetId !== null && isOpen && (
         <InquiryAnswerModal
           {...{
             isOpen, setIsOpen,
