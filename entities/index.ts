@@ -38,6 +38,11 @@ import AnnouncementSummaryEntity from '@/entities/announcement/const/Announcemen
 import getAnnouncementEntityById from '@/entities/announcement/api/getAnnouncementEntityById'
 import getAnnouncementSummaryEntity from '@/entities/announcement/api/getAnnouncementSummaryEntity'
 
+import InquiryEntity from '@/entities/inquiry/const/InquiryEntity'
+import InquirySummaryEntity from '@/entities/inquiry/const/InquirySummaryEntity'
+import getInquiryEntityById from '@/entities/inquiry/api/getInquiryEntityById'
+import getInquirySummaryEntity from '@/entities/inquiry/api/getInquirySummaryEntity'
+
 export {
   getAdRegisterEntityById,
   getAdRegisterSummaryEntity,
@@ -62,6 +67,9 @@ export {
 
   getAnnouncementEntityById,
   getAnnouncementSummaryEntity,
+
+  getInquiryEntityById,
+  getInquirySummaryEntity,
 }
 
 export type {
@@ -89,4 +97,7 @@ export type {
 
   AnnouncementEntity,
   AnnouncementSummaryEntity,
+
+  InquiryEntity,
+  InquirySummaryEntity,
 }

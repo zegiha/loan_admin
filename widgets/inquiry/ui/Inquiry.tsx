@@ -4,36 +4,33 @@ import {parseToTwoDimensionalArray, useTableSection} from '@/shared/lib'
 import {Typo} from '@/shared/ui/atoms'
 import {Table} from '@/shared/ui/molecules'
 import {TableSection} from '@/shared/ui/organisms'
-import useAnnouncement from '@/widgets/announcement/model/useAnnouncement'
-import AnnouncementDetail from '@/widgets/announcement/ui/AnnouncementDetail'
-import AnnouncementTableHeader from '@/widgets/announcement/ui/AnnouncementTableHeader'
-import AnnouncementTableRow from '@/widgets/announcement/ui/AnnouncementTableRow'
+import useInquiry from '@/widgets/inquiry/model/useInquiry'
+import InquiryAnswerModal from '@/widgets/inquiry/ui/InquiryAnswerModal'
+import InquiryTableHeader from '@/widgets/inquiry/ui/InquiryTableHeader'
+import InquiryTableRow from '@/widgets/inquiry/ui/InquiryTableRow'
 
-export default function() {
+export default function Inquiry() {
   const {showRow, setShowRow} = useTableSection()
   const {
     isOpen, setIsOpen,
     targetId, setTargetId,
     status, data, error, refetch
-  } = useAnnouncement()
+  } = useInquiry()
 
   return (
     <>
       {status === 'success' && (
         <TableSection
-          tableTitle={'공지사항'}
+          tableTitle={'문의'}
           showRow={showRow}
           setShowRowAction={setShowRow}
           reloadFunc={refetch}
         >
           {parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
-            <Table
-              key={i}
-              maxShowingRow={showRow+1}
-            >
-              <AnnouncementTableHeader/>
+            <Table key={i} maxShowingRow={showRow + 1}>
+              <InquiryTableHeader/>
               {v1.map((v2, i) => (
-                <AnnouncementTableRow
+                <InquiryTableRow
                   key={i}
                   {...v2}
                 />
@@ -44,9 +41,14 @@ export default function() {
       )}
       {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}
       {status === 'error' && (<Typo.Contents>{error?.message}</Typo.Contents>)}
-      {targetId !== null && <AnnouncementDetail
-        {...{isOpen, setIsOpen, targetId, setTargetId}}
-      />}
+      {targetId !== null && (
+        <InquiryAnswerModal
+          {...{
+            isOpen, setIsOpen,
+            targetId, setTargetId,
+          }}
+        />
+      )}
     </>
   )
 }

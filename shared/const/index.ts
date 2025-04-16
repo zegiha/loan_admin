@@ -33,7 +33,7 @@ import {tableDropdownOptions} from "@/shared/const/TableSection/const";
 import {ITableSection, ITableSectionHeader} from "@/shared/const/TableSection/type";
 
 import ITableLabeledRow from '@/shared/const/table/ITableLabeledRow'
-
+import ITableLabeledRowWithoutReactNode from '@/shared/const/table/ITableLabeledRowWithoutReactNode'
 
 import TLocation from '@/shared/const/location/TLocation'
 import locationMap from '@/shared/const/location/locationMap'
@@ -76,4 +76,5 @@ export type {
   ITableSectionHeader,
   ITableSection,
   ITableLabeledRow,
+  ITableLabeledRowWithoutReactNode,
 }
