@@ -25,7 +25,7 @@ export default function BlackListTableRow({
         onClick={() => excludeModalOpenFunc()}
         underline
       >
-        블랙 리스트에서 제외
+        제외하기
       </Typo.Contents>
     </TableRow>
   )

@@ -19,6 +19,7 @@ import registerEntityLabel from '@/entities/brokerRegister/const/registerEntityL
 
 import BlackListEntity from '@/entities/blackList/const/BlackListEntity'
 import getBlackList from '@/entities/blackList/api/getBlackList'
+import getCertificatedCompanyBlackList from '@/entities/blackList/api/getCertificatedCompanyBlackList'
 
 import AdminEntity from '@/entities/admin/const/adminEntity'
 import AdminRegisterEntity from '@/entities/admin/const/adminRegisterEntity'
@@ -56,6 +57,7 @@ export {
   registerEntityLabel,
 
   getBlackList,
+  getCertificatedCompanyBlackList,
 
   getAdmin,
   getAdminRegister,

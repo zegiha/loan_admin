@@ -1,6 +1,6 @@
 import {SectionHeader} from '@/shared/ui/molecules'
-import Announcement from '@/widgets/announcement/ui/Announcement'
-import Inquiry from '@/widgets/inquiry/ui/Inquiry'
+import {Announcement} from '@/widgets/announcement'
+import {Inquiry} from '@/widgets/inquiry'
 
 export default function Page() {
   return (

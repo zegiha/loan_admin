@@ -1,7 +1,12 @@
-import {Typo} from '@/shared/ui/atoms'
+import {SectionHeader} from '@/shared/ui/molecules'
+import {CertificatedCompanyBlackList} from '@/widgets/certificatedCompanyBlackList'
 
 export default function Page() {
   return (
-    <Typo.Contents>certified</Typo.Contents>
+    <>
+      <SectionHeader headerContents={'정식업체 관리'}>
+        <CertificatedCompanyBlackList/>
+      </SectionHeader>
+    </>
   )
 }
