@@ -19,6 +19,7 @@ export default function RegisterDetail({
 
   return data !== null ? (
     <Sidepeek
+      customKey={'registerDetail'}
       isOpen={isOpen}
       setIsOpenAction={setIsOpen}
       gap={24}

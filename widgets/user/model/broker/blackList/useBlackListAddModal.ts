@@ -42,6 +42,12 @@ export default function() {
     }
   }, [target])
 
+  useEffect(() => {
+    return () => {
+      console.log('tlqkgf')
+    }
+  }, []);
+
   return {
     target, setTarget,
     additionalReason, setAdditionalReason,

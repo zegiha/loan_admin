@@ -23,6 +23,7 @@ export default function WarningModal({
 }) {
   return (
     <Modal
+      customKey={'warningModal'}
       isOpen={isOpen}
       setIsOpenAction={setIsOpen}
     >

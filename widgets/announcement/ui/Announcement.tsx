@@ -44,7 +44,7 @@ export default function() {
       )}
       {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}
       {status === 'error' && (<Typo.Contents>{error?.message}</Typo.Contents>)}
-      {targetId !== null && isOpen && <AnnouncementDetail
+      {targetId !== null && <AnnouncementDetail
         {...{isOpen, setIsOpen, targetId, setTargetId}}
       />}
     </>

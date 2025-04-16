@@ -1,40 +1,48 @@
 'use client'
 
 import {TSetState} from '@/shared/const'
-import {lockScroll, unlockScroll} from '@/shared/lib'
+import handleElevateComponentESC from '@/shared/lib/helper/handleElevateComponentESC'
+import useElevate from '@/shared/model/useElevate'
 import {ReactNode, useEffect} from 'react'
 import {createPortal} from 'react-dom'
 import style from './style.module.css'
 
-export default function Modal({
-  isOpen,
-  setIsOpenAction: setIsOpen,
-  padding,
-  keepLocked,
-  children
-}: {
+export default function Modal(props : {
+  customKey: string
   isOpen: boolean,
   setIsOpenAction: TSetState<boolean>
   padding?: number
-  keepLocked?: boolean
   children: ReactNode
 }) {
+  return props.isOpen ? <ModalWrapper
+    {...props}
+  /> : <></>
+}
+
+function ModalWrapper({
+  customKey,
+  setIsOpenAction: setIsOpen,
+  padding,
+  children
+}: {
+  customKey: string
+  setIsOpenAction: TSetState<boolean>
+  padding?: number
+  children: ReactNode
+}) {
+  const {add, remove} = useElevate()
+
   useEffect(() => {
-    if (!isOpen) return
+    add(customKey)
+    document.addEventListener('keydown', e => handleElevateComponentESC(e, setIsOpen))
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsOpen(false)
-    }
-    document.addEventListener('keydown', handleKeyDown)
-
-    const prevScroll = lockScroll()
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      if (!keepLocked) unlockScroll(prevScroll)
+      remove(customKey)
+      document.removeEventListener('keydown', e => handleElevateComponentESC(e, setIsOpen))
     }
-  }, [isOpen])
+  }, [])
 
-  return isOpen ? createPortal(
+  return createPortal(
     <div
       className={style.modal}
       style={{padding}}
@@ -43,5 +51,5 @@ export default function Modal({
       {children}
     </div>,
     document.getElementById('modalRoot') as HTMLElement
-  ) : <></>
+  )
 }

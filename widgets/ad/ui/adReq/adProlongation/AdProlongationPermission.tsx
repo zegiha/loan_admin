@@ -15,6 +15,7 @@ export default function AdProlongationPermission({
   }
 
   return <Modal
+    customKey={'adProlongationPermission'}
     isOpen={isOpen}
     setIsOpenAction={setIsOpen}
   >

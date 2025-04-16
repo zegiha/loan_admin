@@ -21,9 +21,9 @@ export default function({
   }
 
   return <Sidepeek
+    customKey={'announcementDetail'}
     isOpen={isOpen}
     setIsOpenAction={setIsOpen}
-    keepLocked
   >
     {status === 'success' && (
       <>

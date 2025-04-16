@@ -30,6 +30,7 @@ export default function AnnouncementEdit({
   )
 
   return <Modal
+    customKey={'announcementEdit'}
     isOpen={isOpen}
     setIsOpenAction={setIsOpen}
   >

@@ -22,7 +22,7 @@ export default function InquiryAnswerModal({
     setIsOpen(false)
   }
 
-  return <Modal isOpen={isOpen} setIsOpenAction={setIsOpen}>
+  return <Modal customKey={'inquiryAnswerModal'} isOpen={isOpen} setIsOpenAction={setIsOpen}>
     <ModalContainer size={'large'} gap={24}>
       {status === 'success' && (
         <>

@@ -23,6 +23,7 @@ export default function({
   })
   return (
     <Sidepeek
+      customKey={'moreInfoSidepeek'}
       isOpen={isOpen}
       setIsOpenAction={setIsOpen}
       gap={24}

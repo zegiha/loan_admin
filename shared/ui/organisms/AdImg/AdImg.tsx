@@ -26,10 +26,10 @@ export default function AdImg({
       />
       <Typo.Caption color={'dim'}>이미지 눌러서 크게 보기</Typo.Caption>
       <Modal
+        customKey={`adImg`}
         isOpen={isOpen}
         setIsOpenAction={setIsOpen}
         padding={8}
-        keepLocked={true}
       >
         <Row
           className={style.modalContainer}

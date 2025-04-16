@@ -18,7 +18,7 @@ export default function({
   } = useBlackListAddModal()
 
   return (
-    <Modal isOpen={isOpen} setIsOpenAction={setIsOpen}>
+    <Modal customKey={'blackListAddModal'} isOpen={isOpen} setIsOpenAction={setIsOpen}>
       <ModalContainer size={'medium'} gap={24}>
         <Typo.Body color={'variable'} emphasize>
           블랙 리스트 추가

@@ -26,6 +26,7 @@ export default function AdEditDetail({
 
   return (
     <Sidepeek
+      customKey={'adEdiDetail'}
       isOpen={isOpen}
       setIsOpenAction={setIsOpen}
       gap={24}

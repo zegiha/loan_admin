@@ -1,24 +1,22 @@
 'use client'
 
-import {useEffect} from "react";
-import {useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
 
 export default function Page() {
-  // const tmp = [1, 2, 3, 4, 5]
-  const router = useRouter()
+  const [t, st] = useState<boolean>(false)
+  return <>
+    <button onClick={() => st(p => !p)}>tlqkf</button>
+    {t ? <Un/> : <></>}
+  </>
+}
+
+function Un() {
   useEffect(() => {
-    router.push('/')
+    console.log('mount')
+    return () => {
+      console.log('unmount')
+    }
   }, []);
-  return (
-    <>
-      {/*<div style={{width: '100%', height: '100%', backgroundColor: 'white'}}>*/}
-      {/*  haha*/}
-      {/*  <Swiper pagination navigation>*/}
-      {/*    {tmp.map((v, i) => (*/}
-      {/*      <Typo.Display key={i}>{v}</Typo.Display>*/}
-      {/*    ))}*/}
-      {/*  </Swiper>*/}
-      {/*</div>*/}
-    </>
-  )
+
+  return <div style={{width: 200, height: 200, backgroundColor: 'red'}}></div>
 }

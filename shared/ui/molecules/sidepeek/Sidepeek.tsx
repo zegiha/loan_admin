@@ -1,42 +1,49 @@
 'use client'
 
 import {transition, TSetState} from '@/shared/const'
-import {lockScroll, unlockScroll} from '@/shared/lib'
+import handleElevateComponentESC from '@/shared/lib/helper/handleElevateComponentESC'
+import useElevate from '@/shared/model/useElevate'
 import {Col} from '@/shared/ui/atoms'
 import {ReactNode, useEffect} from 'react'
 import {createPortal} from 'react-dom'
 import style from './style.module.css'
 
-export default function Sidepeek({
-  isOpen,
-  setIsOpenAction: setIsOpen,
-  gap=24,
-  keepLocked,
-  children,
-}: {
+export default function Sidepeek(props: {
+  customKey: string
   isOpen: boolean
   setIsOpenAction: TSetState<boolean>
   gap?: number
-  keepLocked?: boolean
   children: React.ReactNode
 }) {
+  return props.isOpen ? <SidepeekWrapper
+    {...props}
+  /> : <></>
+}
+
+function SidepeekWrapper({
+  customKey,
+  setIsOpenAction: setIsOpen,
+  gap=24,
+  children,
+}: {
+  customKey: string
+  setIsOpenAction: TSetState<boolean>
+  gap?: number
+  children: React.ReactNode
+}) {
+  const {add, remove} = useElevate()
+
   useEffect(() => {
-    if (!isOpen) return
+    add(customKey)
+    document.addEventListener('keydown', e => handleElevateComponentESC(e, setIsOpen))
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsOpen(false)
-    }
-    document.addEventListener('keydown', handleKeyDown)
-
-    const prevScroll = lockScroll()
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      if (!keepLocked) unlockScroll(prevScroll)
-    };
-  }, [isOpen])
+      remove(customKey)
+      document.removeEventListener('keydown', e => handleElevateComponentESC(e, setIsOpen))
+    }
+  }, [])
 
-
-  return isOpen ? createPortal(
+  return createPortal(
     <div
       className={style.sidepeekWrapper}
       onClick={() => {setIsOpen(false)}}
@@ -47,7 +54,7 @@ export default function Sidepeek({
       />
     </div>,
     document.getElementById('sidepeekRoot') as HTMLElement,
-  ) : <></>
+  )
 }
 
 function SidepeekContainer({

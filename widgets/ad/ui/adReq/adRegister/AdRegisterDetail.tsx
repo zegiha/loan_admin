@@ -26,6 +26,7 @@ export default function({
 
   return (
    <Sidepeek
+     customKey={'adRegisterDetail'}
      isOpen={isOpen}
      setIsOpenAction={closeFunc}
      gap={24}

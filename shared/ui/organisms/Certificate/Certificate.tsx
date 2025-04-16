@@ -28,10 +28,10 @@ export default function Certificate({
       />
       <Typo.Caption color={'dim'}>이미지 눌러서 크게 보기</Typo.Caption>
       <Modal
+        customKey={'certificate'}
         isOpen={isOpen}
         setIsOpenAction={setIsOpen}
         padding={8}
-        keepLocked={true}
       >
         <Row
           className={style.certificateModalContainer}
