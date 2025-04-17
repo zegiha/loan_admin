@@ -12,7 +12,7 @@ interface IAuth{
 
 interface IUseAuth {
   data: IAuth | null
-  setData: () => Promise<void>
+  setData: () => Promise<IAuth | null>
 }
 
 const useAuth = create<IUseAuth>(set => ({
@@ -21,11 +21,13 @@ const useAuth = create<IUseAuth>(set => ({
     // const axios = await axiosWithToken()
     // const data = await axios.get('')
     // TODO 유저 정보 받아오기
-    set(() => ({data: {
+    const dummy: IAuth = {
       authority: 'SUPER',
       id: 'zegiha',
       name: '이서율',
-    }}))
+    }
+    set(() => ({data: dummy}))
+    return dummy
   }
 }))
 

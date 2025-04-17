@@ -12,3 +12,6 @@
 
 .primary {background-color: var(--primary-primaryNormal);}
 .primary:hover {background-color: var(--primary-primaryHigh);}
+
+.red {background-color: var(--red600);}
+.red:hover {background-color: var(--red700);}

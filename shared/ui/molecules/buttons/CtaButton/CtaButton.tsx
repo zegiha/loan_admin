@@ -16,7 +16,7 @@ export default function CtaButton({
   width?: 'fill' | 'hug' | number
   flex?: number
   height?: 'normal' | 'large' | 'small'
-  color?: 'primary' | 'gray'
+  color?: 'primary' | 'gray' | 'red'
 }) {
   const {
     getWidth,

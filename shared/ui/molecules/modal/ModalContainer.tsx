@@ -7,7 +7,7 @@ import classNames from 'classnames'
 export default function({
   size,
   children,
-  gap
+  gap=24
 }: {
   size: 'small' | 'medium' | 'large'
   children: ReactNode
