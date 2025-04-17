@@ -58,20 +58,22 @@ export default function({
             </Table>
           )}
         </Col>
-        <AnnouncementEdit
-          isOpen={isEditOpen}
-          setIsOpen={setIsEditOpen}
-          target={{
-            announcementId: targetId,
-            title: data.filter(v => v.label === '제목')[0].contents,
-            contents: data.filter(v => v.label === '내용')[0].contents,
-            type: data.filter(v => v.label === '분류')[0]
-              .contents === '중요' ? 'VALUABLE' : 'NORMAL',
-          }}
-          submitCallback={() => {
-            setIsOpen(false)
-          }}
-        />
+        {isEditOpen && (
+          <AnnouncementEdit
+            isOpen={isEditOpen}
+            setIsOpen={setIsEditOpen}
+            target={{
+              announcementId: targetId,
+              title: data.filter(v => v.label === '제목')[0].contents,
+              contents: data.filter(v => v.label === '내용')[0].contents,
+              type: data.filter(v => v.label === '분류')[0]
+                .contents === '중요' ? 'VALUABLE' : 'NORMAL',
+            }}
+            submitCallback={() => {
+              setIsOpen(false)
+            }}
+          />
+        )}
       </>
     )}
     {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}

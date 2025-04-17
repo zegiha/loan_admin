@@ -48,7 +48,7 @@ export default function CertificatedCompanyBlackList() {
       )}
       {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}
       {status === 'error' && (<Typo.Contents>{error?.message}</Typo.Contents>)}
-      {target !== null && (
+      {target !== null && isDeleteOpen && (
         <WarningModal
           isOpen={isDeleteOpen}
           setIsOpen={setIsDeleteOpen}

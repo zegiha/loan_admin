@@ -25,43 +25,45 @@ export default function AdImg({
         onClick={() => setIsOpen(true)}
       />
       <Typo.Caption color={'dim'}>이미지 눌러서 크게 보기</Typo.Caption>
-      <Modal
-        customKey={`adImg`}
-        isOpen={isOpen}
-        setIsOpenAction={setIsOpen}
-        padding={8}
-      >
-        <Row
-          className={style.modalContainer}
-          onClick={e => e.stopPropagation()}
-          motion={{
-            initial: {opacity: 0},
-            animate: {opacity: 1},
-            transition: transition.fast
-          }}
+      {isOpen && (
+        <Modal
+          customKey={`adImg`}
+          isOpen={isOpen}
+          setIsOpenAction={setIsOpen}
+          padding={8}
         >
-          <div className={style.modalWrapper}>
-            <Row
-              className={style.modalControlBox}
-              width={'fill'}
-              justifyContents={'end'}
-            >
-              <IconButton
-                iconKey={'close'}
-                size={'medium'}
-                background={'transparent'}
-                onClick={() => setIsOpen(false)}
+          <Row
+            className={style.modalContainer}
+            onClick={e => e.stopPropagation()}
+            motion={{
+              initial: {opacity: 0},
+              animate: {opacity: 1},
+              transition: transition.fast
+            }}
+          >
+            <div className={style.modalWrapper}>
+              <Row
+                className={style.modalControlBox}
+                width={'fill'}
+                justifyContents={'end'}
+              >
+                <IconButton
+                  iconKey={'close'}
+                  size={'medium'}
+                  background={'transparent'}
+                  onClick={() => setIsOpen(false)}
+                />
+              </Row>
+              <Image
+                src={src}
+                alt={'광고 이미지'}
+                fill
+                className={style.adImg}
               />
-            </Row>
-            <Image
-              src={src}
-              alt={'광고 이미지'}
-              fill
-              className={style.adImg}
-            />
-          </div>
-        </Row>
-      </Modal>
+            </div>
+          </Row>
+        </Modal>
+      )}
     </Col>
   )
 }

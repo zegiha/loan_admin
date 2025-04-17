@@ -27,43 +27,45 @@ export default function Certificate({
         onClick={() => setIsOpen(true)}
       />
       <Typo.Caption color={'dim'}>이미지 눌러서 크게 보기</Typo.Caption>
-      <Modal
-        customKey={'certificate'}
-        isOpen={isOpen}
-        setIsOpenAction={setIsOpen}
-        padding={8}
-      >
-        <Row
-          className={style.certificateModalContainer}
-          onClick={e => e.stopPropagation()}
-          motion={{
-            initial: {opacity: 0},
-            animate: {opacity: 1},
-            transition: transition.fast
-          }}
+      {isOpen && (
+        <Modal
+          customKey={'certificate'}
+          isOpen={isOpen}
+          setIsOpenAction={setIsOpen}
+          padding={8}
         >
-          <div className={style.certificateModalWrapper}>
-            <Row
-              className={style.certificateModalControlBox}
-              width={'fill'}
-              justifyContents={'end'}
-            >
-              <IconButton
-                iconKey={'close'}
-                size={'medium'}
-                background={'transparent'}
-                onClick={() => setIsOpen(false)}
+          <Row
+            className={style.certificateModalContainer}
+            onClick={e => e.stopPropagation()}
+            motion={{
+              initial: {opacity: 0},
+              animate: {opacity: 1},
+              transition: transition.fast
+            }}
+          >
+            <div className={style.certificateModalWrapper}>
+              <Row
+                className={style.certificateModalControlBox}
+                width={'fill'}
+                justifyContents={'end'}
+              >
+                <IconButton
+                  iconKey={'close'}
+                  size={'medium'}
+                  background={'transparent'}
+                  onClick={() => setIsOpen(false)}
+                />
+              </Row>
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                className={style.certificate}
               />
-            </Row>
-            <Image
-              src={src}
-              alt={alt}
-              fill
-              className={style.certificate}
-            />
-          </div>
-        </Row>
-      </Modal>
+            </div>
+          </Row>
+        </Modal>
+      )}
     </Col>
   )
 }

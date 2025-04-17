@@ -43,7 +43,7 @@ export default function() {
         </TableSection>
       )}
       {status === 'error' && <Typo.Contents>{error?.message}</Typo.Contents>}
-      {target !== null && (
+      {target !== null && isOpen && (
         <WarningModal
           isOpen={isOpen}
           setIsOpen={setIsOpen}

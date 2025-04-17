@@ -48,7 +48,7 @@ export default function Management() {
         <Typo.Contents>로딩중...</Typo.Contents>}
       {status === 'error' &&
         <Typo.Contents color={'error'}>{error?.message}</Typo.Contents>}
-      {targetUser !== null && (
+      {targetUser !== null && isLogoutOpen && (
         <WarningModal
           isOpen={isLogoutOpen}
           setIsOpen={setIsLogoutOpen}
@@ -58,7 +58,7 @@ export default function Management() {
           submitFunc={() => setIsLogoutOpen(false)}
         />
       )}
-      {targetUser !== null && (
+      {targetUser !== null && isDeleteOpen && (
         <WarningModal
           isOpen={isDeleteOpen}
           setIsOpen={setIsDeleteOpen}
@@ -68,7 +68,7 @@ export default function Management() {
           submitFunc={() => setIsDeleteOpen(false)}
         />
       )}
-      {targetUser !== null && <MoreInfoSidepeek
+      {targetUser !== null && isSidepeekOpen && <MoreInfoSidepeek
         isOpen={isSidepeekOpen}
         setIsOpen={setIsSidepeekOpen}
         userId={targetUser.userId}

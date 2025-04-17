@@ -55,10 +55,12 @@ export default function BlackList() {
           submitFunc={excludeFunc}
         />
       )}
-      <BlackListAddModal
-        isOpen={isAddModalOpen}
-        setIsOpen={setIsAddModalOpen}
-      />
+      {isAddModalOpen && (
+        <BlackListAddModal
+          isOpen={isAddModalOpen}
+          setIsOpen={setIsAddModalOpen}
+        />
+      )}
     </>
   )
 }
