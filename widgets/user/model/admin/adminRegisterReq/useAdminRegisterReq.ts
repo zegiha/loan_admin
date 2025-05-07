@@ -1,6 +1,7 @@
 'use client'
 
 import {AdminRegisterEntity, getAdminRegister} from '@/entities'
+import {useAdminControllerFindAll} from '@/test/tmp'
 import {IAdminRegisterReqTableRow} from '@/widgets/user/const/admin/adminRegisterReq/type'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'

@@ -10,21 +10,20 @@ import {parseToTwoDimensionalArray} from "@/shared/lib";
 export default function RegisterReq() {
   const {
     showRow, setShowRow,
-    data,
     isOpen, setIsOpen,
-    registerReqId,
-    fetching
+    registerReqData,
+    status, data, error, refetch
   } = useRegisterReq()
 
   return (
     <>
       <TableSection
         tableTitle={'회원 가입 요청'}
-        reloadFunc={() => fetching()}
+        reloadFunc={() => refetch()}
         showRow={showRow}
         setShowRowAction={v => setShowRow(v)}
       >
-        {data !== null ? (
+        {status === 'success' ? (
           parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
             <Table
               key={i}
@@ -43,11 +42,11 @@ export default function RegisterReq() {
           <Typo.Contents>로딩중...</Typo.Contents>
         )}
       </TableSection>
-      {isOpen && (
+      {isOpen && registerReqData !== null && (
         <RegisterDetail
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          registerReqId={registerReqId}
+          data={registerReqData}
         />
       )}
     </>

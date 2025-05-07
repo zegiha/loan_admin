@@ -9,15 +9,14 @@ import processRegisterDetailData from "@/widgets/user/lib/broker/register/proces
 export default function RegisterDetail({
   isOpen,
   setIsOpen,
-  registerReqId,
+  data,
 }: IRegisterDetail) {
   const {
-    data,
     approveFunc,
     rejectFunc,
-  } = useRegisterDetail(registerReqId)
+  } = useRegisterDetail(data.id)
 
-  return data !== null ? (
+  return (
     <Sidepeek
       customKey={'registerDetail'}
       isOpen={isOpen}
@@ -53,5 +52,5 @@ export default function RegisterDetail({
         />
       </SidepeekHeaderSection>
     </Sidepeek>
-  ) : <></>
+  )
 }

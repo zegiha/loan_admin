@@ -8,6 +8,7 @@ import React, {ReactNode, useEffect, useRef, useState} from "react";
 import style from './style.module.css'
 
 export default function TextInput({
+  formDataName,
   label,
   value,
   placeholder,
@@ -19,6 +20,7 @@ export default function TextInput({
   selections,
   height,
 }: {
+  formDataName?: string
   label?: string
   value: string
   placeholder?: string
@@ -80,6 +82,7 @@ export default function TextInput({
           {input_type === 'textarea' ? (
             <textarea
               ref={textareaRef}
+              name={formDataName}
               style={{height: height}}
               className={style.textarea}
               placeholder={placeholder}
@@ -100,6 +103,7 @@ export default function TextInput({
           ) : (
             <input
               ref={inputRef}
+              name={formDataName}
               className={style.input}
               type={input_type}
               placeholder={placeholder}

@@ -1,14 +1,14 @@
-import {BrokerRegisterSummaryEntity} from '@/entities'
+import {BrokerRegisterEntity, BrokerRegisterSummaryEntity} from '@/entities'
 import {TSetState} from '@/shared/const'
 
-export interface IRegisterReqTableRow extends BrokerRegisterSummaryEntity {
+export interface IRegisterReqTableRow extends BrokerRegisterEntity {
   moreInfoFunc: () => void
 }
 
 export interface IRegisterDetail {
   isOpen: boolean
   setIsOpen: TSetState<boolean>
-  registerReqId: string | null
+  data: Omit<IRegisterReqTableRow, 'moreInfoFunc'>
 }
 
 export interface IRegisterDetailData {

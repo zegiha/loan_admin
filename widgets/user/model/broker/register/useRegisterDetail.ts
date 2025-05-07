@@ -1,33 +1,37 @@
 'use client'
 
-import {BrokerRegisterEntity} from '@/entities'
-import getRegisterReqById from '@/entities/brokerRegister/api/getBrokerRegisterById'
-import {useEffect, useState} from 'react'
+import {useUserControllerActive} from '@/test/tmp'
+import {AxiosError} from 'axios'
 
-export default function useRegisterDetail(registerReqId: string | null) {
-  const [data, setData] = useState<BrokerRegisterEntity | null>(null)
-  const fetching = () => {
-    if(registerReqId === null)
-      throw new Error('상세조회용 아이디가 없습니다')
-    else
-      setData(getRegisterReqById(registerReqId))
-  }
-
-  useEffect(() => {
-    fetching()
-  }, [registerReqId])
-
+export default function useRegisterDetail(id: string) {
   const rejectFunc = () => {
     // TODO API 연결
     console.log('reject')
   }
+  const approveMutation = useUserControllerActive({
+    mutation: {
+      onSuccess: () => {
+        console.log('register request approve: success')
+      },
+      onError: () => {
+        console.log('register request approve: error')
+      }
+    }
+  })
   const approveFunc = () => {
-    // TODO API 연결
-    console.log('approve')
+    try {
+      approveMutation.mutate({id})
+    } catch (e) {
+      if(e instanceof AxiosError) {
+        alert(`문제가 발생했습니다 다시시도해주세요 : ${e.status}, ${e.message}`)
+      } else {
+        alert('예상치 못한 문제가 발생했습니다 다시시도해주세요')
+      }
+    }
   }
 
   return {
-    data, setData,
+    approveMutation,
     approveFunc,
     rejectFunc,
   }

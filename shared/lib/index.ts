@@ -23,7 +23,7 @@ const TypoHelper = {
 import CtaButtonHelper from '@/shared/lib/buttons/CtaButton/helper'
 
 import axiosWithToken from '@/shared/lib/axios/axiosWithToken'
-
+import axios from '@/shared/lib/axios/customAxios'
 
 import useTableSection from '@/shared/lib/swiper/TableSection/useTableSection'
 
@@ -41,6 +41,7 @@ import isTLocation from '@/shared/lib/helper/isTLocation'
 import isTProduction from '@/shared/lib/helper/isTProduction'
 import adNameToKorean from '@/shared/lib/helper/adNameToKorean'
 import numberToStringWithComma from '@/shared/lib/helper/numberToStringWithComma'
+import yyyyMmDdToDate from '@/shared/lib/helper/yyyyMmDdToDate'
 
 
 export {
@@ -56,6 +57,7 @@ export {
   CtaButtonHelper,
 
   axiosWithToken,
+  axios,
 
   check_id_and_message,
   check_password_and_message,
@@ -73,4 +75,5 @@ export {
   adNameToKorean,
   numberToStringWithComma,
   useTableSection,
+  yyyyMmDdToDate,
 }

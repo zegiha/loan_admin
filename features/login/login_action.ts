@@ -1,27 +1,25 @@
-'use server'
+import {adminControllerLogin, adminControllerProfile} from '@/test/tmp'
+import {AxiosError} from 'axios'
 
-import {cookies} from "next/headers";
-import {redirect} from "next/navigation";
+export default async function login_action(formData: FormData): Promise<'success' | Error> {
+  const id = formData.get('id') as string
+  const password = formData.get('password') as string
+  try {
+    const {headers, data} = await adminControllerLogin({id, password}, {
+      withCredentials: true
+    })
 
-export default async function login_action(
-  id: string,
-  password: string
-) {
-  // TODO refreshToken 및 로그인 요청
-  const refreshToken = 'testToken'
+    console.log(headers)
 
-  // TODO accessToken 요청
-  const accessToken = 'testToken'
+    return 'success'
+  } catch (err) {
+    if(err instanceof AxiosError) {
+      if(err.status === 401) return new Error('아이디 혹은 비밀번호가 잘못되었습니다')
+      else if(err.status === 400) return new Error('아이디 혹은 비빌번호를 입력해주세요')
+    }
 
-  const cookieStore = await cookies()
-  cookieStore.set('refreshToken', refreshToken, {
-    httpOnly: true,
-    maxAge: 60*60*24*30
-  })
-  cookieStore.set('accessToken', accessToken, {
-    httpOnly: true,
-    maxAge: 60*60*24
-  })
+    console.error(`login_action: ${err}`)
 
-  redirect('/user')
+    return new Error('예기치 못한 오류가 발생했습니다\n 다시 시도해주세요')
+  }
 }

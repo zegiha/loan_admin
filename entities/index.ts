@@ -13,7 +13,6 @@ import getBrokerSummaryEntityById from '@/entities/broker/api/getBrokerSummaryEn
 
 import BrokerRegisterEntity from '@/entities/brokerRegister/const/BrokerRegisterEntity'
 import BrokerRegisterSummaryEntity from '@/entities/brokerRegister/const/BrokerRegisterSummary'
-import getBrokerRegisterById from '@/entities/brokerRegister/api/getBrokerRegisterById'
 import getBrokerRegisterSummary from '@/entities/brokerRegister/api/getBrokerRegisterSummary'
 import registerEntityLabel from '@/entities/brokerRegister/const/registerEntityLabel'
 
@@ -51,7 +50,6 @@ export {
   getBrokerById,
   getBrokerSummary,
 
-  getBrokerRegisterById,
   getBrokerRegisterSummary,
   getBrokerSummaryEntityById,
   registerEntityLabel,
