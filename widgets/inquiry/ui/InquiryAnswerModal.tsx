@@ -10,6 +10,7 @@ export default function InquiryAnswerModal({
   setIsOpen,
   target,
   setTarget,
+  refetch,
 }: IInquiryAnswerModal) {
   const {
     ans, setAns,
@@ -48,13 +49,13 @@ export default function InquiryAnswerModal({
         submitContents={'답변 보내기'}
         submitFunc={() => {
           if(check_is_typed_when_string(ans) === null) {
-            answerFunc()
+            answerFunc(target.inquiryId)
               .then(res => {
-                if(res) {
-                  alert('답변을 보냈습니다')
+                if(res === 'success') {
+                  refetch()
                   closeFunc()
                 } else {
-                  alert('답변을 보내던 중 문제가 발생했습니다\n다시 시도해주세요')
+                  alert(res)
                 }
               })
           } else {

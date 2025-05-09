@@ -52,6 +52,7 @@ export default function Inquiry() {
           {...{
             isOpen, setIsOpen,
             target, setTarget,
+            refetch,
           }}
         />
       )}

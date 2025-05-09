@@ -10,4 +10,5 @@ export interface IInquiryAnswerModal {
   setIsOpen: TSetState<boolean>
   target: InquiryEntity
   setTarget: TSetState<InquiryEntity | null>
+  refetch: () => void
 }
