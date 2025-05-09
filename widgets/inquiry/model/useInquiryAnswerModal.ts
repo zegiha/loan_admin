@@ -1,6 +1,6 @@
 'use client'
 
-import {getInquiryEntityById, InquiryEntity} from '@/entities'
+import {getInquiryEntityById, InquiryEntity} from '../../../prevEntities'
 import {ITableLabeledRowWithoutReactNode} from '@/shared/const'
 import {formatDateDotYmd} from '@/shared/lib'
 import {IInquiryAnswerModal} from '@/widgets/inquiry/const/type'

@@ -1,4 +1,4 @@
-import {BlackListEntity} from '@/entities'
+import {BlackListEntity} from '../../../../../prevEntities'
 
 export interface IBlackListTableRow extends BlackListEntity {
   excludeModalOpenFunc: () => void

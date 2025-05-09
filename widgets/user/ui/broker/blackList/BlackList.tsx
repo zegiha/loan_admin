@@ -10,7 +10,7 @@ import {parseToTwoDimensionalArray} from "@/shared/lib";
 export default function BlackList() {
   const {
     showRow, setShowRow,
-    data, fetching,
+    status, data, refetch,
     targetUser,
     isDeleteModalOpen, setIsDeleteModalOpen,
     isAddModalOpen, setIsAddModalOpen,
@@ -21,12 +21,12 @@ export default function BlackList() {
     <>
       <TableSection
         tableTitle={'블랙 리스트'}
-        reloadFunc={() => fetching()}
+        reloadFunc={() => refetch()}
         addFunc={() => setIsAddModalOpen(true)}
         showRow={showRow}
         setShowRowAction={v => setShowRow(v)}
       >
-        {data !== null ? (
+        {status === 'success' ? (
           parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
             <Table
               key={i}
@@ -52,7 +52,7 @@ export default function BlackList() {
           title={`${targetUser.name}님을 블랙리스트에서 제외할까요?`}
           subtitle={`${targetUser.name}님을 제외해야하는지 한번 더 확인해주세요`}
           submitContents={'제외하기'}
-          submitFunc={excludeFunc}
+          submitFunc={() => excludeFunc(targetUser.userId)}
         />
       )}
       {isAddModalOpen && (

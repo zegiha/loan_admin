@@ -1,4 +1,4 @@
-import {AdEntity, TAdEntityKeys, TAdEntityValues} from '@/entities'
+import {AdEntity, TAdEntityKeys, TAdEntityValues} from '../../../prevEntities'
 import {locationMap, productionMap} from '@/shared/const'
 import {isTLocation, isTProduction} from '@/shared/lib'
 

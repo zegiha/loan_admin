@@ -1,4 +1,4 @@
-import {BlackListEntity} from '@/entities'
+import {BlackListEntity} from '../../../prevEntities'
 import {TSetState} from '@/shared/const'
 
 export interface ICertificatedCompanyBlackListTableRow

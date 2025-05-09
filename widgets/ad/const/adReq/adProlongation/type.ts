@@ -1,4 +1,4 @@
-import {AdProlongationEntity, BrokerEntitySummary} from '@/entities'
+import {AdProlongationEntity, BrokerEntitySummary} from '../../../../../prevEntities'
 import {TSetState} from '@/shared/const'
 
 export interface IAdProlongation

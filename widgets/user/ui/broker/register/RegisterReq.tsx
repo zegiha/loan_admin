@@ -23,7 +23,7 @@ export default function RegisterReq() {
         showRow={showRow}
         setShowRowAction={v => setShowRow(v)}
       >
-        {status === 'success' ? (
+        {status === 'success' && (
           parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
             <Table
               key={i}
@@ -38,10 +38,14 @@ export default function RegisterReq() {
               ))}
             </Table>
           ))
-        ):(
-          <Typo.Contents>로딩중...</Typo.Contents>
         )}
       </TableSection>
+      {status === 'pending' && (
+        <Typo.Contents>로딩중...</Typo.Contents>
+      )}
+      {status === 'error' && (
+        <Typo.Contents>{`문제가 발생했습니다 다시 시도해주세요\n${error}`}</Typo.Contents>
+      )}
       {isOpen && registerReqData !== null && (
         <RegisterDetail
           isOpen={isOpen}

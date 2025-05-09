@@ -1,4 +1,4 @@
-import {InquirySummaryEntity} from '@/entities'
+import {InquirySummaryEntity} from '../../../prevEntities'
 import {TSetState} from '@/shared/const'
 
 export interface IInquiryTableRow extends Omit<InquirySummaryEntity, 'inquiryId'>{

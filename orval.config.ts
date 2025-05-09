@@ -2,19 +2,22 @@ import { defineConfig } from 'orval';
 
 export default defineConfig({
   petstore: {
-    input: 'https://0ead-210-223-56-118.ngrok-free.app/api-docs-json/',
+    input: 'https://loan.apne2a.algorix.cloud/api-docs-json',
     output: {
+      mode: 'tags-split',
       baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
-      target: './test/tmp.ts',
-      schemas: './test/model/',
+      target: './entities/api',
+      schemas: './entities/const',
       client: 'react-query',
-      httpClient: 'axios',
+      headers: true,
       override: {
+        useTypeOverInterfaces: true,
         mutator: {
           path: './shared/lib/axios/customAxios.ts',
           name: 'customInstance',
         },
       },
+      clean: true,
     },
     hooks: {
       afterAllFilesWrite: 'prettier --write "./test/**/*.{ts,tsx}"',

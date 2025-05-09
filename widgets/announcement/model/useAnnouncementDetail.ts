@@ -1,6 +1,6 @@
 'use client'
 
-import {AnnouncementEntity, getAnnouncementEntityById} from '@/entities'
+import {AnnouncementEntity, getAnnouncementEntityById} from '../../../prevEntities'
 import {formatDateDotYmd, numberToStringWithComma} from '@/shared/lib'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'

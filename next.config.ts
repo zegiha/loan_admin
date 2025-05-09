@@ -11,7 +11,13 @@ const nextConfig: NextConfig = {
         hostname: 'i.pinimg.com',
         port: '',
         pathname: '/**',
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'loan-project-mng.s3.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
     ]
   },
   typescript: {

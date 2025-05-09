@@ -1,4 +1,4 @@
-import {BrokerEntity} from '@/entities'
+import {BrokerEntity} from '../../../../../prevEntities'
 import {IBrokerInfo} from '@/widgets/user/const/broker/management/type'
 
 

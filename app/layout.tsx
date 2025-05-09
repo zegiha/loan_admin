@@ -1,4 +1,4 @@
-import {TanStackQueryLayout} from '@/shared/ui/atoms'
+import {GlobalRouterLayout, TanStackQueryLayout} from '@/shared/ui/atoms'
 import type { Metadata } from "next";
 import "./globals.css";
 import "swiper/css"
@@ -22,9 +22,11 @@ export default function RootLayout({
     <html lang="ko">
       <body className={wantedSans.className}>
       <TanStackQueryLayout>
-        {children}
-        <div id={'modalRoot'}/>
-        <div id={'sidepeekRoot'}/>
+        <GlobalRouterLayout>
+          {children}
+          <div id={'modalRoot'}/>
+          <div id={'sidepeekRoot'}/>
+        </GlobalRouterLayout>
       </TanStackQueryLayout>
       </body>
     </html>

@@ -1,7 +1,6 @@
 'use client'
 
 import {check_id_and_message, check_password_and_message} from '@/shared/lib'
-import {adminControllerProfile} from '@/test/tmp'
 import Form from 'next/form'
 import {useRouter} from 'next/navigation'
 import style from './style.module.css'
@@ -19,13 +18,7 @@ export default function Login() {
     const res = await login_action(formData)
 
     if(res === 'success') {
-      const res = await adminControllerProfile({
-        withCredentials: true,
-        headers: {
-          'Access-Allow-origin'
-        }
-      })
-      // router.replace('/user')
+      router.replace('/user')
     } else {
       alert(res.message)
       set_id('')

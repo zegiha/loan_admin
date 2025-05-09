@@ -1,4 +1,4 @@
-import {AnnouncementSummaryEntity} from '@/entities'
+import {AnnouncementSummaryEntity} from '../../../prevEntities'
 import {TSetState} from '@/shared/const'
 
 export interface IAnnouncement extends Omit<AnnouncementSummaryEntity, 'announcementId'> {

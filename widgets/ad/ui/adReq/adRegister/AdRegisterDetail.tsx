@@ -1,4 +1,4 @@
-import {BrokerEntitySummary} from '@/entities'
+import {BrokerEntitySummary} from '../../../../../prevEntities'
 import {TSetState} from '@/shared/const'
 import {Col, Typo} from '@/shared/ui/atoms'
 import {Sidepeek, SidepeekHeaderSection, Table, TableLabeledRow} from '@/shared/ui/molecules'

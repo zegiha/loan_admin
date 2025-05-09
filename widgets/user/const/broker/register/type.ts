@@ -1,4 +1,4 @@
-import {BrokerRegisterEntity, BrokerRegisterSummaryEntity} from '@/entities'
+import {BrokerRegisterEntity, BrokerRegisterSummaryEntity} from '../../../../../prevEntities'
 import {TSetState} from '@/shared/const'
 
 export interface IRegisterReqTableRow extends BrokerRegisterEntity {

@@ -1,4 +1,4 @@
-import {AdminRegisterEntity} from '@/entities'
+import {AdminRegisterEntity} from '../../../../../prevEntities'
 
 export interface IAdminRegisterReqTableRow extends Omit<AdminRegisterEntity, 'reqId'> {
   allowFunc: () => void

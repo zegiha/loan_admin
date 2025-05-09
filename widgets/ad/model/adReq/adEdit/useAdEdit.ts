@@ -1,6 +1,6 @@
 'use client'
 
-import {getAdEditSummaryEntity, getBrokerSummaryEntityById} from '@/entities'
+import {getAdEditSummaryEntity, getBrokerSummaryEntityById} from '../../../../../prevEntities'
 import {IAdEditTableRow} from '@/widgets/ad/const/adReq/adEdit/type'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'

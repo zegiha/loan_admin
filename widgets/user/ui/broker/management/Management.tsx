@@ -12,7 +12,7 @@ import MoreInfoSidepeek from '@/widgets/user/ui/broker/management/MoreInfoSidepe
 export default function Management() {
   const {showRow, setShowRow} = useTableSection()
   const {
-    isLogoutOpen, setIsLogoutOpen,
+    // isLogoutOpen, setIsLogoutOpen,
     isDeleteOpen, setIsDeleteOpen,
     isSidepeekOpen, setIsSidepeekOpen,
     targetUser,
@@ -48,16 +48,16 @@ export default function Management() {
         <Typo.Contents>로딩중...</Typo.Contents>}
       {status === 'error' &&
         <Typo.Contents color={'error'}>{error?.message}</Typo.Contents>}
-      {targetUser !== null && isLogoutOpen && (
-        <WarningModal
-          isOpen={isLogoutOpen}
-          setIsOpen={setIsLogoutOpen}
-          title={`${targetUser.id}님의 계정을 전체 로그아웃 할까요?`}
-          subtitle={`${targetUser.id}님이 맞는지 한번 더 확인해주세요`}
-          submitContents={'강제 로그아웃'}
-          submitFunc={() => setIsLogoutOpen(false)}
-        />
-      )}
+      {/*{targetUser !== null && isLogoutOpen && (*/}
+      {/*  <WarningModal*/}
+      {/*    isOpen={isLogoutOpen}*/}
+      {/*    setIsOpen={setIsLogoutOpen}*/}
+      {/*    title={`${targetUser.id}님의 계정을 전체 로그아웃 할까요?`}*/}
+      {/*    subtitle={`${targetUser.id}님이 맞는지 한번 더 확인해주세요`}*/}
+      {/*    submitContents={'강제 로그아웃'}*/}
+      {/*    submitFunc={() => setIsLogoutOpen(false)}*/}
+      {/*  />*/}
+      {/*)}*/}
       {targetUser !== null && isDeleteOpen && (
         <WarningModal
           isOpen={isDeleteOpen}

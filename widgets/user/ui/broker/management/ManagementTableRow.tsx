@@ -6,7 +6,7 @@ export default function({
   id,
   companyName,
   moreInfoSidepeekFunc,
-  logoutModalFunc,
+  // logoutModalFunc,
   deleteUserModalFunc,
 }: IManagementTableRow) {
   return (
@@ -25,14 +25,14 @@ export default function({
       >
         더보기
       </Typo.Contents>
-      <Typo.Contents
-        width={'fill'}
-        color={'error'}
-        underline
-        onClick={logoutModalFunc}
-      >
-        로그아웃하기
-      </Typo.Contents>
+      {/*<Typo.Contents*/}
+      {/*  width={'fill'}*/}
+      {/*  color={'error'}*/}
+      {/*  underline*/}
+      {/*  onClick={logoutModalFunc}*/}
+      {/*>*/}
+      {/*  로그아웃하기*/}
+      {/*</Typo.Contents>*/}
       <Typo.Contents
         width={'fill'}
         color={'error'}

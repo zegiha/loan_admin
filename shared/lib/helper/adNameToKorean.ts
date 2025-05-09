@@ -1,4 +1,4 @@
-import {AdEntity} from '@/entities'
+import {AdEntity} from '../../../prevEntities'
 
 export default function(v: AdEntity['name']) {
   switch (v) {

@@ -1,4 +1,4 @@
-import {AnnouncementEntity} from '@/entities'
+import {AnnouncementEntity} from '../../../prevEntities'
 import {TSetState} from '@/shared/const'
 import {Typo} from '@/shared/ui/atoms'
 import {Modal, ModalContainer} from '@/shared/ui/molecules'

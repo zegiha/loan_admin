@@ -1,4 +1,4 @@
-import {BrokerRegisterEntity, registerEntityLabel} from '@/entities'
+import {BrokerRegisterEntity, registerEntityLabel} from '../../../../../prevEntities'
 import {formatDateDotYmd} from "@/shared/lib";
 import {IRegisterDetailData} from '@/widgets/user/const/broker/register/type'
 
@@ -10,7 +10,6 @@ export default function processRegisterDetailData(data: BrokerRegisterEntity | n
     subtitle: '계정 정보',
     data: [
       {label: registerEntityLabel['id'] ?? '', contents: data['id']},
-      {label: registerEntityLabel['password'] ?? '', contents: data['password']},
       {label: registerEntityLabel['phone'] ?? '', contents: data['phone']},
       {label: registerEntityLabel['exponentName'] ?? '', contents: data['exponentName']},
     ]

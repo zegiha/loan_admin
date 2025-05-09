@@ -14,7 +14,8 @@ export default function({
     target, setTarget,
     additionalReason, setAdditionalReason,
     selections,
-    selectionPlaceholder
+    selectionPlaceholder,
+    addToBlack,
   } = useBlackListAddModal()
 
   return (
@@ -48,7 +49,12 @@ export default function({
           </CtaButton>
           <CtaButton onClick={() => {
             // TODO 블랙 등록 API 연결
-            setIsOpen(false)
+            const handleAddToBlack = async () => {
+              if(await addToBlack(target)) {
+                setIsOpen(false)
+              }
+            }
+            handleAddToBlack()
           }} width={'hug'} color={'primary'} height={'normal'}>
             <Typo.Contents color={'onPrimary'}>추가하기</Typo.Contents>
           </CtaButton>

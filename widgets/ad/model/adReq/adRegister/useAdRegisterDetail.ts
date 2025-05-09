@@ -1,6 +1,6 @@
 'use client'
 
-import {AdRegisterEntity, BrokerEntitySummary, getAdRegisterEntityById} from '@/entities'
+import {AdRegisterEntity, BrokerEntitySummary, getAdRegisterEntityById} from '../../../../../prevEntities'
 import {adNameToKorean} from '@/shared/lib'
 import formatAdContentToLabelAndData from '@/shared/lib/helper/formatAdContentToLabelAndData'
 import {IAdRegisterDetail} from '@/widgets/ad/const/adReq/adRegister/type'

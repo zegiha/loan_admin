@@ -1,5 +1,6 @@
 'use client'
 
+import {userControllerBlack} from '@/entities/api/user/user'
 import {useEffect, useState} from 'react'
 
 export default function() {
@@ -42,16 +43,21 @@ export default function() {
     }
   }, [target])
 
-  useEffect(() => {
-    return () => {
-      console.log('tlqkgf')
+  const addToBlack = async (id: string) => {
+    try {
+      await userControllerBlack({id})
+      return true
+    } catch (e) {
+      alert('문제가 발생했습니다 다시 시도해주세요')
+      return false
     }
-  }, []);
+  }
 
   return {
     target, setTarget,
     additionalReason, setAdditionalReason,
     selections,
     selectionPlaceholder,
+    addToBlack,
   }
 }

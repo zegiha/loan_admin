@@ -1,6 +1,6 @@
 'use client'
 
-import {AdEditEntity, getAdEditEntityById} from '@/entities'
+import {AdEditEntity, getAdEditEntityById} from '../../../../../prevEntities'
 import {formatAdContentToLabelAndData} from '@/shared/lib'
 import {IAdEditDetailData} from '@/widgets/ad/const/adReq/adEdit/type'
 import {useQuery} from '@tanstack/react-query'

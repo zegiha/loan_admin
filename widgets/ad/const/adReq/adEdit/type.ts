@@ -1,4 +1,4 @@
-import {AdEditEntity, AdEditSummaryEntity} from '@/entities'
+import {AdEditEntity, AdEditSummaryEntity} from '../../../../../prevEntities'
 
 export interface IAdEditTableRow extends Omit<AdEditSummaryEntity, 'editId' | 'userId'>{
   id: string

@@ -1,6 +1,6 @@
 'use client'
 
-import {getAdProlongationEntity, getBrokerSummaryEntityById} from '@/entities'
+import {getAdProlongationEntity, getBrokerSummaryEntityById} from '../../../../../prevEntities'
 import {IAdProlongation} from '@/widgets/ad/const/adReq/adProlongation/type'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'

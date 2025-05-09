@@ -1,6 +1,6 @@
 'use client'
 
-import {AnnouncementSummaryEntity, getAnnouncementSummaryEntity} from '@/entities'
+import {AnnouncementSummaryEntity, getAnnouncementSummaryEntity} from '../../../prevEntities'
 import {IAnnouncement} from '@/widgets/announcement/const/type'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'

@@ -43,6 +43,7 @@ import adNameToKorean from '@/shared/lib/helper/adNameToKorean'
 import numberToStringWithComma from '@/shared/lib/helper/numberToStringWithComma'
 import yyyyMmDdToDate from '@/shared/lib/helper/yyyyMmDdToDate'
 
+import {globalRouter, setGlobalRouter} from '@/shared/lib/router/globalRouter'
 
 export {
   processWidth,
@@ -76,4 +77,7 @@ export {
   numberToStringWithComma,
   useTableSection,
   yyyyMmDdToDate,
+
+  globalRouter,
+  setGlobalRouter,
 }

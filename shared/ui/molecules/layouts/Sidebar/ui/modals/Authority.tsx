@@ -1,4 +1,4 @@
-import {AdminEntity} from '@/entities'
+import {AdminEntity} from '../../../../../../../prevEntities'
 import {TSetState} from '@/shared/const'
 import {check_is_typed_when_string} from '@/shared/lib'
 import {Typo} from '@/shared/ui/atoms'

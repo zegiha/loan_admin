@@ -14,7 +14,7 @@ export default function RegisterDetail({
   const {
     approveFunc,
     rejectFunc,
-  } = useRegisterDetail(data.id)
+  } = useRegisterDetail(data.id, setIsOpen)
 
   return (
     <Sidepeek
@@ -31,16 +31,23 @@ export default function RegisterDetail({
           <Col key={i} width={'fill'} gap={2}>
             <Typo.Caption>{v1.subtitle}</Typo.Caption>
             <Table>
-              {v1.data.map((v2, i) => (
+              {v1.data.map((v2, i) => {
+                if(!(v2.label !== '대부업 등록증' && v2.label !== '사업자 등록증')) console.log(v2.contents)
+                return (
                 <TableLabeledRow
                   key={i}
                   label={v2.label}
                   contents={v2.label !== '대부업 등록증' && v2.label !== '사업자 등록증' ?
                     v2.contents :
-                    <Certificate src={v2.contents} alt={v2.label}/>
+                    v2.contents ?
+                      <Certificate src={v2.contents} alt={v2.label}/>:
+                      <Typo.Contents color={'dim'} isPre={'wrap'}>
+                        {'이미지를 불러오지 못했습니다\n'}
+                        {'나중에 다시 시도해주세요'}
+                      </Typo.Contents>
                   }
                 />
-              ))}
+              )})}
             </Table>
           </Col>
         ))}

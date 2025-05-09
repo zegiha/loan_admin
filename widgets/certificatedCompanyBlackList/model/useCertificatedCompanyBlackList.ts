@@ -1,6 +1,6 @@
 'use client'
 
-import {BlackListEntity, getCertificatedCompanyBlackList} from '@/entities'
+import {BlackListEntity, getCertificatedCompanyBlackList} from '../../../prevEntities'
 import {
   ICertificatedCompanyBlackListDeleteModal,
   ICertificatedCompanyBlackListTableRow

@@ -1,8 +1,8 @@
-import {BrokerEntitySummary} from '@/entities'
+import {BrokerEntitySummary} from '../../../../../prevEntities'
 
 export interface IManagementTableRow extends Omit<BrokerEntitySummary, 'userId'> {
   moreInfoSidepeekFunc: () => void
-  logoutModalFunc: () => void
+  // logoutModalFunc: () => void
   deleteUserModalFunc: () => void
 }
 

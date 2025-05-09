@@ -1,5 +1,5 @@
 'use client'
-import {AdminEntity} from '@/entities'
+import {AdminEntity} from '../../../../../../prevEntities'
 import {ISettingTableRow} from '@/shared/ui/molecules/layouts/Sidebar/ui/modals/Setting'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'

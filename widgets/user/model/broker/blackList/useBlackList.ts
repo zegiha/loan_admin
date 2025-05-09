@@ -1,40 +1,30 @@
 'use client'
 
-import getBlackList from '@/entities/blackList/api/getBlackList'
-import {IBlackListTableRow} from '@/widgets/user/const/broker/blackList/type'
-import {useEffect, useState} from 'react'
+import {userControllerPardon, useUserControllerBlacklist} from '@/entities/api/user/user'
+import {useState} from 'react'
 
 export default function useBlackList() {
   const [showRow, setShowRow] = useState<number>(1)
-  const [data, setData] = useState<Array<IBlackListTableRow> | null>(null)
   const [targetUser, setTargetUser] = useState<{userId: string, name: string} | null>(null)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false)
 
-  const fetching = () => {
-    const fetchData = getBlackList()
-    const newData: Array<IBlackListTableRow> = []
-    fetchData.forEach(v => {
-      newData.push({...v, excludeModalOpenFunc: () => {
-          setTargetUser({userId: v.userId, name: v.id})
-          setIsDeleteModalOpen(true)
-        }})
-    })
-    setData([...newData])
-  }
+  const queryRes = useUserControllerBlacklist()
 
-  useEffect(() => {
-    fetching()
-  }, [])
-
-  const excludeFunc = () => {
+  const excludeFunc = async (id: string) => {
     // TODO 블랙리스트 제외
-    setIsDeleteModalOpen(false)
+    try {
+      await userControllerPardon({id})
+      alert('제외되었습니다')
+      setIsDeleteModalOpen(false)
+    } catch (e) {
+      alert('문제가 발생했습니다 다시 시도해주세요')
+    }
   }
 
   return {
+    ...queryRes,
     showRow, setShowRow,
-    data, fetching,
     targetUser, setTargetUser,
     isDeleteModalOpen, setIsDeleteModalOpen,
     isAddModalOpen, setIsAddModalOpen,

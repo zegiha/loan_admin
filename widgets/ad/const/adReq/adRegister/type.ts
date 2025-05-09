@@ -1,4 +1,4 @@
-import {AdRegisterSummaryEntity} from '@/entities'
+import {AdRegisterSummaryEntity} from '../../../../../prevEntities'
 
 export interface IAdRegisterTableRow extends Omit<AdRegisterSummaryEntity, 'userId' | 'adReqId'> {
   id: string
