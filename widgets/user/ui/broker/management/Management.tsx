@@ -71,7 +71,7 @@ export default function Management() {
       {targetUser !== null && isSidepeekOpen && <MoreInfoSidepeek
         isOpen={isSidepeekOpen}
         setIsOpen={setIsSidepeekOpen}
-        userId={targetUser.userId}
+        targetUser={targetUser}
       />}
     </>
   )

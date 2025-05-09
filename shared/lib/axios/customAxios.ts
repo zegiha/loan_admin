@@ -1,15 +1,9 @@
-import {adminControllerProfile} from '@/entities/api/admin/admin'
 import {globalRouter} from '@/shared/lib'
-import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios'
+import axios, {AxiosError, AxiosRequestConfig} from 'axios'
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   withCredentials: true,
-  headers: {
-    // 'ngrok-skip-browser-warning': true,
-    // 'Access-Control-Allow-Origin': 'https://loan.apne2a.algorix.cloud',
-    // 'Access-Control-Allow-Headers': 'https://loan.apne2a.algorix.cloud',
-  }
 })
 
 instance.interceptors.response.use(
@@ -26,7 +20,7 @@ instance.interceptors.response.use(
 export const customInstance = <T>(
   config: AxiosRequestConfig,
   options?: AxiosRequestConfig,
-): Promise<AxiosResponse<T>> => {
+): Promise<T> => {
   const source = axios.CancelToken.source();
   const promise = instance({
     ...config,

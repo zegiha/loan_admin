@@ -5,7 +5,6 @@ export default async function getBrokerById(userId: string): Promise<BrokerEntit
     // TODO 추가로 사용자 정보에 들어갈만한거 있으면 넣기
     userId: userId,
     id: "ximya_kim",
-    password: "securePassword123!",
     phone: "010-1234-5678",
     exponentName: "홍길동",
     brokerageNumber: "BR-20250001",

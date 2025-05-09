@@ -1,46 +1,52 @@
 'use client'
 
-import {adminControllerFindAll} from '@/entities/api/admin/admin'
-import {BrokerEntitySummary} from '../../../../../prevEntities'
-import getBrokerSummary from '@/prevEntities/broker/api/getBrokerSummary'
 import {IManagementTableRow} from '@/widgets/user/const/broker/management/type'
-import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'
+import {useUserControllerActives} from "@/entities/api/user/user";
+import {BrokerEntity} from "@/prevEntities";
 
 export default function() {
-  const [isLogoutOpen, setIsLogoutOpen] = useState<boolean>(false)
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false)
   const [isSidepeekOpen, setIsSidepeekOpen] = useState<boolean>(false)
-  const [targetUser, setTargetUser] = useState<{id: string, userId: string} | null>(null)
+  const [targetUser, setTargetUser] = useState<BrokerEntity | null>(null)
 
-  const queryRes = useQuery<Array<BrokerEntitySummary>, Error, Array<IManagementTableRow>>({
-    queryKey: ['brokerList'],
-    queryFn: getBrokerSummary,
-    select: data => {
-      const res: Array<IManagementTableRow> = []
-      data.forEach(v => {
-        res.push({
-          ...v,
-          moreInfoSidepeekFunc: () => {
-            setTargetUser({...v})
-            setIsSidepeekOpen(true)
-          },
-          logoutModalFunc: () => {
-            setTargetUser({...v})
-            setIsLogoutOpen(true)
-          },
-          deleteUserModalFunc: () => {
-            setTargetUser({...v})
-            setIsDeleteOpen(true)
+  const queryRes = useUserControllerActives({
+    query: {
+      select: v => {
+        const res: Array<IManagementTableRow> = []
+        v.forEach(v => {
+          const broker: BrokerEntity = {
+            ...v,
+            userId: v.id,
+            phone: v.tel,
+            brokerageNumber: v.registeredNumber,
+            advertisementPhone: v.advertisementTel,
+            brokerageStartPeriod: new Date(v.registerPeriodStart),
+            brokerageEndPeriod: new Date(v.registerPeriodEnd),
+            brokerageRegistrar: v.registrar,
+            brokerageRegistrationCertificateUrl: v.loanRegistrationCertificate,
+            businessRegistrationCertificateUrl: v.businessRegistrationCertificate,
+            companyPhone: v.companyTel,
+            blackListStatus: v.isBlacklist
           }
+          res.push({
+            ...broker,
+            moreInfoSidepeekFunc: () => {
+              setTargetUser({...broker})
+              setIsSidepeekOpen(true)
+            },
+            deleteUserModalFunc: () => {
+              setTargetUser({...broker})
+              setIsDeleteOpen(true)
+            }
+          })
         })
-      })
-      return res
+        return res
+      }
     }
   })
 
   return {
-    isLogoutOpen, setIsLogoutOpen,
     isDeleteOpen, setIsDeleteOpen,
     isSidepeekOpen, setIsSidepeekOpen,
     targetUser, setTargetUser,
