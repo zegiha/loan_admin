@@ -21,7 +21,11 @@ import type {
   UseQueryResult,
 } from '@tanstack/react-query'
 
-import type { ContactResponseDto, CreateContactDto } from '../../const'
+import type {
+  ContactReplyDto,
+  ContactResponseDto,
+  CreateContactDto,
+} from '../../const'
 
 import { customInstance } from '../../../shared/lib/axios/customAxios'
 import type { ErrorType, BodyType } from '../../../shared/lib/axios/customAxios'
@@ -523,6 +527,98 @@ export const useContactControllerDelete = <
   TContext
 > => {
   const mutationOptions = getContactControllerDeleteMutationOptions(options)
+
+  return useMutation(mutationOptions, queryClient)
+}
+/**
+ * @summary 대출 문의 답변 발송
+ */
+export const contactControllerSendReply = (
+  id: string,
+  contactReplyDto: BodyType<ContactReplyDto>,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<void>(
+    {
+      url: `/contact/reply/${id}`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: contactReplyDto,
+      signal,
+    },
+    options
+  )
+}
+
+export const getContactControllerSendReplyMutationOptions = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof contactControllerSendReply>>,
+    TError,
+    { id: string; data: BodyType<ContactReplyDto> },
+    TContext
+  >
+  request?: SecondParameter<typeof customInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof contactControllerSendReply>>,
+  TError,
+  { id: string; data: BodyType<ContactReplyDto> },
+  TContext
+> => {
+  const mutationKey = ['contactControllerSendReply']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof contactControllerSendReply>>,
+    { id: string; data: BodyType<ContactReplyDto> }
+  > = props => {
+    const { id, data } = props ?? {}
+
+    return contactControllerSendReply(id, data, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type ContactControllerSendReplyMutationResult = NonNullable<
+  Awaited<ReturnType<typeof contactControllerSendReply>>
+>
+export type ContactControllerSendReplyMutationBody = BodyType<ContactReplyDto>
+export type ContactControllerSendReplyMutationError = ErrorType<void>
+
+/**
+ * @summary 대출 문의 답변 발송
+ */
+export const useContactControllerSendReply = <
+  TError = ErrorType<void>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof contactControllerSendReply>>,
+      TError,
+      { id: string; data: BodyType<ContactReplyDto> },
+      TContext
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<typeof contactControllerSendReply>>,
+  TError,
+  { id: string; data: BodyType<ContactReplyDto> },
+  TContext
+> => {
+  const mutationOptions = getContactControllerSendReplyMutationOptions(options)
 
   return useMutation(mutationOptions, queryClient)
 }

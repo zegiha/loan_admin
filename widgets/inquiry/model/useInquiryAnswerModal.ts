@@ -17,6 +17,7 @@ export default function useInquiryAnswerModal() {
   const [ans, setAns] = useState<string>('')
 
   const answerFunc: () => Promise<boolean> = async () => {
+    const
     // TODO 1ㄷ1문의 답변 API
     return true
   }
