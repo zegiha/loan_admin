@@ -13,7 +13,7 @@ export default function Inquiry() {
   const {showRow, setShowRow} = useTableSection()
   const {
     isOpen, setIsOpen,
-    targetId, setTargetId,
+    target, setTarget,
     status, data, error, refetch
   } = useInquiry()
 
@@ -26,26 +26,32 @@ export default function Inquiry() {
           setShowRowAction={setShowRow}
           reloadFunc={refetch}
         >
-          {parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
-            <Table key={i} maxShowingRow={showRow + 1}>
-              <InquiryTableHeader/>
-              {v1.map((v2, i) => (
-                <InquiryTableRow
-                  key={i}
-                  {...v2}
-                />
-              ))}
-            </Table>
-          ))}
+          {Array.isArray(data) ? (
+            parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
+              <Table key={i} maxShowingRow={showRow + 1}>
+                <InquiryTableHeader/>
+                {v1.map((v2, i) => (
+                  <InquiryTableRow
+                    key={i}
+                    {...v2}
+                  />
+                ))}
+              </Table>
+            ))
+          ):(
+            <Typo.Contents>
+              문의가 없어요
+            </Typo.Contents>
+          )}
         </TableSection>
       )}
       {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}
       {status === 'error' && (<Typo.Contents>{error?.message}</Typo.Contents>)}
-      {targetId !== null && isOpen && (
+      {target !== null && isOpen && (
         <InquiryAnswerModal
           {...{
             isOpen, setIsOpen,
-            targetId, setTargetId,
+            target, setTarget,
           }}
         />
       )}

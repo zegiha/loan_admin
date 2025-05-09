@@ -6,4 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type Notice = { [key: string]: unknown }
+export type AdvertiseControllerSearchAdsParams = {
+  location: string
+  content: string
+  ad_type: string
+}

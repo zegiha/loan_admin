@@ -4,5 +4,5 @@ export default interface AnnouncementEntity {
   title: string
   contents: string
   writedDate: Date
-  viewCount: number
+  // viewCount: number
 }

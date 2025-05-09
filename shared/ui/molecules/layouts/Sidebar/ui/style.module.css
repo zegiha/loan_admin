@@ -10,6 +10,11 @@
 	flex-shrink: 0;
 }
 
+.wrapper {
+	position: relative;
+	height: 100%;
+}
+
 .iconButton32, .navItem{
 	transition: var(--transition-normal);
 	cursor: pointer;
@@ -34,4 +39,9 @@
 .navItemActive {
 	background-color: var(--container-containerNormal);
 	box-shadow: 0 0 1px 1px var(--outline-default);
+}
+
+.createAdminContainer {
+	position: absolute;
+	bottom: 0;
 }

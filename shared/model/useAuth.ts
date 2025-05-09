@@ -1,33 +1,34 @@
 'use client'
 
+import {adminControllerProfile} from '@/entities/api/admin/admin'
 import {TAdminAuthority} from '@/shared/const'
-// import {axiosWithToken} from '@/shared/lib'
 import {create} from 'zustand/index'
 
 interface IAuth{
   authority: TAdminAuthority
   id: string
-  name: string
 }
 
 interface IUseAuth {
   data: IAuth | null
-  setData: () => Promise<IAuth | null>
+  setData: () => Promise<void>
 }
 
 const useAuth = create<IUseAuth>(set => ({
   data: null,
   setData: async () => {
-    // const axios = await axiosWithToken()
-    // const data = await axios.get('')
-    // TODO 유저 정보 받아오기
-    const dummy: IAuth = {
-      authority: 'SUPER',
-      id: 'zegiha',
-      name: '이서율',
+    try {
+      const res = await adminControllerProfile()
+      set(prev => ({
+        ...prev,
+        data: {
+          id: res.id,
+          authority: res.role === 'ADMIN' ? 'NORMAL' : 'SUPER'
+        }
+      }))
+    } catch(e) {
+      console.error(`admin profile: ${e}`)
     }
-    set(() => ({data: dummy}))
-    return dummy
   }
 }))
 

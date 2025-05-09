@@ -13,7 +13,10 @@ import type {
   UseMutationResult,
 } from '@tanstack/react-query'
 
-import type { UploadControllerUploadFileBody } from '../../const'
+import type {
+  UploadControllerUploadFileBody,
+  UploadResponseDto,
+} from '../../const'
 
 import { customInstance } from '../../../shared/lib/axios/customAxios'
 import type { ErrorType, BodyType } from '../../../shared/lib/axios/customAxios'
@@ -30,7 +33,7 @@ export const uploadControllerUploadFile = (
     formData.append(`file`, uploadControllerUploadFileBody.file)
   }
 
-  return customInstance<void>(
+  return customInstance<UploadResponseDto | void>(
     {
       url: `/upload/file`,
       method: 'POST',

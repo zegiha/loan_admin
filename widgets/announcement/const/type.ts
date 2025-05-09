@@ -10,4 +10,5 @@ export interface IAnnouncementDetailProps {
   setIsOpen: TSetState<boolean>
   targetId: string
   setTargetId: TSetState<string | null>
+  refetch: () => void
 }

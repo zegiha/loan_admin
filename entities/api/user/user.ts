@@ -21,7 +21,11 @@ import type {
   UseQueryResult,
 } from '@tanstack/react-query'
 
-import type { Object } from '../../const'
+import type {
+  Object,
+  UserControllerDeleteProfile200,
+  UserResponseDto,
+} from '../../const'
 
 import { customInstance } from '../../../shared/lib/axios/customAxios'
 import type { ErrorType, BodyType } from '../../../shared/lib/axios/customAxios'
@@ -36,7 +40,10 @@ export const userControllerFindAll = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>({ url: `/user`, method: 'GET', signal }, options)
+  return customInstance<UserResponseDto[]>(
+    { url: `/user`, method: 'GET', signal },
+    options
+  )
 }
 
 export const getUserControllerFindAllQueryKey = () => {
@@ -181,6 +188,161 @@ export function useUserControllerFindAll<
 }
 
 /**
+ * 활동 허가된 사용자 목록을 조회합니다.
+ * @summary 활동 허가된 사용자 조회
+ */
+export const userControllerActives = (
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<UserResponseDto[]>(
+    { url: `/user/active`, method: 'GET', signal },
+    options
+  )
+}
+
+export const getUserControllerActivesQueryKey = () => {
+  return [`/user/active`] as const
+}
+
+export const getUserControllerActivesQueryOptions = <
+  TData = Awaited<ReturnType<typeof userControllerActives>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof userControllerActives>>,
+      TError,
+      TData
+    >
+  >
+  request?: SecondParameter<typeof customInstance>
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey = queryOptions?.queryKey ?? getUserControllerActivesQueryKey()
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof userControllerActives>>
+  > = ({ signal }) => userControllerActives(requestOptions, signal)
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof userControllerActives>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type UserControllerActivesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerActives>>
+>
+export type UserControllerActivesQueryError = ErrorType<unknown>
+
+export function useUserControllerActives<
+  TData = Awaited<ReturnType<typeof userControllerActives>>,
+  TError = ErrorType<unknown>,
+>(
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerActives>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerActives>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerActives>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useUserControllerActives<
+  TData = Awaited<ReturnType<typeof userControllerActives>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerActives>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerActives>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerActives>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useUserControllerActives<
+  TData = Awaited<ReturnType<typeof userControllerActives>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerActives>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary 활동 허가된 사용자 조회
+ */
+
+export function useUserControllerActives<
+  TData = Awaited<ReturnType<typeof userControllerActives>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerActives>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getUserControllerActivesQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
  * 블랙리스트에 등록된 사용자 목록을 조회합니다.
  * @summary 블랙리스트 사용자 조회
  */
@@ -188,7 +350,7 @@ export const userControllerBlacklist = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<UserResponseDto[]>(
     { url: `/user/blacklist`, method: 'GET', signal },
     options
   )
@@ -344,7 +506,7 @@ export const userControllerDeactive = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<UserResponseDto[]>(
     { url: `/user/deactive`, method: 'GET', signal },
     options
   )
@@ -500,7 +662,7 @@ export const userControllerBlack = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<UserResponseDto>(
     {
       url: `/user/black`,
       method: 'POST',
@@ -592,7 +754,7 @@ export const userControllerPardon = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<UserResponseDto>(
     {
       url: `/user/pardon`,
       method: 'POST',
@@ -684,7 +846,7 @@ export const userControllerActive = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<UserResponseDto>(
     { url: `/user/active/${id}`, method: 'POST', signal },
     options
   )
@@ -770,7 +932,7 @@ export const userControllerDeactiveUser = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<UserResponseDto>(
     { url: `/user/deactive/${id}`, method: 'POST', signal },
     options
   )
@@ -855,7 +1017,7 @@ export const userControllerProfile = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<UserResponseDto>(
     { url: `/user/profile`, method: 'GET', signal },
     options
   )
@@ -1011,7 +1173,7 @@ export const userControllerProfileById = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<UserResponseDto>(
     { url: `/user/profile/${id}`, method: 'GET', signal },
     options
   )
@@ -1179,7 +1341,10 @@ export const userControllerDeleteProfile = (
   id: string,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>({ url: `/user/${id}`, method: 'DELETE' }, options)
+  return customInstance<UserControllerDeleteProfile200>(
+    { url: `/user/${id}`, method: 'DELETE' },
+    options
+  )
 }
 
 export const getUserControllerDeleteProfileMutationOptions = <
@@ -1252,4 +1417,172 @@ export const useUserControllerDeleteProfile = <
   const mutationOptions = getUserControllerDeleteProfileMutationOptions(options)
 
   return useMutation(mutationOptions, queryClient)
+}
+/**
+ * 특정 사용자의 정보를 조회합니다.
+ * @summary 사용자 정보 조회
+ */
+export const userControllerGetUser = (
+  id: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<UserResponseDto>(
+    { url: `/user/${id}`, method: 'GET', signal },
+    options
+  )
+}
+
+export const getUserControllerGetUserQueryKey = (id: string) => {
+  return [`/user/${id}`] as const
+}
+
+export const getUserControllerGetUserQueryOptions = <
+  TData = Awaited<ReturnType<typeof userControllerGetUser>>,
+  TError = ErrorType<unknown>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerGetUser>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getUserControllerGetUserQueryKey(id)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof userControllerGetUser>>
+  > = ({ signal }) => userControllerGetUser(id, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof userControllerGetUser>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type UserControllerGetUserQueryResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerGetUser>>
+>
+export type UserControllerGetUserQueryError = ErrorType<unknown>
+
+export function useUserControllerGetUser<
+  TData = Awaited<ReturnType<typeof userControllerGetUser>>,
+  TError = ErrorType<unknown>,
+>(
+  id: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerGetUser>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerGetUser>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerGetUser>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useUserControllerGetUser<
+  TData = Awaited<ReturnType<typeof userControllerGetUser>>,
+  TError = ErrorType<unknown>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerGetUser>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerGetUser>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerGetUser>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useUserControllerGetUser<
+  TData = Awaited<ReturnType<typeof userControllerGetUser>>,
+  TError = ErrorType<unknown>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerGetUser>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary 사용자 정보 조회
+ */
+
+export function useUserControllerGetUser<
+  TData = Awaited<ReturnType<typeof userControllerGetUser>>,
+  TError = ErrorType<unknown>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerGetUser>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getUserControllerGetUserQueryOptions(id, options)
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
 }

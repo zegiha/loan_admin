@@ -6,7 +6,6 @@ import {IAnnouncement} from '@/widgets/announcement/const/type'
 export default function({
   type,
   title,
-  viewCount,
   writedDate,
   detailFunc,
 }: IAnnouncement) {
@@ -20,9 +19,9 @@ export default function({
     <Typo.Contents width={84}>
       {formatDateDotYmd(writedDate)}
     </Typo.Contents>
-    <Typo.Contents width={84}>
-      {numberToStringWithComma(viewCount)}
-    </Typo.Contents>
+    {/*<Typo.Contents width={84}>*/}
+    {/*  {numberToStringWithComma(viewCount)}*/}
+    {/*</Typo.Contents>*/}
     <TextButton
       width={60}
       onClick={detailFunc}

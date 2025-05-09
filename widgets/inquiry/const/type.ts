@@ -1,4 +1,4 @@
-import {InquirySummaryEntity} from '../../../prevEntities'
+import {InquiryEntity, InquirySummaryEntity} from '../../../prevEntities'
 import {TSetState} from '@/shared/const'
 
 export interface IInquiryTableRow extends Omit<InquirySummaryEntity, 'inquiryId'>{
@@ -8,6 +8,6 @@ export interface IInquiryTableRow extends Omit<InquirySummaryEntity, 'inquiryId'
 export interface IInquiryAnswerModal {
   isOpen: boolean
   setIsOpen: TSetState<boolean>
-  targetId: string
-  setTargetId: TSetState<string | null>
+  target: InquiryEntity
+  setTarget: TSetState<InquiryEntity | null>
 }

@@ -1,10 +1,12 @@
 'use client'
 
+import {noticeControllerUpdateNotice} from '@/entities/api/notice/notice'
 import {AnnouncementEntity} from '../../../prevEntities'
 import {check_is_typed_when_string} from '@/shared/lib'
 import {useState} from 'react'
 
 export default function useAnnouncementEdit(
+  targetId: string,
   currentTitle: string,
   currentContents: string,
   currentType: AnnouncementEntity['type']
@@ -13,17 +15,28 @@ export default function useAnnouncementEdit(
   const [contents, setContents] = useState<string>(currentContents)
   const [type, setType] = useState<AnnouncementEntity['type']>(currentType)
 
+  const messageSubject = ['제목은', '내용은']
+
   const editFunc = async () => {
-    if(
-      check_is_typed_when_string(title) === null &&
-      check_is_typed_when_string(contents) === null &&
-      check_is_typed_when_string(type) === null
-    ) {
-      // TODO 공지 수정 API
-      return true
-    } else {
-      alert('잘못된 입력이 있습니다')
-      return false
+    const target = [title, contents]
+    for(let i = 0; i < 2; i++) {
+      const res = check_is_typed_when_string(target[i])
+      if(res !== null)
+        return `${messageSubject[i]} ${res}`
+    }
+
+    try {
+      await noticeControllerUpdateNotice(
+        targetId,
+        {
+          title,
+          contents,
+          type: type === 'NORMAL' ? 'normal' : 'important'
+        }
+      )
+      return 'success'
+    } catch(e) {
+      return 'error'
     }
   }
 

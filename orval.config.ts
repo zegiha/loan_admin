@@ -20,7 +20,7 @@ export default defineConfig({
       clean: true,
     },
     hooks: {
-      afterAllFilesWrite: 'prettier --write "./test/**/*.{ts,tsx}"',
+      afterAllFilesWrite: 'prettier --write "./entities/**/*.{ts,tsx}"',
     },
   },
 })

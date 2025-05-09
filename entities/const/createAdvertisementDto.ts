@@ -32,4 +32,6 @@ export type CreateAdvertisementDto = {
   product_type?: CreateAdvertisementDtoProductTypeItem[]
   /** 남은 광고 수량 */
   remain?: number
+  /** 입금자명 */
+  deposit_name?: string
 }

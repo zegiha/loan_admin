@@ -33,6 +33,7 @@ export default function TableSectionHeader({
         </Typo.SubBody>
         <Dropdown.Select
           width={70}
+          hoverOpen
           selectedContents={`${tableDropdownOptions[selectedIdx]}개`}
         >
           {tableDropdownOptions.map((v, i) => (

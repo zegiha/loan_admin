@@ -1,3 +1,4 @@
+import {adminControllerUpdateProfile} from '@/entities/api/admin/admin'
 import {TSetState} from '@/shared/const'
 import {check_id_and_message, check_is_typed_when_string} from '@/shared/lib'
 import {Typo} from '@/shared/ui/atoms'
@@ -35,7 +36,10 @@ export default function Id({
             alert(message)
             return
           }
-          // TODO ID 변경 API
+          // adminControllerUpdateProfile({
+          //   id,
+          //
+          // })
           alert('변경됐습니다')
           setIsOpen(false)
         }}

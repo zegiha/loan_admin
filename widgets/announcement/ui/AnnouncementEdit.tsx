@@ -10,13 +10,13 @@ export default function AnnouncementEdit({
   isOpen,
   setIsOpen,
   target,
-  submitCallback,
+  refetch,
 }: {
   isOpen: boolean
   setIsOpen: TSetState<boolean>
   target:
     Omit<AnnouncementEntity, 'viewCount' | 'writedDate'>
-  submitCallback: () => void
+  refetch: () => void
 }) {
   const {
     title, setTitle,
@@ -24,9 +24,10 @@ export default function AnnouncementEdit({
     type, setType,
     editFunc
   } = useAnnouncementEdit(
+    target.announcementId,
     target.title,
     target.contents,
-    target.type
+    target.type,
   )
 
   return <Modal
@@ -50,12 +51,17 @@ export default function AnnouncementEdit({
         submitContents={'수정하기'}
         cancelFunc={() => setIsOpen(false)}
         submitFunc={() => {
-          editFunc().then((res) => {
-            if(!res) return
-            alert('수정됐습니다')
-            submitCallback()
-            setIsOpen(false)
-          })
+          editFunc()
+            .then(res => {
+              if(res === 'success') {
+                refetch()
+                setIsOpen(false)
+              }
+              else if(res === 'error')
+                alert('다시 시도해주세요')
+              else
+                alert(res)
+            })
         }}
       />
     </ModalContainer>

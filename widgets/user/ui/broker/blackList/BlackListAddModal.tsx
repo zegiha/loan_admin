@@ -6,13 +6,15 @@ import useBlackListAddModal from '@/widgets/user/model/broker/blackList/useBlack
 export default function({
   isOpen,
   setIsOpen,
+  refetch,
 }: {
   isOpen: boolean,
   setIsOpen: TSetState<boolean>
+  refetch: () => {}
 }) {
   const {
     target, setTarget,
-    additionalReason, setAdditionalReason,
+    // additionalReason, setAdditionalReason,
     selections,
     selectionPlaceholder,
     addToBlack,
@@ -34,12 +36,12 @@ export default function({
             selectionPlaceholder={selectionPlaceholder}
             selections={selections}
           />
-          <TextInput
-            label={'추가 사유'}
-            value={additionalReason}
-            placeholder={'사유를 입력해주세요'}
-            onChangeAction={v => setAdditionalReason(v)}
-          />
+          {/*<TextInput*/}
+          {/*  label={'추가 사유'}*/}
+          {/*  value={additionalReason}*/}
+          {/*  placeholder={'사유를 입력해주세요'}*/}
+          {/*  onChangeAction={v => setAdditionalReason(v)}*/}
+          {/*/>*/}
         </Col>
         <Row width={'fill'} justifyContents={'end'} gap={12}>
           <CtaButton onClick={() => {
@@ -51,6 +53,7 @@ export default function({
             // TODO 블랙 등록 API 연결
             const handleAddToBlack = async () => {
               if(await addToBlack(target)) {
+                refetch()
                 setIsOpen(false)
               }
             }

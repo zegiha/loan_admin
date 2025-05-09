@@ -11,7 +11,7 @@ export type CreateNoticeDto = {
   /** 공지사항 제목 */
   title: string
   /** 공지사항 내용 */
-  content: string
+  contents: string
   /** 공지사항 유형 */
   type: CreateNoticeDtoType
 }

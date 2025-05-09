@@ -17,13 +17,7 @@ instance.interceptors.response.use(
   async (err) => {
     if(err instanceof AxiosError) {
       if(err.status === 401) {
-        try {
-          await adminControllerProfile()
-        } catch (e) {
-          if(e instanceof AxiosError && e.status === 401) {
-            globalRouter?.replace('/login')
-          }
-        }
+        globalRouter?.replace('/login')
       }
     }
   }

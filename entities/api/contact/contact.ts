@@ -21,7 +21,7 @@ import type {
   UseQueryResult,
 } from '@tanstack/react-query'
 
-import type { Contact, CreateContactDto } from '../../const'
+import type { ContactResponseDto, CreateContactDto } from '../../const'
 
 import { customInstance } from '../../../shared/lib/axios/customAxios'
 import type { ErrorType, BodyType } from '../../../shared/lib/axios/customAxios'
@@ -36,7 +36,7 @@ export const contactControllerCreate = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<Contact | void>(
+  return customInstance<ContactResponseDto>(
     {
       url: `/contact`,
       method: 'POST',
@@ -126,7 +126,7 @@ export const contactControllerFindAll = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<ContactResponseDto[]>(
     { url: `/contact`, method: 'GET', signal },
     options
   )
@@ -277,30 +277,30 @@ export function useContactControllerFindAll<
 /**
  * @summary 대출 문의 상세 조회
  */
-export const contactControllerFindOne = (
+export const contactControllerGetContact = (
   id: string,
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<ContactResponseDto>(
     { url: `/contact/${id}`, method: 'GET', signal },
     options
   )
 }
 
-export const getContactControllerFindOneQueryKey = (id: string) => {
+export const getContactControllerGetContactQueryKey = (id: string) => {
   return [`/contact/${id}`] as const
 }
 
-export const getContactControllerFindOneQueryOptions = <
-  TData = Awaited<ReturnType<typeof contactControllerFindOne>>,
+export const getContactControllerGetContactQueryOptions = <
+  TData = Awaited<ReturnType<typeof contactControllerGetContact>>,
   TError = ErrorType<void>,
 >(
   id: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof contactControllerFindOne>>,
+        Awaited<ReturnType<typeof contactControllerGetContact>>,
         TError,
         TData
       >
@@ -311,11 +311,11 @@ export const getContactControllerFindOneQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey =
-    queryOptions?.queryKey ?? getContactControllerFindOneQueryKey(id)
+    queryOptions?.queryKey ?? getContactControllerGetContactQueryKey(id)
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof contactControllerFindOne>>
-  > = ({ signal }) => contactControllerFindOne(id, requestOptions, signal)
+    Awaited<ReturnType<typeof contactControllerGetContact>>
+  > = ({ signal }) => contactControllerGetContact(id, requestOptions, signal)
 
   return {
     queryKey,
@@ -323,35 +323,35 @@ export const getContactControllerFindOneQueryOptions = <
     enabled: !!id,
     ...queryOptions,
   } as UseQueryOptions<
-    Awaited<ReturnType<typeof contactControllerFindOne>>,
+    Awaited<ReturnType<typeof contactControllerGetContact>>,
     TError,
     TData
   > & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type ContactControllerFindOneQueryResult = NonNullable<
-  Awaited<ReturnType<typeof contactControllerFindOne>>
+export type ContactControllerGetContactQueryResult = NonNullable<
+  Awaited<ReturnType<typeof contactControllerGetContact>>
 >
-export type ContactControllerFindOneQueryError = ErrorType<void>
+export type ContactControllerGetContactQueryError = ErrorType<void>
 
-export function useContactControllerFindOne<
-  TData = Awaited<ReturnType<typeof contactControllerFindOne>>,
+export function useContactControllerGetContact<
+  TData = Awaited<ReturnType<typeof contactControllerGetContact>>,
   TError = ErrorType<void>,
 >(
   id: string,
   options: {
     query: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof contactControllerFindOne>>,
+        Awaited<ReturnType<typeof contactControllerGetContact>>,
         TError,
         TData
       >
     > &
       Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof contactControllerFindOne>>,
+          Awaited<ReturnType<typeof contactControllerGetContact>>,
           TError,
-          Awaited<ReturnType<typeof contactControllerFindOne>>
+          Awaited<ReturnType<typeof contactControllerGetContact>>
         >,
         'initialData'
       >
@@ -361,24 +361,24 @@ export function useContactControllerFindOne<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>
 }
-export function useContactControllerFindOne<
-  TData = Awaited<ReturnType<typeof contactControllerFindOne>>,
+export function useContactControllerGetContact<
+  TData = Awaited<ReturnType<typeof contactControllerGetContact>>,
   TError = ErrorType<void>,
 >(
   id: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof contactControllerFindOne>>,
+        Awaited<ReturnType<typeof contactControllerGetContact>>,
         TError,
         TData
       >
     > &
       Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof contactControllerFindOne>>,
+          Awaited<ReturnType<typeof contactControllerGetContact>>,
           TError,
-          Awaited<ReturnType<typeof contactControllerFindOne>>
+          Awaited<ReturnType<typeof contactControllerGetContact>>
         >,
         'initialData'
       >
@@ -388,15 +388,15 @@ export function useContactControllerFindOne<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>
 }
-export function useContactControllerFindOne<
-  TData = Awaited<ReturnType<typeof contactControllerFindOne>>,
+export function useContactControllerGetContact<
+  TData = Awaited<ReturnType<typeof contactControllerGetContact>>,
   TError = ErrorType<void>,
 >(
   id: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof contactControllerFindOne>>,
+        Awaited<ReturnType<typeof contactControllerGetContact>>,
         TError,
         TData
       >
@@ -411,15 +411,15 @@ export function useContactControllerFindOne<
  * @summary 대출 문의 상세 조회
  */
 
-export function useContactControllerFindOne<
-  TData = Awaited<ReturnType<typeof contactControllerFindOne>>,
+export function useContactControllerGetContact<
+  TData = Awaited<ReturnType<typeof contactControllerGetContact>>,
   TError = ErrorType<void>,
 >(
   id: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof contactControllerFindOne>>,
+        Awaited<ReturnType<typeof contactControllerGetContact>>,
         TError,
         TData
       >
@@ -430,7 +430,7 @@ export function useContactControllerFindOne<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>
 } {
-  const queryOptions = getContactControllerFindOneQueryOptions(id, options)
+  const queryOptions = getContactControllerGetContactQueryOptions(id, options)
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<
     TData,
@@ -449,7 +449,7 @@ export const contactControllerDelete = (
   id: string,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<boolean>(
     { url: `/contact/${id}`, method: 'DELETE' },
     options
   )

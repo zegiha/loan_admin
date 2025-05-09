@@ -21,7 +21,7 @@ import type {
   UseQueryResult,
 } from '@tanstack/react-query'
 
-import type { CompanyCreateDto } from '../../const'
+import type { CompanyCreateDto, CompanyResponseDto } from '../../const'
 
 import { customInstance } from '../../../shared/lib/axios/customAxios'
 import type { ErrorType, BodyType } from '../../../shared/lib/axios/customAxios'
@@ -32,7 +32,7 @@ export const companyControllerFindAll = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<CompanyResponseDto[]>(
     { url: `/company`, method: 'GET', signal },
     options
   )
@@ -177,30 +177,30 @@ export function useCompanyControllerFindAll<
   return query
 }
 
-export const companyControllerFindOne = (
+export const companyControllerGetCompany = (
   id: string,
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<CompanyResponseDto>(
     { url: `/company/${id}`, method: 'GET', signal },
     options
   )
 }
 
-export const getCompanyControllerFindOneQueryKey = (id: string) => {
+export const getCompanyControllerGetCompanyQueryKey = (id: string) => {
   return [`/company/${id}`] as const
 }
 
-export const getCompanyControllerFindOneQueryOptions = <
-  TData = Awaited<ReturnType<typeof companyControllerFindOne>>,
+export const getCompanyControllerGetCompanyQueryOptions = <
+  TData = Awaited<ReturnType<typeof companyControllerGetCompany>>,
   TError = ErrorType<unknown>,
 >(
   id: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerFindOne>>,
+        Awaited<ReturnType<typeof companyControllerGetCompany>>,
         TError,
         TData
       >
@@ -211,11 +211,11 @@ export const getCompanyControllerFindOneQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey =
-    queryOptions?.queryKey ?? getCompanyControllerFindOneQueryKey(id)
+    queryOptions?.queryKey ?? getCompanyControllerGetCompanyQueryKey(id)
 
   const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof companyControllerFindOne>>
-  > = ({ signal }) => companyControllerFindOne(id, requestOptions, signal)
+    Awaited<ReturnType<typeof companyControllerGetCompany>>
+  > = ({ signal }) => companyControllerGetCompany(id, requestOptions, signal)
 
   return {
     queryKey,
@@ -223,35 +223,35 @@ export const getCompanyControllerFindOneQueryOptions = <
     enabled: !!id,
     ...queryOptions,
   } as UseQueryOptions<
-    Awaited<ReturnType<typeof companyControllerFindOne>>,
+    Awaited<ReturnType<typeof companyControllerGetCompany>>,
     TError,
     TData
   > & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type CompanyControllerFindOneQueryResult = NonNullable<
-  Awaited<ReturnType<typeof companyControllerFindOne>>
+export type CompanyControllerGetCompanyQueryResult = NonNullable<
+  Awaited<ReturnType<typeof companyControllerGetCompany>>
 >
-export type CompanyControllerFindOneQueryError = ErrorType<unknown>
+export type CompanyControllerGetCompanyQueryError = ErrorType<unknown>
 
-export function useCompanyControllerFindOne<
-  TData = Awaited<ReturnType<typeof companyControllerFindOne>>,
+export function useCompanyControllerGetCompany<
+  TData = Awaited<ReturnType<typeof companyControllerGetCompany>>,
   TError = ErrorType<unknown>,
 >(
   id: string,
   options: {
     query: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerFindOne>>,
+        Awaited<ReturnType<typeof companyControllerGetCompany>>,
         TError,
         TData
       >
     > &
       Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof companyControllerFindOne>>,
+          Awaited<ReturnType<typeof companyControllerGetCompany>>,
           TError,
-          Awaited<ReturnType<typeof companyControllerFindOne>>
+          Awaited<ReturnType<typeof companyControllerGetCompany>>
         >,
         'initialData'
       >
@@ -261,24 +261,24 @@ export function useCompanyControllerFindOne<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>
 }
-export function useCompanyControllerFindOne<
-  TData = Awaited<ReturnType<typeof companyControllerFindOne>>,
+export function useCompanyControllerGetCompany<
+  TData = Awaited<ReturnType<typeof companyControllerGetCompany>>,
   TError = ErrorType<unknown>,
 >(
   id: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerFindOne>>,
+        Awaited<ReturnType<typeof companyControllerGetCompany>>,
         TError,
         TData
       >
     > &
       Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof companyControllerFindOne>>,
+          Awaited<ReturnType<typeof companyControllerGetCompany>>,
           TError,
-          Awaited<ReturnType<typeof companyControllerFindOne>>
+          Awaited<ReturnType<typeof companyControllerGetCompany>>
         >,
         'initialData'
       >
@@ -288,15 +288,15 @@ export function useCompanyControllerFindOne<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>
 }
-export function useCompanyControllerFindOne<
-  TData = Awaited<ReturnType<typeof companyControllerFindOne>>,
+export function useCompanyControllerGetCompany<
+  TData = Awaited<ReturnType<typeof companyControllerGetCompany>>,
   TError = ErrorType<unknown>,
 >(
   id: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerFindOne>>,
+        Awaited<ReturnType<typeof companyControllerGetCompany>>,
         TError,
         TData
       >
@@ -308,15 +308,15 @@ export function useCompanyControllerFindOne<
   queryKey: DataTag<QueryKey, TData, TError>
 }
 
-export function useCompanyControllerFindOne<
-  TData = Awaited<ReturnType<typeof companyControllerFindOne>>,
+export function useCompanyControllerGetCompany<
+  TData = Awaited<ReturnType<typeof companyControllerGetCompany>>,
   TError = ErrorType<unknown>,
 >(
   id: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
-        Awaited<ReturnType<typeof companyControllerFindOne>>,
+        Awaited<ReturnType<typeof companyControllerGetCompany>>,
         TError,
         TData
       >
@@ -327,7 +327,7 @@ export function useCompanyControllerFindOne<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>
 } {
-  const queryOptions = getCompanyControllerFindOneQueryOptions(id, options)
+  const queryOptions = getCompanyControllerGetCompanyQueryOptions(id, options)
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<
     TData,
@@ -344,7 +344,7 @@ export const companyControllerUpdate = (
   companyCreateDto: BodyType<CompanyCreateDto>,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<CompanyResponseDto>(
     {
       url: `/company/${id}`,
       method: 'PATCH',

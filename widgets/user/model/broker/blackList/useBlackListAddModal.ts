@@ -5,7 +5,7 @@ import {useEffect, useState} from 'react'
 
 export default function() {
   const [target, setTarget] = useState<string>('')
-  const [additionalReason, setAdditionalReason] = useState<string>('')
+  // const [additionalReason, setAdditionalReason] = useState<string>('')
   const [selections, setSelections] = useState<Array<string> | undefined>(undefined)
   const [selectionPlaceholder, setSelectionPlaceholder] = useState<string | undefined>(undefined)
 
@@ -55,7 +55,7 @@ export default function() {
 
   return {
     target, setTarget,
-    additionalReason, setAdditionalReason,
+    // additionalReason, setAdditionalReason,
     selections,
     selectionPlaceholder,
     addToBlack,

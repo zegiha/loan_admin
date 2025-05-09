@@ -3,19 +3,23 @@ import {IconButton, Sidepeek, SidepeekHeaderSection, Table, TableLabeledRow} fro
 import {IAnnouncementDetailProps} from '@/widgets/announcement/const/type'
 import useAnnouncementDetail from '@/widgets/announcement/model/useAnnouncementDetail'
 import AnnouncementEdit from '@/widgets/announcement/ui/AnnouncementEdit'
+import {useEffect} from 'react'
 
 export default function({
   isOpen,
   setIsOpen,
   targetId,
-  setTargetId
+  setTargetId,
+  refetch
 }: IAnnouncementDetailProps) {
   const {
+    deleteAnnouncement,
     isEditOpen, setIsEditOpen,
-    status, data, error
+    status, data, error, refetch: currentRefetch
   } = useAnnouncementDetail(targetId)
 
   const closeFunc = () => {
+    refetch()
     setTargetId(null)
     setIsOpen(false)
   }
@@ -44,9 +48,15 @@ export default function({
               size={'small'}
               fill={false}
               onClick={() => {
-                // TODO 공지 삭제 API
-                alert('삭제됐습니다')
-                closeFunc()
+                deleteAnnouncement(targetId)
+                  .then(res => {
+                    if(res === 'success') {
+                      alert('삭제됐습니다')
+                      closeFunc()
+                    } else {
+                      alert('다시 시도해주세요')
+                    }
+                  })
               }}
             />
           </Row>
@@ -69,8 +79,9 @@ export default function({
               type: data.filter(v => v.label === '분류')[0]
                 .contents === '중요' ? 'VALUABLE' : 'NORMAL',
             }}
-            submitCallback={() => {
-              setIsOpen(false)
+            refetch={() => {
+              refetch()
+              currentRefetch()
             }}
           />
         )}

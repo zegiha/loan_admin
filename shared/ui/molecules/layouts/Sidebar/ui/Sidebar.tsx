@@ -2,11 +2,12 @@
 
 import {TIconListKey, transition} from '@/shared/const'
 import useSidebarControl from '@/shared/ui/molecules/layouts/Sidebar/store/useSidebarControl'
+import CreateAdmin from '@/shared/ui/molecules/layouts/Sidebar/ui/CreateAdmin'
 import SidebarControl from '@/shared/ui/molecules/layouts/Sidebar/ui/SidebarControl'
 import UserInfo from '@/shared/ui/molecules/layouts/Sidebar/ui/UserInfo'
 import {Variants} from 'framer-motion'
 import style from './style.module.css'
-import {Col, Divider} from "@/shared/ui/atoms";
+import {Col, Divider, Row} from "@/shared/ui/atoms";
 import Navigation from '@/shared/ui/molecules/layouts/Sidebar/ui/Navigation'
 
 const navigationInfo: Array<{iconKey: TIconListKey, navigationName: string, pathname: string}> = [
@@ -37,19 +38,24 @@ export default function Sidebar() {
         animate: isOpen ? 'open' : 'close',
         transition: transition.normal
       }}
-      gap={isOpen ? 12 : 0}
     >
-      <SidebarControl/>
-      <UserInfo/>
-      <Divider padding={[12, 4]}/>
-      <Navigation.list>
-        {navigationInfo.map((v, i) => (
-          <Navigation.item
-            key={i}
-            {...v}
-          />
-        ))}
-      </Navigation.list>
+      <Col
+        className={style.wrapper}
+        width={'fill'}
+        gap={isOpen ? 12 : 0}
+      >
+        <SidebarControl/>
+        <UserInfo/>
+        <Divider padding={[12, 4]}/>
+        <Navigation.list>
+          {navigationInfo.map((v, i) => (
+            <Navigation.item
+              key={i}
+              {...v} />
+          ))}
+        </Navigation.list>
+        <CreateAdmin/>
+      </Col>
     </Col>
   )
 }

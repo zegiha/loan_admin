@@ -25,4 +25,6 @@ export type UpdateAdvertisementDto = {
   loan_limit?: number
   /** 상품 타입 목록 */
   product_type?: UpdateAdvertisementDtoProductTypeItem[]
+  /** 입금자명 */
+  deposit_name?: string
 }

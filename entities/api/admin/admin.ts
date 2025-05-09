@@ -21,7 +21,11 @@ import type {
   UseQueryResult,
 } from '@tanstack/react-query'
 
-import type { AdminAccountCreateDto, AdminLoginDto } from '../../const'
+import type {
+  AdminAccountCreateDto,
+  AdminLoginDto,
+  AdminResponseDto,
+} from '../../const'
 
 import { customInstance } from '../../../shared/lib/axios/customAxios'
 import type { ErrorType, BodyType } from '../../../shared/lib/axios/customAxios'
@@ -32,7 +36,10 @@ export const adminControllerFindAll = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>({ url: `/admin`, method: 'GET', signal }, options)
+  return customInstance<AdminResponseDto[]>(
+    { url: `/admin`, method: 'GET', signal },
+    options
+  )
 }
 
 export const getAdminControllerFindAllQueryKey = () => {
@@ -178,7 +185,7 @@ export const adminControllerCreate = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<AdminResponseDto>(
     {
       url: `/admin/create`,
       method: 'POST',
@@ -341,7 +348,7 @@ export const adminControllerCreateSuperAdmin = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<AdminResponseDto>(
     {
       url: `/admin/create/super`,
       method: 'POST',
@@ -660,7 +667,7 @@ export const adminControllerProfile = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<AdminResponseDto>(
     { url: `/admin/profile`, method: 'GET', signal },
     options
   )
@@ -802,4 +809,90 @@ export function useAdminControllerProfile<
   query.queryKey = queryOptions.queryKey
 
   return query
+}
+
+export const adminControllerUpdateProfile = (
+  adminAccountCreateDto: BodyType<AdminAccountCreateDto>,
+  options?: SecondParameter<typeof customInstance>
+) => {
+  return customInstance<AdminResponseDto>(
+    {
+      url: `/admin/profile`,
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      data: adminAccountCreateDto,
+    },
+    options
+  )
+}
+
+export const getAdminControllerUpdateProfileMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminControllerUpdateProfile>>,
+    TError,
+    { data: BodyType<AdminAccountCreateDto> },
+    TContext
+  >
+  request?: SecondParameter<typeof customInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof adminControllerUpdateProfile>>,
+  TError,
+  { data: BodyType<AdminAccountCreateDto> },
+  TContext
+> => {
+  const mutationKey = ['adminControllerUpdateProfile']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof adminControllerUpdateProfile>>,
+    { data: BodyType<AdminAccountCreateDto> }
+  > = props => {
+    const { data } = props ?? {}
+
+    return adminControllerUpdateProfile(data, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type AdminControllerUpdateProfileMutationResult = NonNullable<
+  Awaited<ReturnType<typeof adminControllerUpdateProfile>>
+>
+export type AdminControllerUpdateProfileMutationBody =
+  BodyType<AdminAccountCreateDto>
+export type AdminControllerUpdateProfileMutationError = ErrorType<unknown>
+
+export const useAdminControllerUpdateProfile = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof adminControllerUpdateProfile>>,
+      TError,
+      { data: BodyType<AdminAccountCreateDto> },
+      TContext
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<typeof adminControllerUpdateProfile>>,
+  TError,
+  { data: BodyType<AdminAccountCreateDto> },
+  TContext
+> => {
+  const mutationOptions =
+    getAdminControllerUpdateProfileMutationOptions(options)
+
+  return useMutation(mutationOptions, queryClient)
 }

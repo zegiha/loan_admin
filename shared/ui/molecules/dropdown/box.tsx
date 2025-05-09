@@ -8,10 +8,12 @@ import style from './style.module.css'
 export default function Box({
   width,
   selectedContents,
+  hoverOpen,
   children,
 }: {
   width: number | 'fill'
   selectedContents: string
+  hoverOpen?: boolean
   children: ReactNode
 }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -28,13 +30,13 @@ export default function Box({
   }
 
   useEffect(() => {
-    if(ref.current !== null) {
+    if(ref.current !== null && hoverOpen) {
       ref.current.addEventListener('mouseenter', () => setIsOpen(true))
       ref.current.addEventListener('mouseleave', () => setIsOpen(false))
     }
 
     return () => {
-      if(ref.current !== null) {
+      if(ref.current !== null && hoverOpen) {
         ref.current.removeEventListener('mouseenter', () => {})
         ref.current.removeEventListener('mouseleave', () => {})
       }
@@ -52,8 +54,7 @@ export default function Box({
         justifyContents={'space-between'}
         alignItems={'center'}
         onClick={() => {
-          if(!isOpen)
-            setIsOpen(true)
+          setIsOpen(p => !p)
         }}
       >
         <Typo.Contents>

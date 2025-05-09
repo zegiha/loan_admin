@@ -52,13 +52,20 @@ export default function BlackList() {
           title={`${targetUser.name}님을 블랙리스트에서 제외할까요?`}
           subtitle={`${targetUser.name}님을 제외해야하는지 한번 더 확인해주세요`}
           submitContents={'제외하기'}
-          submitFunc={() => excludeFunc(targetUser.userId)}
+          submitFunc={() => {
+            excludeFunc(targetUser.userId)
+              .then(res => {
+                if(res === 'success')
+                  refetch()
+              })
+          }}
         />
       )}
       {isAddModalOpen && (
         <BlackListAddModal
           isOpen={isAddModalOpen}
           setIsOpen={setIsAddModalOpen}
+          refetch={() => refetch()}
         />
       )}
     </>

@@ -1,11 +1,12 @@
 'use client'
 
+import {adminControllerProfile, adminControllerRefresh} from '@/entities/api/admin/admin'
 import {check_id_and_message, check_password_and_message} from '@/shared/lib'
 import Form from 'next/form'
 import {useRouter} from 'next/navigation'
 import style from './style.module.css'
 import {Typo} from "../../shared/ui/atoms";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {TextInput} from "../../shared/ui/molecules";
 import {login_action} from "@/features/login";
 
@@ -25,6 +26,19 @@ export default function Login() {
       set_password('')
     }
   }
+
+  const checkLogin = async () => {
+    try {
+      await adminControllerRefresh()
+      await adminControllerProfile()
+      router.replace('/user')
+    } catch(e) {
+    }
+  }
+
+  useEffect(() => {
+    checkLogin()
+  }, []);
 
   return (
     <div className={style.container}>

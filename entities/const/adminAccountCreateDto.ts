@@ -13,6 +13,4 @@ export type AdminAccountCreateDto = {
   password: string
   /** 관리자 이름 */
   name: string
-  /** 관리자 역할 */
-  role: string
 }

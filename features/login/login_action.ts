@@ -7,11 +7,8 @@ export default async function login_action(formData: FormData): Promise<'success
   try {
     await adminControllerLogin({id, password})
 
-    // console.log(data)
-
     return 'success'
   } catch (err) {
-    console.error('시발')
     if(err instanceof AxiosError) {
       if(err.status === 401) return new Error('아이디 혹은 비밀번호가 잘못되었습니다')
       else if(err.status === 400) return new Error('아이디 혹은 비빌번호를 입력해주세요')

@@ -6,4 +6,6 @@
  * OpenAPI spec version: 1.0
  */
 
-export type Contact = { [key: string]: unknown }
+export type AdvertiseControllerRequestCountExtendParams = {
+  deposit_name: string
+}

@@ -22,7 +22,13 @@ import type {
 } from '@tanstack/react-query'
 
 import type {
+  AdResponseDto,
   AdvertiseControllerFindAllofMyAdsParams,
+  AdvertiseControllerRequestCountExtendParams,
+  AdvertiseControllerRequestDateExtendParams,
+  AdvertiseControllerSearchAdsParams,
+  AdvertiseControllerSearchBannerAdsParams,
+  AdvertiseControllerSearchLineAdsParams,
   CreateAdvertisementDto,
   UpdateAdvertisementDto,
 } from '../../const'
@@ -40,7 +46,7 @@ export const advertiseControllerCreate = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<AdResponseDto>(
     {
       url: `/ads`,
       method: 'POST',
@@ -53,7 +59,7 @@ export const advertiseControllerCreate = (
 }
 
 export const getAdvertiseControllerCreateMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -95,13 +101,13 @@ export type AdvertiseControllerCreateMutationResult = NonNullable<
 >
 export type AdvertiseControllerCreateMutationBody =
   BodyType<CreateAdvertisementDto>
-export type AdvertiseControllerCreateMutationError = ErrorType<unknown>
+export type AdvertiseControllerCreateMutationError = ErrorType<AdResponseDto>
 
 /**
  * @summary Create advertisement
  */
 export const useAdvertiseControllerCreate = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto>,
   TContext = unknown,
 >(
   options?: {
@@ -124,43 +130,664 @@ export const useAdvertiseControllerCreate = <
 
   return useMutation(mutationOptions, queryClient)
 }
-export const advertiseControllerFindAll = (
+/**
+ * @summary Search advertisements by location and content
+ */
+export const advertiseControllerSearchAds = (
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchAdsParams,
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
-    { url: `/ads/all`, method: 'GET', signal },
+  return customInstance<AdResponseDto[]>(
+    { url: `/ads/search/all/${page}/${limit}`, method: 'GET', params, signal },
     options
   )
 }
 
-export const getAdvertiseControllerFindAllQueryKey = () => {
-  return [`/ads/all`] as const
+export const getAdvertiseControllerSearchAdsQueryKey = (
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchAdsParams
+) => {
+  return [
+    `/ads/search/all/${page}/${limit}`,
+    ...(params ? [params] : []),
+  ] as const
+}
+
+export const getAdvertiseControllerSearchAdsQueryOptions = <
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getAdvertiseControllerSearchAdsQueryKey(page, limit, params)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof advertiseControllerSearchAds>>
+  > = ({ signal }) =>
+    advertiseControllerSearchAds(page, limit, params, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdvertiseControllerSearchAdsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof advertiseControllerSearchAds>>
+>
+export type AdvertiseControllerSearchAdsQueryError = ErrorType<AdResponseDto[]>
+
+export function useAdvertiseControllerSearchAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchAdsParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerSearchAds>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerSearchAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerSearchAds>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerSearchAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary Search advertisements by location and content
+ */
+
+export function useAdvertiseControllerSearchAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getAdvertiseControllerSearchAdsQueryOptions(
+    page,
+    limit,
+    params,
+    options
+  )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
+ * @summary Search line advertisements by location and content
+ */
+export const advertiseControllerSearchLineAds = (
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchLineAdsParams,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<AdResponseDto[]>(
+    { url: `/ads/search/line/${page}/${limit}`, method: 'GET', params, signal },
+    options
+  )
+}
+
+export const getAdvertiseControllerSearchLineAdsQueryKey = (
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchLineAdsParams
+) => {
+  return [
+    `/ads/search/line/${page}/${limit}`,
+    ...(params ? [params] : []),
+  ] as const
+}
+
+export const getAdvertiseControllerSearchLineAdsQueryOptions = <
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchLineAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getAdvertiseControllerSearchLineAdsQueryKey(page, limit, params)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>
+  > = ({ signal }) =>
+    advertiseControllerSearchLineAds(
+      page,
+      limit,
+      params,
+      requestOptions,
+      signal
+    )
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdvertiseControllerSearchLineAdsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>
+>
+export type AdvertiseControllerSearchLineAdsQueryError = ErrorType<
+  AdResponseDto[]
+>
+
+export function useAdvertiseControllerSearchLineAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchLineAdsParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerSearchLineAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchLineAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerSearchLineAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchLineAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary Search line advertisements by location and content
+ */
+
+export function useAdvertiseControllerSearchLineAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchLineAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchLineAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getAdvertiseControllerSearchLineAdsQueryOptions(
+    page,
+    limit,
+    params,
+    options
+  )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
+ * @summary Search banner advertisements by location and content
+ */
+export const advertiseControllerSearchBannerAds = (
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchBannerAdsParams,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<AdResponseDto[]>(
+    {
+      url: `/ads/search/banner/${page}/${limit}`,
+      method: 'GET',
+      params,
+      signal,
+    },
+    options
+  )
+}
+
+export const getAdvertiseControllerSearchBannerAdsQueryKey = (
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchBannerAdsParams
+) => {
+  return [
+    `/ads/search/banner/${page}/${limit}`,
+    ...(params ? [params] : []),
+  ] as const
+}
+
+export const getAdvertiseControllerSearchBannerAdsQueryOptions = <
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchBannerAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getAdvertiseControllerSearchBannerAdsQueryKey(page, limit, params)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>
+  > = ({ signal }) =>
+    advertiseControllerSearchBannerAds(
+      page,
+      limit,
+      params,
+      requestOptions,
+      signal
+    )
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdvertiseControllerSearchBannerAdsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>
+>
+export type AdvertiseControllerSearchBannerAdsQueryError = ErrorType<
+  AdResponseDto[]
+>
+
+export function useAdvertiseControllerSearchBannerAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchBannerAdsParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerSearchBannerAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchBannerAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerSearchBannerAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchBannerAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary Search banner advertisements by location and content
+ */
+
+export function useAdvertiseControllerSearchBannerAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  params: AdvertiseControllerSearchBannerAdsParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerSearchBannerAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getAdvertiseControllerSearchBannerAdsQueryOptions(
+    page,
+    limit,
+    params,
+    options
+  )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
+ * @summary Get all advertisements
+ */
+export const advertiseControllerFindAll = (
+  page: string,
+  limit: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<AdResponseDto[]>(
+    { url: `/ads/all/${page}/${limit}`, method: 'GET', signal },
+    options
+  )
+}
+
+export const getAdvertiseControllerFindAllQueryKey = (
+  page: string,
+  limit: string
+) => {
+  return [`/ads/all/${page}/${limit}`] as const
 }
 
 export const getAdvertiseControllerFindAllQueryOptions = <
   TData = Awaited<ReturnType<typeof advertiseControllerFindAll>>,
-  TError = ErrorType<unknown>,
->(options?: {
-  query?: Partial<
-    UseQueryOptions<
-      Awaited<ReturnType<typeof advertiseControllerFindAll>>,
-      TError,
-      TData
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAll>>,
+        TError,
+        TData
+      >
     >
-  >
-  request?: SecondParameter<typeof customInstance>
-}) => {
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
   const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey =
-    queryOptions?.queryKey ?? getAdvertiseControllerFindAllQueryKey()
+    queryOptions?.queryKey ?? getAdvertiseControllerFindAllQueryKey(page, limit)
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof advertiseControllerFindAll>>
-  > = ({ signal }) => advertiseControllerFindAll(requestOptions, signal)
+  > = ({ signal }) =>
+    advertiseControllerFindAll(page, limit, requestOptions, signal)
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit),
+    ...queryOptions,
+  } as UseQueryOptions<
     Awaited<ReturnType<typeof advertiseControllerFindAll>>,
     TError,
     TData
@@ -170,12 +797,14 @@ export const getAdvertiseControllerFindAllQueryOptions = <
 export type AdvertiseControllerFindAllQueryResult = NonNullable<
   Awaited<ReturnType<typeof advertiseControllerFindAll>>
 >
-export type AdvertiseControllerFindAllQueryError = ErrorType<unknown>
+export type AdvertiseControllerFindAllQueryError = ErrorType<AdResponseDto[]>
 
 export function useAdvertiseControllerFindAll<
   TData = Awaited<ReturnType<typeof advertiseControllerFindAll>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
+  page: string,
+  limit: string,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -200,8 +829,10 @@ export function useAdvertiseControllerFindAll<
 }
 export function useAdvertiseControllerFindAll<
   TData = Awaited<ReturnType<typeof advertiseControllerFindAll>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
+  page: string,
+  limit: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -226,8 +857,10 @@ export function useAdvertiseControllerFindAll<
 }
 export function useAdvertiseControllerFindAll<
   TData = Awaited<ReturnType<typeof advertiseControllerFindAll>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
+  page: string,
+  limit: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -242,11 +875,16 @@ export function useAdvertiseControllerFindAll<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>
 }
+/**
+ * @summary Get all advertisements
+ */
 
 export function useAdvertiseControllerFindAll<
   TData = Awaited<ReturnType<typeof advertiseControllerFindAll>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
+  page: string,
+  limit: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -261,7 +899,11 @@ export function useAdvertiseControllerFindAll<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>
 } {
-  const queryOptions = getAdvertiseControllerFindAllQueryOptions(options)
+  const queryOptions = getAdvertiseControllerFindAllQueryOptions(
+    page,
+    limit,
+    options
+  )
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<
     TData,
@@ -273,27 +915,36 @@ export function useAdvertiseControllerFindAll<
   return query
 }
 
+/**
+ * @summary Get all of my advertisements
+ */
 export const advertiseControllerFindAllofMyAds = (
+  page: string,
+  limit: string,
   params: AdvertiseControllerFindAllofMyAdsParams,
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
-    { url: `/ads/my`, method: 'GET', params, signal },
+  return customInstance<AdResponseDto[]>(
+    { url: `/ads/my/${page}/${limit}`, method: 'GET', params, signal },
     options
   )
 }
 
 export const getAdvertiseControllerFindAllofMyAdsQueryKey = (
+  page: string,
+  limit: string,
   params: AdvertiseControllerFindAllofMyAdsParams
 ) => {
-  return [`/ads/my`, ...(params ? [params] : [])] as const
+  return [`/ads/my/${page}/${limit}`, ...(params ? [params] : [])] as const
 }
 
 export const getAdvertiseControllerFindAllofMyAdsQueryOptions = <
   TData = Awaited<ReturnType<typeof advertiseControllerFindAllofMyAds>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
+  page: string,
+  limit: string,
   params: AdvertiseControllerFindAllofMyAdsParams,
   options?: {
     query?: Partial<
@@ -310,14 +961,25 @@ export const getAdvertiseControllerFindAllofMyAdsQueryOptions = <
 
   const queryKey =
     queryOptions?.queryKey ??
-    getAdvertiseControllerFindAllofMyAdsQueryKey(params)
+    getAdvertiseControllerFindAllofMyAdsQueryKey(page, limit, params)
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof advertiseControllerFindAllofMyAds>>
   > = ({ signal }) =>
-    advertiseControllerFindAllofMyAds(params, requestOptions, signal)
+    advertiseControllerFindAllofMyAds(
+      page,
+      limit,
+      params,
+      requestOptions,
+      signal
+    )
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit),
+    ...queryOptions,
+  } as UseQueryOptions<
     Awaited<ReturnType<typeof advertiseControllerFindAllofMyAds>>,
     TError,
     TData
@@ -327,12 +989,16 @@ export const getAdvertiseControllerFindAllofMyAdsQueryOptions = <
 export type AdvertiseControllerFindAllofMyAdsQueryResult = NonNullable<
   Awaited<ReturnType<typeof advertiseControllerFindAllofMyAds>>
 >
-export type AdvertiseControllerFindAllofMyAdsQueryError = ErrorType<unknown>
+export type AdvertiseControllerFindAllofMyAdsQueryError = ErrorType<
+  AdResponseDto[]
+>
 
 export function useAdvertiseControllerFindAllofMyAds<
   TData = Awaited<ReturnType<typeof advertiseControllerFindAllofMyAds>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
+  page: string,
+  limit: string,
   params: AdvertiseControllerFindAllofMyAdsParams,
   options: {
     query: Partial<
@@ -358,8 +1024,10 @@ export function useAdvertiseControllerFindAllofMyAds<
 }
 export function useAdvertiseControllerFindAllofMyAds<
   TData = Awaited<ReturnType<typeof advertiseControllerFindAllofMyAds>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
+  page: string,
+  limit: string,
   params: AdvertiseControllerFindAllofMyAdsParams,
   options?: {
     query?: Partial<
@@ -385,8 +1053,10 @@ export function useAdvertiseControllerFindAllofMyAds<
 }
 export function useAdvertiseControllerFindAllofMyAds<
   TData = Awaited<ReturnType<typeof advertiseControllerFindAllofMyAds>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
+  page: string,
+  limit: string,
   params: AdvertiseControllerFindAllofMyAdsParams,
   options?: {
     query?: Partial<
@@ -402,11 +1072,16 @@ export function useAdvertiseControllerFindAllofMyAds<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>
 }
+/**
+ * @summary Get all of my advertisements
+ */
 
 export function useAdvertiseControllerFindAllofMyAds<
   TData = Awaited<ReturnType<typeof advertiseControllerFindAllofMyAds>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
+  page: string,
+  limit: string,
   params: AdvertiseControllerFindAllofMyAdsParams,
   options?: {
     query?: Partial<
@@ -423,6 +1098,8 @@ export function useAdvertiseControllerFindAllofMyAds<
   queryKey: DataTag<QueryKey, TData, TError>
 } {
   const queryOptions = getAdvertiseControllerFindAllofMyAdsQueryOptions(
+    page,
+    limit,
     params,
     options
   )
@@ -437,12 +1114,15 @@ export function useAdvertiseControllerFindAllofMyAds<
   return query
 }
 
+/**
+ * @summary Get advertisement by ID
+ */
 export const advertiseControllerFindOne = (
   id: string,
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<AdResponseDto>(
     { url: `/ads/id/${id}`, method: 'GET', signal },
     options
   )
@@ -454,7 +1134,7 @@ export const getAdvertiseControllerFindOneQueryKey = (id: string) => {
 
 export const getAdvertiseControllerFindOneQueryOptions = <
   TData = Awaited<ReturnType<typeof advertiseControllerFindOne>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
 >(
   id: string,
   options?: {
@@ -492,11 +1172,12 @@ export const getAdvertiseControllerFindOneQueryOptions = <
 export type AdvertiseControllerFindOneQueryResult = NonNullable<
   Awaited<ReturnType<typeof advertiseControllerFindOne>>
 >
-export type AdvertiseControllerFindOneQueryError = ErrorType<unknown>
+export type AdvertiseControllerFindOneQueryError =
+  ErrorType<void | AdResponseDto>
 
 export function useAdvertiseControllerFindOne<
   TData = Awaited<ReturnType<typeof advertiseControllerFindOne>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
 >(
   id: string,
   options: {
@@ -523,7 +1204,7 @@ export function useAdvertiseControllerFindOne<
 }
 export function useAdvertiseControllerFindOne<
   TData = Awaited<ReturnType<typeof advertiseControllerFindOne>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
 >(
   id: string,
   options?: {
@@ -550,7 +1231,7 @@ export function useAdvertiseControllerFindOne<
 }
 export function useAdvertiseControllerFindOne<
   TData = Awaited<ReturnType<typeof advertiseControllerFindOne>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
 >(
   id: string,
   options?: {
@@ -567,10 +1248,13 @@ export function useAdvertiseControllerFindOne<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>
 }
+/**
+ * @summary Get advertisement by ID
+ */
 
 export function useAdvertiseControllerFindOne<
   TData = Awaited<ReturnType<typeof advertiseControllerFindOne>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
 >(
   id: string,
   options?: {
@@ -599,26 +1283,34 @@ export function useAdvertiseControllerFindOne<
   return query
 }
 
+/**
+ * @summary Get random advertisements
+ */
 export const advertiseControllerFindRandom = (
-  count: string,
+  page: string,
+  limit: string,
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
-    { url: `/ads/random/${count}`, method: 'GET', signal },
+  return customInstance<AdResponseDto[]>(
+    { url: `/ads/random/${page}/${limit}`, method: 'GET', signal },
     options
   )
 }
 
-export const getAdvertiseControllerFindRandomQueryKey = (count: string) => {
-  return [`/ads/random/${count}`] as const
+export const getAdvertiseControllerFindRandomQueryKey = (
+  page: string,
+  limit: string
+) => {
+  return [`/ads/random/${page}/${limit}`] as const
 }
 
 export const getAdvertiseControllerFindRandomQueryOptions = <
   TData = Awaited<ReturnType<typeof advertiseControllerFindRandom>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
-  count: string,
+  page: string,
+  limit: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -633,17 +1325,18 @@ export const getAdvertiseControllerFindRandomQueryOptions = <
   const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey =
-    queryOptions?.queryKey ?? getAdvertiseControllerFindRandomQueryKey(count)
+    queryOptions?.queryKey ??
+    getAdvertiseControllerFindRandomQueryKey(page, limit)
 
   const queryFn: QueryFunction<
     Awaited<ReturnType<typeof advertiseControllerFindRandom>>
   > = ({ signal }) =>
-    advertiseControllerFindRandom(count, requestOptions, signal)
+    advertiseControllerFindRandom(page, limit, requestOptions, signal)
 
   return {
     queryKey,
     queryFn,
-    enabled: !!count,
+    enabled: !!(page && limit),
     ...queryOptions,
   } as UseQueryOptions<
     Awaited<ReturnType<typeof advertiseControllerFindRandom>>,
@@ -655,13 +1348,14 @@ export const getAdvertiseControllerFindRandomQueryOptions = <
 export type AdvertiseControllerFindRandomQueryResult = NonNullable<
   Awaited<ReturnType<typeof advertiseControllerFindRandom>>
 >
-export type AdvertiseControllerFindRandomQueryError = ErrorType<unknown>
+export type AdvertiseControllerFindRandomQueryError = ErrorType<AdResponseDto[]>
 
 export function useAdvertiseControllerFindRandom<
   TData = Awaited<ReturnType<typeof advertiseControllerFindRandom>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
-  count: string,
+  page: string,
+  limit: string,
   options: {
     query: Partial<
       UseQueryOptions<
@@ -686,9 +1380,10 @@ export function useAdvertiseControllerFindRandom<
 }
 export function useAdvertiseControllerFindRandom<
   TData = Awaited<ReturnType<typeof advertiseControllerFindRandom>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
-  count: string,
+  page: string,
+  limit: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -713,9 +1408,10 @@ export function useAdvertiseControllerFindRandom<
 }
 export function useAdvertiseControllerFindRandom<
   TData = Awaited<ReturnType<typeof advertiseControllerFindRandom>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
-  count: string,
+  page: string,
+  limit: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -730,12 +1426,16 @@ export function useAdvertiseControllerFindRandom<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>
 }
+/**
+ * @summary Get random advertisements
+ */
 
 export function useAdvertiseControllerFindRandom<
   TData = Awaited<ReturnType<typeof advertiseControllerFindRandom>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
-  count: string,
+  page: string,
+  limit: string,
   options?: {
     query?: Partial<
       UseQueryOptions<
@@ -751,7 +1451,8 @@ export function useAdvertiseControllerFindRandom<
   queryKey: DataTag<QueryKey, TData, TError>
 } {
   const queryOptions = getAdvertiseControllerFindRandomQueryOptions(
-    count,
+    page,
+    limit,
     options
   )
 
@@ -765,169 +1466,405 @@ export function useAdvertiseControllerFindRandom<
   return query
 }
 
-export const advertiseControllerExtend = (
-  id: string,
-  options?: SecondParameter<typeof customInstance>
+/**
+ * @summary Get line advertisements
+ */
+export const advertiseControllerFindLineAds = (
+  page: string,
+  limit: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
 ) => {
-  return customInstance<void>(
-    { url: `/ads/extend/date/${id}`, method: 'PATCH' },
+  return customInstance<AdResponseDto[]>(
+    { url: `/ads/line-ads/${page}/${limit}`, method: 'GET', signal },
     options
   )
 }
 
-export const getAdvertiseControllerExtendMutationOptions = <
-  TError = ErrorType<unknown>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof advertiseControllerExtend>>,
-    TError,
-    { id: string },
-    TContext
-  >
-  request?: SecondParameter<typeof customInstance>
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof advertiseControllerExtend>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationKey = ['advertiseControllerExtend']
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined }
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof advertiseControllerExtend>>,
-    { id: string }
-  > = props => {
-    const { id } = props ?? {}
-
-    return advertiseControllerExtend(id, requestOptions)
-  }
-
-  return { mutationFn, ...mutationOptions }
+export const getAdvertiseControllerFindLineAdsQueryKey = (
+  page: string,
+  limit: string
+) => {
+  return [`/ads/line-ads/${page}/${limit}`] as const
 }
 
-export type AdvertiseControllerExtendMutationResult = NonNullable<
-  Awaited<ReturnType<typeof advertiseControllerExtend>>
+export const getAdvertiseControllerFindLineAdsQueryOptions = <
+  TData = Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getAdvertiseControllerFindLineAdsQueryKey(page, limit)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof advertiseControllerFindLineAds>>
+  > = ({ signal }) =>
+    advertiseControllerFindLineAds(page, limit, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdvertiseControllerFindLineAdsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof advertiseControllerFindLineAds>>
+>
+export type AdvertiseControllerFindLineAdsQueryError = ErrorType<
+  AdResponseDto[]
 >
 
-export type AdvertiseControllerExtendMutationError = ErrorType<unknown>
-
-export const useAdvertiseControllerExtend = <
-  TError = ErrorType<unknown>,
-  TContext = unknown,
+export function useAdvertiseControllerFindLineAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
+  page: string,
+  limit: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindLineAds>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindLineAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
   options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof advertiseControllerExtend>>,
-      TError,
-      { id: string },
-      TContext
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindLineAds>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindLineAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+        TError,
+        TData
+      >
     >
     request?: SecondParameter<typeof customInstance>
   },
   queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof advertiseControllerExtend>>,
-  TError,
-  { id: string },
-  TContext
-> => {
-  const mutationOptions = getAdvertiseControllerExtendMutationOptions(options)
-
-  return useMutation(mutationOptions, queryClient)
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
 }
-export const advertiseControllerExtendCount = (
-  id: string,
-  count: string,
-  options?: SecondParameter<typeof customInstance>
+/**
+ * @summary Get line advertisements
+ */
+
+export function useAdvertiseControllerFindLineAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindLineAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getAdvertiseControllerFindLineAdsQueryOptions(
+    page,
+    limit,
+    options
+  )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
+ * @summary Get banner advertisements
+ */
+export const advertiseControllerFindBannerAds = (
+  page: string,
+  limit: string,
+  location: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
 ) => {
-  return customInstance<void>(
-    { url: `/ads/extend/count/${id}/${count}`, method: 'PATCH' },
+  return customInstance<AdResponseDto[]>(
+    {
+      url: `/ads/banner-ads/${page}/${limit}/${location}`,
+      method: 'GET',
+      signal,
+    },
     options
   )
 }
 
-export const getAdvertiseControllerExtendCountMutationOptions = <
-  TError = ErrorType<unknown>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof advertiseControllerExtendCount>>,
-    TError,
-    { id: string; count: string },
-    TContext
-  >
-  request?: SecondParameter<typeof customInstance>
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof advertiseControllerExtendCount>>,
-  TError,
-  { id: string; count: string },
-  TContext
-> => {
-  const mutationKey = ['advertiseControllerExtendCount']
-  const { mutation: mutationOptions, request: requestOptions } = options
-    ? options.mutation &&
-      'mutationKey' in options.mutation &&
-      options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, request: undefined }
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof advertiseControllerExtendCount>>,
-    { id: string; count: string }
-  > = props => {
-    const { id, count } = props ?? {}
-
-    return advertiseControllerExtendCount(id, count, requestOptions)
-  }
-
-  return { mutationFn, ...mutationOptions }
+export const getAdvertiseControllerFindBannerAdsQueryKey = (
+  page: string,
+  limit: string,
+  location: string
+) => {
+  return [`/ads/banner-ads/${page}/${limit}/${location}`] as const
 }
 
-export type AdvertiseControllerExtendCountMutationResult = NonNullable<
-  Awaited<ReturnType<typeof advertiseControllerExtendCount>>
+export const getAdvertiseControllerFindBannerAdsQueryOptions = <
+  TData = Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  location: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getAdvertiseControllerFindBannerAdsQueryKey(page, limit, location)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>
+  > = ({ signal }) =>
+    advertiseControllerFindBannerAds(
+      page,
+      limit,
+      location,
+      requestOptions,
+      signal
+    )
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit && location),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdvertiseControllerFindBannerAdsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>
+>
+export type AdvertiseControllerFindBannerAdsQueryError = ErrorType<
+  AdResponseDto[]
 >
 
-export type AdvertiseControllerExtendCountMutationError = ErrorType<unknown>
-
-export const useAdvertiseControllerExtendCount = <
-  TError = ErrorType<unknown>,
-  TContext = unknown,
+export function useAdvertiseControllerFindBannerAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+  TError = ErrorType<AdResponseDto[]>,
 >(
+  page: string,
+  limit: string,
+  location: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindBannerAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  location: string,
   options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof advertiseControllerExtendCount>>,
-      TError,
-      { id: string; count: string },
-      TContext
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindBannerAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  location: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+        TError,
+        TData
+      >
     >
     request?: SecondParameter<typeof customInstance>
   },
   queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof advertiseControllerExtendCount>>,
-  TError,
-  { id: string; count: string },
-  TContext
-> => {
-  const mutationOptions =
-    getAdvertiseControllerExtendCountMutationOptions(options)
-
-  return useMutation(mutationOptions, queryClient)
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
 }
+/**
+ * @summary Get banner advertisements
+ */
+
+export function useAdvertiseControllerFindBannerAds<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+  TError = ErrorType<AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  location: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindBannerAds>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getAdvertiseControllerFindBannerAdsQueryOptions(
+    page,
+    limit,
+    location,
+    options
+  )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
+ * @summary Delete advertisement
+ */
 export const advertiseControllerRemove = (
   id: string,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>({ url: `/ads/${id}`, method: 'DELETE' }, options)
+  return customInstance<boolean>(
+    { url: `/ads/${id}`, method: 'DELETE' },
+    options
+  )
 }
 
 export const getAdvertiseControllerRemoveMutationOptions = <
@@ -974,6 +1911,9 @@ export type AdvertiseControllerRemoveMutationResult = NonNullable<
 
 export type AdvertiseControllerRemoveMutationError = ErrorType<unknown>
 
+/**
+ * @summary Delete advertisement
+ */
 export const useAdvertiseControllerRemove = <
   TError = ErrorType<unknown>,
   TContext = unknown,
@@ -998,18 +1938,21 @@ export const useAdvertiseControllerRemove = <
 
   return useMutation(mutationOptions, queryClient)
 }
+/**
+ * @summary Approve advertisement registration
+ */
 export const advertiseControllerApprove = (
   id: string,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<AdResponseDto>(
     { url: `/ads/approve/registration/${id}`, method: 'PATCH' },
     options
   )
 }
 
 export const getAdvertiseControllerApproveMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -1050,10 +1993,13 @@ export type AdvertiseControllerApproveMutationResult = NonNullable<
   Awaited<ReturnType<typeof advertiseControllerApprove>>
 >
 
-export type AdvertiseControllerApproveMutationError = ErrorType<unknown>
+export type AdvertiseControllerApproveMutationError = ErrorType<AdResponseDto>
 
+/**
+ * @summary Approve advertisement registration
+ */
 export const useAdvertiseControllerApprove = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto>,
   TContext = unknown,
 >(
   options?: {
@@ -1076,18 +2022,21 @@ export const useAdvertiseControllerApprove = <
 
   return useMutation(mutationOptions, queryClient)
 }
+/**
+ * @summary Reject advertisement registration
+ */
 export const advertiseControllerReject = (
   id: string,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<AdResponseDto>(
     { url: `/ads/reject/registration/${id}`, method: 'PATCH' },
     options
   )
 }
 
 export const getAdvertiseControllerRejectMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -1128,10 +2077,13 @@ export type AdvertiseControllerRejectMutationResult = NonNullable<
   Awaited<ReturnType<typeof advertiseControllerReject>>
 >
 
-export type AdvertiseControllerRejectMutationError = ErrorType<unknown>
+export type AdvertiseControllerRejectMutationError = ErrorType<AdResponseDto>
 
+/**
+ * @summary Reject advertisement registration
+ */
 export const useAdvertiseControllerReject = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto>,
   TContext = unknown,
 >(
   options?: {
@@ -1155,33 +2107,1006 @@ export const useAdvertiseControllerReject = <
   return useMutation(mutationOptions, queryClient)
 }
 /**
+ * @summary Get all advertisements waiting for approval
+ */
+export const advertiseControllerFindAllWaitingApproval = (
+  page: string,
+  limit: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<AdResponseDto[]>(
+    {
+      url: `/ads/waiting-approval/all/${page}/${limit}`,
+      method: 'GET',
+      signal,
+    },
+    options
+  )
+}
+
+export const getAdvertiseControllerFindAllWaitingApprovalQueryKey = (
+  page: string,
+  limit: string
+) => {
+  return [`/ads/waiting-approval/all/${page}/${limit}`] as const
+}
+
+export const getAdvertiseControllerFindAllWaitingApprovalQueryOptions = <
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getAdvertiseControllerFindAllWaitingApprovalQueryKey(page, limit)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>
+  > = ({ signal }) =>
+    advertiseControllerFindAllWaitingApproval(
+      page,
+      limit,
+      requestOptions,
+      signal
+    )
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdvertiseControllerFindAllWaitingApprovalQueryResult = NonNullable<
+  Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>
+>
+export type AdvertiseControllerFindAllWaitingApprovalQueryError = ErrorType<
+  void | AdResponseDto[]
+>
+
+export function useAdvertiseControllerFindAllWaitingApproval<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindAllWaitingApproval<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindAllWaitingApproval<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary Get all advertisements waiting for approval
+ */
+
+export function useAdvertiseControllerFindAllWaitingApproval<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingApproval>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getAdvertiseControllerFindAllWaitingApprovalQueryOptions(
+    page,
+    limit,
+    options
+  )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
+ * @summary Get advertisement waiting for approval by ID
+ */
+export const advertiseControllerFindOneWaitingApproval = (
+  id: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<AdResponseDto>(
+    { url: `/ads/waiting-approval/${id}`, method: 'GET', signal },
+    options
+  )
+}
+
+export const getAdvertiseControllerFindOneWaitingApprovalQueryKey = (
+  id: string
+) => {
+  return [`/ads/waiting-approval/${id}`] as const
+}
+
+export const getAdvertiseControllerFindOneWaitingApprovalQueryOptions = <
+  TData = Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+  TError = ErrorType<AdResponseDto>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getAdvertiseControllerFindOneWaitingApprovalQueryKey(id)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>
+  > = ({ signal }) =>
+    advertiseControllerFindOneWaitingApproval(id, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!id,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdvertiseControllerFindOneWaitingApprovalQueryResult = NonNullable<
+  Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>
+>
+export type AdvertiseControllerFindOneWaitingApprovalQueryError =
+  ErrorType<AdResponseDto>
+
+export function useAdvertiseControllerFindOneWaitingApproval<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+  TError = ErrorType<AdResponseDto>,
+>(
+  id: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindOneWaitingApproval<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+  TError = ErrorType<AdResponseDto>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindOneWaitingApproval<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+  TError = ErrorType<AdResponseDto>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary Get advertisement waiting for approval by ID
+ */
+
+export function useAdvertiseControllerFindOneWaitingApproval<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+  TError = ErrorType<AdResponseDto>,
+>(
+  id: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindOneWaitingApproval>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getAdvertiseControllerFindOneWaitingApprovalQueryOptions(
+    id,
+    options
+  )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
+ * @summary Get all advertisements waiting for registration
+ */
+export const advertiseControllerFindAllWaitingRegistration = (
+  page: string,
+  limit: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<AdResponseDto[]>(
+    {
+      url: `/ads/waiting-approval/register/${page}/${limit}`,
+      method: 'GET',
+      signal,
+    },
+    options
+  )
+}
+
+export const getAdvertiseControllerFindAllWaitingRegistrationQueryKey = (
+  page: string,
+  limit: string
+) => {
+  return [`/ads/waiting-approval/register/${page}/${limit}`] as const
+}
+
+export const getAdvertiseControllerFindAllWaitingRegistrationQueryOptions = <
+  TData = Awaited<
+    ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+  >,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<
+          ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+        >,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getAdvertiseControllerFindAllWaitingRegistrationQueryKey(page, limit)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof advertiseControllerFindAllWaitingRegistration>>
+  > = ({ signal }) =>
+    advertiseControllerFindAllWaitingRegistration(
+      page,
+      limit,
+      requestOptions,
+      signal
+    )
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof advertiseControllerFindAllWaitingRegistration>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdvertiseControllerFindAllWaitingRegistrationQueryResult =
+  NonNullable<
+    Awaited<ReturnType<typeof advertiseControllerFindAllWaitingRegistration>>
+  >
+export type AdvertiseControllerFindAllWaitingRegistrationQueryError = ErrorType<
+  void | AdResponseDto[]
+>
+
+export function useAdvertiseControllerFindAllWaitingRegistration<
+  TData = Awaited<
+    ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+  >,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<
+          ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+        >,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<
+            ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+          >,
+          TError,
+          Awaited<
+            ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+          >
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindAllWaitingRegistration<
+  TData = Awaited<
+    ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+  >,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<
+          ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+        >,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<
+            ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+          >,
+          TError,
+          Awaited<
+            ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+          >
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindAllWaitingRegistration<
+  TData = Awaited<
+    ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+  >,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<
+          ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+        >,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary Get all advertisements waiting for registration
+ */
+
+export function useAdvertiseControllerFindAllWaitingRegistration<
+  TData = Awaited<
+    ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+  >,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<
+          ReturnType<typeof advertiseControllerFindAllWaitingRegistration>
+        >,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions =
+    getAdvertiseControllerFindAllWaitingRegistrationQueryOptions(
+      page,
+      limit,
+      options
+    )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
+ * @summary Get all advertisements waiting for update
+ */
+export const advertiseControllerFindAllWaitingUpdate = (
+  page: string,
+  limit: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<AdResponseDto[]>(
+    {
+      url: `/ads/waiting-approval/update/${page}/${limit}`,
+      method: 'GET',
+      signal,
+    },
+    options
+  )
+}
+
+export const getAdvertiseControllerFindAllWaitingUpdateQueryKey = (
+  page: string,
+  limit: string
+) => {
+  return [`/ads/waiting-approval/update/${page}/${limit}`] as const
+}
+
+export const getAdvertiseControllerFindAllWaitingUpdateQueryOptions = <
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getAdvertiseControllerFindAllWaitingUpdateQueryKey(page, limit)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>
+  > = ({ signal }) =>
+    advertiseControllerFindAllWaitingUpdate(page, limit, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdvertiseControllerFindAllWaitingUpdateQueryResult = NonNullable<
+  Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>
+>
+export type AdvertiseControllerFindAllWaitingUpdateQueryError = ErrorType<
+  void | AdResponseDto[]
+>
+
+export function useAdvertiseControllerFindAllWaitingUpdate<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindAllWaitingUpdate<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindAllWaitingUpdate<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary Get all advertisements waiting for update
+ */
+
+export function useAdvertiseControllerFindAllWaitingUpdate<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingUpdate>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getAdvertiseControllerFindAllWaitingUpdateQueryOptions(
+    page,
+    limit,
+    options
+  )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
+ * @summary Get all advertisements waiting for extend
+ */
+export const advertiseControllerFindAllWaitingExtend = (
+  page: string,
+  limit: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<AdResponseDto[]>(
+    {
+      url: `/ads/waiting-approval/extend/${page}/${limit}`,
+      method: 'GET',
+      signal,
+    },
+    options
+  )
+}
+
+export const getAdvertiseControllerFindAllWaitingExtendQueryKey = (
+  page: string,
+  limit: string
+) => {
+  return [`/ads/waiting-approval/extend/${page}/${limit}`] as const
+}
+
+export const getAdvertiseControllerFindAllWaitingExtendQueryOptions = <
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getAdvertiseControllerFindAllWaitingExtendQueryKey(page, limit)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>
+  > = ({ signal }) =>
+    advertiseControllerFindAllWaitingExtend(page, limit, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!(page && limit),
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type AdvertiseControllerFindAllWaitingExtendQueryResult = NonNullable<
+  Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>
+>
+export type AdvertiseControllerFindAllWaitingExtendQueryError = ErrorType<
+  void | AdResponseDto[]
+>
+
+export function useAdvertiseControllerFindAllWaitingExtend<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindAllWaitingExtend<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+          TError,
+          Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useAdvertiseControllerFindAllWaitingExtend<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary Get all advertisements waiting for extend
+ */
+
+export function useAdvertiseControllerFindAllWaitingExtend<
+  TData = Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+  TError = ErrorType<void | AdResponseDto[]>,
+>(
+  page: string,
+  limit: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof advertiseControllerFindAllWaitingExtend>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getAdvertiseControllerFindAllWaitingExtendQueryOptions(
+    page,
+    limit,
+    options
+  )
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
  * @summary Request date extension approval for advertisement
  */
 export const advertiseControllerRequestDateExtend = (
   id: string,
+  params: AdvertiseControllerRequestDateExtendParams,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
-    { url: `/ads/request-date-extend/${id}`, method: 'PATCH' },
+  return customInstance<AdResponseDto>(
+    { url: `/ads/request-date-extend/${id}`, method: 'PATCH', params },
     options
   )
 }
 
 export const getAdvertiseControllerRequestDateExtendMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof advertiseControllerRequestDateExtend>>,
     TError,
-    { id: string },
+    { id: string; params: AdvertiseControllerRequestDateExtendParams },
     TContext
   >
   request?: SecondParameter<typeof customInstance>
 }): UseMutationOptions<
   Awaited<ReturnType<typeof advertiseControllerRequestDateExtend>>,
   TError,
-  { id: string },
+  { id: string; params: AdvertiseControllerRequestDateExtendParams },
   TContext
 > => {
   const mutationKey = ['advertiseControllerRequestDateExtend']
@@ -1195,11 +3120,11 @@ export const getAdvertiseControllerRequestDateExtendMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof advertiseControllerRequestDateExtend>>,
-    { id: string }
+    { id: string; params: AdvertiseControllerRequestDateExtendParams }
   > = props => {
-    const { id } = props ?? {}
+    const { id, params } = props ?? {}
 
-    return advertiseControllerRequestDateExtend(id, requestOptions)
+    return advertiseControllerRequestDateExtend(id, params, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -1210,20 +3135,20 @@ export type AdvertiseControllerRequestDateExtendMutationResult = NonNullable<
 >
 
 export type AdvertiseControllerRequestDateExtendMutationError =
-  ErrorType<unknown>
+  ErrorType<AdResponseDto>
 
 /**
  * @summary Request date extension approval for advertisement
  */
 export const useAdvertiseControllerRequestDateExtend = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto>,
   TContext = unknown,
 >(
   options?: {
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof advertiseControllerRequestDateExtend>>,
       TError,
-      { id: string },
+      { id: string; params: AdvertiseControllerRequestDateExtendParams },
       TContext
     >
     request?: SecondParameter<typeof customInstance>
@@ -1232,7 +3157,7 @@ export const useAdvertiseControllerRequestDateExtend = <
 ): UseMutationResult<
   Awaited<ReturnType<typeof advertiseControllerRequestDateExtend>>,
   TError,
-  { id: string },
+  { id: string; params: AdvertiseControllerRequestDateExtendParams },
   TContext
 > => {
   const mutationOptions =
@@ -1246,29 +3171,42 @@ export const useAdvertiseControllerRequestDateExtend = <
 export const advertiseControllerRequestCountExtend = (
   id: string,
   count: string,
+  params: AdvertiseControllerRequestCountExtendParams,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
-    { url: `/ads/request-count-extend/${id}/${count}`, method: 'PATCH' },
+  return customInstance<AdResponseDto>(
+    {
+      url: `/ads/request-count-extend/${id}/${count}`,
+      method: 'PATCH',
+      params,
+    },
     options
   )
 }
 
 export const getAdvertiseControllerRequestCountExtendMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof advertiseControllerRequestCountExtend>>,
     TError,
-    { id: string; count: string },
+    {
+      id: string
+      count: string
+      params: AdvertiseControllerRequestCountExtendParams
+    },
     TContext
   >
   request?: SecondParameter<typeof customInstance>
 }): UseMutationOptions<
   Awaited<ReturnType<typeof advertiseControllerRequestCountExtend>>,
   TError,
-  { id: string; count: string },
+  {
+    id: string
+    count: string
+    params: AdvertiseControllerRequestCountExtendParams
+  },
   TContext
 > => {
   const mutationKey = ['advertiseControllerRequestCountExtend']
@@ -1282,11 +3220,20 @@ export const getAdvertiseControllerRequestCountExtendMutationOptions = <
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof advertiseControllerRequestCountExtend>>,
-    { id: string; count: string }
+    {
+      id: string
+      count: string
+      params: AdvertiseControllerRequestCountExtendParams
+    }
   > = props => {
-    const { id, count } = props ?? {}
+    const { id, count, params } = props ?? {}
 
-    return advertiseControllerRequestCountExtend(id, count, requestOptions)
+    return advertiseControllerRequestCountExtend(
+      id,
+      count,
+      params,
+      requestOptions
+    )
   }
 
   return { mutationFn, ...mutationOptions }
@@ -1297,20 +3244,24 @@ export type AdvertiseControllerRequestCountExtendMutationResult = NonNullable<
 >
 
 export type AdvertiseControllerRequestCountExtendMutationError =
-  ErrorType<unknown>
+  ErrorType<AdResponseDto>
 
 /**
  * @summary Request count extension approval for advertisement
  */
 export const useAdvertiseControllerRequestCountExtend = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<AdResponseDto>,
   TContext = unknown,
 >(
   options?: {
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof advertiseControllerRequestCountExtend>>,
       TError,
-      { id: string; count: string },
+      {
+        id: string
+        count: string
+        params: AdvertiseControllerRequestCountExtendParams
+      },
       TContext
     >
     request?: SecondParameter<typeof customInstance>
@@ -1319,7 +3270,11 @@ export const useAdvertiseControllerRequestCountExtend = <
 ): UseMutationResult<
   Awaited<ReturnType<typeof advertiseControllerRequestCountExtend>>,
   TError,
-  { id: string; count: string },
+  {
+    id: string
+    count: string
+    params: AdvertiseControllerRequestCountExtendParams
+  },
   TContext
 > => {
   const mutationOptions =
@@ -1327,18 +3282,21 @@ export const useAdvertiseControllerRequestCountExtend = <
 
   return useMutation(mutationOptions, queryClient)
 }
+/**
+ * @summary Approve date extension for advertisement
+ */
 export const advertiseControllerApproveDateExtend = (
   id: string,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<AdResponseDto>(
     { url: `/ads/approve-date-extend/${id}`, method: 'PATCH' },
     options
   )
 }
 
 export const getAdvertiseControllerApproveDateExtendMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -1380,10 +3338,13 @@ export type AdvertiseControllerApproveDateExtendMutationResult = NonNullable<
 >
 
 export type AdvertiseControllerApproveDateExtendMutationError =
-  ErrorType<unknown>
+  ErrorType<void | AdResponseDto>
 
+/**
+ * @summary Approve date extension for advertisement
+ */
 export const useAdvertiseControllerApproveDateExtend = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(
   options?: {
@@ -1407,18 +3368,21 @@ export const useAdvertiseControllerApproveDateExtend = <
 
   return useMutation(mutationOptions, queryClient)
 }
+/**
+ * @summary Approve count extension for advertisement
+ */
 export const advertiseControllerApproveCountExtend = (
   id: string,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<AdResponseDto>(
     { url: `/ads/approve-count-extend/${id}`, method: 'PATCH' },
     options
   )
 }
 
 export const getAdvertiseControllerApproveCountExtendMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -1460,10 +3424,13 @@ export type AdvertiseControllerApproveCountExtendMutationResult = NonNullable<
 >
 
 export type AdvertiseControllerApproveCountExtendMutationError =
-  ErrorType<unknown>
+  ErrorType<void | AdResponseDto>
 
+/**
+ * @summary Approve count extension for advertisement
+ */
 export const useAdvertiseControllerApproveCountExtend = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(
   options?: {
@@ -1487,18 +3454,21 @@ export const useAdvertiseControllerApproveCountExtend = <
 
   return useMutation(mutationOptions, queryClient)
 }
+/**
+ * @summary Reject date extension for advertisement
+ */
 export const advertiseControllerRejectDateExtend = (
   id: string,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<AdResponseDto>(
     { url: `/ads/reject-date-extend/${id}`, method: 'PATCH' },
     options
   )
 }
 
 export const getAdvertiseControllerRejectDateExtendMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -1540,10 +3510,13 @@ export type AdvertiseControllerRejectDateExtendMutationResult = NonNullable<
 >
 
 export type AdvertiseControllerRejectDateExtendMutationError =
-  ErrorType<unknown>
+  ErrorType<void | AdResponseDto>
 
+/**
+ * @summary Reject date extension for advertisement
+ */
 export const useAdvertiseControllerRejectDateExtend = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(
   options?: {
@@ -1567,18 +3540,21 @@ export const useAdvertiseControllerRejectDateExtend = <
 
   return useMutation(mutationOptions, queryClient)
 }
+/**
+ * @summary Reject count extension for advertisement
+ */
 export const advertiseControllerRejectCountExtend = (
   id: string,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<AdResponseDto>(
     { url: `/ads/reject-count-extend/${id}`, method: 'PATCH' },
     options
   )
 }
 
 export const getAdvertiseControllerRejectCountExtendMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -1620,10 +3596,13 @@ export type AdvertiseControllerRejectCountExtendMutationResult = NonNullable<
 >
 
 export type AdvertiseControllerRejectCountExtendMutationError =
-  ErrorType<unknown>
+  ErrorType<void | AdResponseDto>
 
+/**
+ * @summary Reject count extension for advertisement
+ */
 export const useAdvertiseControllerRejectCountExtend = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(
   options?: {
@@ -1655,7 +3634,7 @@ export const advertiseControllerRequestUpdate = (
   updateAdvertisementDto: BodyType<UpdateAdvertisementDto>,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<AdResponseDto>(
     {
       url: `/ads/request-update/${id}`,
       method: 'PATCH',
@@ -1667,7 +3646,7 @@ export const advertiseControllerRequestUpdate = (
 }
 
 export const getAdvertiseControllerRequestUpdateMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -1709,13 +3688,14 @@ export type AdvertiseControllerRequestUpdateMutationResult = NonNullable<
 >
 export type AdvertiseControllerRequestUpdateMutationBody =
   BodyType<UpdateAdvertisementDto>
-export type AdvertiseControllerRequestUpdateMutationError = ErrorType<unknown>
+export type AdvertiseControllerRequestUpdateMutationError =
+  ErrorType<void | AdResponseDto>
 
 /**
  * @summary Request update approval for advertisement
  */
 export const useAdvertiseControllerRequestUpdate = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(
   options?: {
@@ -1739,18 +3719,21 @@ export const useAdvertiseControllerRequestUpdate = <
 
   return useMutation(mutationOptions, queryClient)
 }
+/**
+ * @summary Approve advertisement update
+ */
 export const advertiseControllerApproveUpdate = (
   id: string,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<AdResponseDto>(
     { url: `/ads/approve-update/${id}`, method: 'PATCH' },
     options
   )
 }
 
 export const getAdvertiseControllerApproveUpdateMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -1791,10 +3774,14 @@ export type AdvertiseControllerApproveUpdateMutationResult = NonNullable<
   Awaited<ReturnType<typeof advertiseControllerApproveUpdate>>
 >
 
-export type AdvertiseControllerApproveUpdateMutationError = ErrorType<unknown>
+export type AdvertiseControllerApproveUpdateMutationError =
+  ErrorType<void | AdResponseDto>
 
+/**
+ * @summary Approve advertisement update
+ */
 export const useAdvertiseControllerApproveUpdate = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(
   options?: {
@@ -1818,18 +3805,21 @@ export const useAdvertiseControllerApproveUpdate = <
 
   return useMutation(mutationOptions, queryClient)
 }
+/**
+ * @summary Reject advertisement update
+ */
 export const advertiseControllerRejectUpdate = (
   id: string,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<AdResponseDto>(
     { url: `/ads/reject-update/${id}`, method: 'PATCH' },
     options
   )
 }
 
 export const getAdvertiseControllerRejectUpdateMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -1870,10 +3860,14 @@ export type AdvertiseControllerRejectUpdateMutationResult = NonNullable<
   Awaited<ReturnType<typeof advertiseControllerRejectUpdate>>
 >
 
-export type AdvertiseControllerRejectUpdateMutationError = ErrorType<unknown>
+export type AdvertiseControllerRejectUpdateMutationError =
+  ErrorType<void | AdResponseDto>
 
+/**
+ * @summary Reject advertisement update
+ */
 export const useAdvertiseControllerRejectUpdate = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<void | AdResponseDto>,
   TContext = unknown,
 >(
   options?: {

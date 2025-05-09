@@ -5,7 +5,7 @@ import {IBlackListTableRow} from '@/widgets/user/const/broker/blackList/type'
 export default function BlackListTableRow({
   id,
   companyName,
-  reason,
+  // reason,
   excludeModalOpenFunc
 }: Omit<IBlackListTableRow, 'userId'>) {
   return (
@@ -16,9 +16,9 @@ export default function BlackListTableRow({
       <Typo.Contents width={'fill'}>
         {companyName}
       </Typo.Contents>
-      <Typo.Contents width={'fill'}>
-        {reason}
-      </Typo.Contents>
+      {/*<Typo.Contents width={'fill'}>*/}
+      {/*  {reason}*/}
+      {/*</Typo.Contents>*/}
       <Typo.Contents
         width={'fill'}
         color={'error'}

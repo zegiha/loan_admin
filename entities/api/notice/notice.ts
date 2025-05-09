@@ -21,7 +21,11 @@ import type {
   UseQueryResult,
 } from '@tanstack/react-query'
 
-import type { CreateNoticeDto, Notice, UpdateNoticeDto } from '../../const'
+import type {
+  CreateNoticeDto,
+  NoticeResponseDto,
+  UpdateNoticeDto,
+} from '../../const'
 
 import { customInstance } from '../../../shared/lib/axios/customAxios'
 import type { ErrorType, BodyType } from '../../../shared/lib/axios/customAxios'
@@ -37,7 +41,7 @@ export const noticeControllerCreateNotice = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<Notice | void>(
+  return customInstance<NoticeResponseDto>(
     {
       url: `/notice`,
       method: 'POST',
@@ -122,6 +126,162 @@ export const useNoticeControllerCreateNotice = <
   return useMutation(mutationOptions, queryClient)
 }
 /**
+ * 모든 공지사항을 조회합니다.
+ * @summary 공지사항 목록 조회
+ */
+export const noticeControllerGetNotices = (
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<NoticeResponseDto[]>(
+    { url: `/notice`, method: 'GET', signal },
+    options
+  )
+}
+
+export const getNoticeControllerGetNoticesQueryKey = () => {
+  return [`/notice`] as const
+}
+
+export const getNoticeControllerGetNoticesQueryOptions = <
+  TData = Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+      TError,
+      TData
+    >
+  >
+  request?: SecondParameter<typeof customInstance>
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getNoticeControllerGetNoticesQueryKey()
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof noticeControllerGetNotices>>
+  > = ({ signal }) => noticeControllerGetNotices(requestOptions, signal)
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type NoticeControllerGetNoticesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof noticeControllerGetNotices>>
+>
+export type NoticeControllerGetNoticesQueryError = ErrorType<unknown>
+
+export function useNoticeControllerGetNotices<
+  TData = Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+  TError = ErrorType<unknown>,
+>(
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+          TError,
+          Awaited<ReturnType<typeof noticeControllerGetNotices>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useNoticeControllerGetNotices<
+  TData = Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+          TError,
+          Awaited<ReturnType<typeof noticeControllerGetNotices>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useNoticeControllerGetNotices<
+  TData = Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary 공지사항 목록 조회
+ */
+
+export function useNoticeControllerGetNotices<
+  TData = Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof noticeControllerGetNotices>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getNoticeControllerGetNoticesQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
  * 특정 공지사항을 조회합니다.
  * @summary 공지사항 조회
  */
@@ -130,7 +290,7 @@ export const noticeControllerGetNotice = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<NoticeResponseDto>(
     { url: `/notice/${id}`, method: 'GET', signal },
     options
   )
@@ -299,7 +459,7 @@ export const noticeControllerUpdateNotice = (
   updateNoticeDto: BodyType<UpdateNoticeDto>,
   options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<void>(
+  return customInstance<NoticeResponseDto>(
     {
       url: `/notice/${id}`,
       method: 'PUT',
