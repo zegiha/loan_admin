@@ -88,6 +88,6 @@ export default function({
       </>
     )}
     {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}
-    {status === 'error' && (<Typo.Contents>{error?.message}</Typo.Contents>)}
+    {status === 'error' && (<Typo.Contents>나중에 다시 시도해주세요</Typo.Contents>)}
   </Sidepeek>
 }

@@ -45,10 +45,6 @@ export default function Management() {
           ))
         )}
       </TableSection>
-      {status === 'pending' &&
-        <Typo.Contents>로딩중...</Typo.Contents>}
-      {status === 'error' &&
-        <Typo.Contents color={'error'}>{error?.message}</Typo.Contents>}
       {/*{targetUser !== null && isLogoutOpen && (*/}
       {/*  <WarningModal*/}
       {/*    isOpen={isLogoutOpen}*/}

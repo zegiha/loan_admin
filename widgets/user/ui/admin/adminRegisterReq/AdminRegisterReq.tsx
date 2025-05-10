@@ -40,8 +40,6 @@ export default function() {
           ))
         )}
       </TableSection>
-      {status === 'pending' && <Typo.Contents>로딩중...</Typo.Contents>}
-      {status === 'error' && <Typo.Contents color={'error'}>{error?.message}</Typo.Contents>}
       {target !== null && isOpen && (
         <SuperAdminAuthorizationModal
           isOpen={isOpen}

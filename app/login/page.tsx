@@ -29,8 +29,11 @@ export default function Login() {
 
   const checkLogin = async () => {
     try {
-      await adminControllerRefresh()
-      await adminControllerProfile()
+      const ref = await adminControllerRefresh()
+      const pro = await adminControllerProfile()
+
+      console.log(pro, ref)
+
       router.replace('/user')
     } catch(e) {
     }

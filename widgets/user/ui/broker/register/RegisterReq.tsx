@@ -41,12 +41,6 @@ export default function RegisterReq() {
           ))
         )}
       </TableSection>
-      {status === 'pending' && (
-        <Typo.Contents>로딩중...</Typo.Contents>
-      )}
-      {status === 'error' && (
-        <Typo.Contents>{`문제가 발생했습니다 다시 시도해주세요\n${error}`}</Typo.Contents>
-      )}
       {isOpen && registerReqData !== null && (
         <RegisterDetail
           isOpen={isOpen}

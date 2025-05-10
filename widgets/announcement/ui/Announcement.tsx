@@ -21,33 +21,29 @@ export default function() {
 
   return (
     <>
-      {status === 'success' && (
-        <TableSection
-          tableTitle={'공지사항'}
-          showRow={showRow}
-          setShowRowAction={setShowRow}
-          addFunc={() => setIsAddOpen(true)}
-          reloadFunc={refetch}
-          status={statusToTableSectionStatus(status, data)}
-        >
-          {parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
-            <Table
-              key={i}
-              maxShowingRow={showRow+1}
-            >
-              <AnnouncementTableHeader/>
-              {v1.map((v2, i) => (
-                <AnnouncementTableRow
-                  key={i}
-                  {...v2}
-                />
-              ))}
-            </Table>
-          ))}
-        </TableSection>
-      )}
-      {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}
-      {status === 'error' && (<Typo.Contents>{error?.message}</Typo.Contents>)}
+      <TableSection
+        tableTitle={'공지사항'}
+        showRow={showRow}
+        setShowRowAction={setShowRow}
+        addFunc={() => setIsAddOpen(true)}
+        reloadFunc={refetch}
+        status={statusToTableSectionStatus(status, data)}
+      >
+        {status === 'success' && parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
+          <Table
+            key={i}
+            maxShowingRow={showRow+1}
+          >
+            <AnnouncementTableHeader/>
+            {v1.map((v2, i) => (
+              <AnnouncementTableRow
+                key={i}
+                {...v2}
+              />
+            ))}
+          </Table>
+        ))}
+      </TableSection>
       {targetId !== null && isOpen && <AnnouncementDetail
         {...{isOpen, setIsOpen, targetId, setTargetId, refetch}}
       />}

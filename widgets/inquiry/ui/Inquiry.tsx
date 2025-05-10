@@ -19,35 +19,31 @@ export default function Inquiry() {
 
   return (
     <>
-      {status === 'success' && (
-        <TableSection
-          tableTitle={'문의'}
-          showRow={showRow}
-          setShowRowAction={setShowRow}
-          reloadFunc={refetch}
-          status={statusToTableSectionStatus(status, data)}
-        >
-          {Array.isArray(data) ? (
-            parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
-              <Table key={i} maxShowingRow={showRow + 1}>
-                <InquiryTableHeader/>
-                {v1.map((v2, i) => (
-                  <InquiryTableRow
-                    key={i}
-                    {...v2}
-                  />
-                ))}
-              </Table>
-            ))
-          ):(
-            <Typo.Contents>
-              문의가 없어요
-            </Typo.Contents>
-          )}
-        </TableSection>
-      )}
-      {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}
-      {status === 'error' && (<Typo.Contents>{error?.message}</Typo.Contents>)}
+      <TableSection
+        tableTitle={'문의'}
+        showRow={showRow}
+        setShowRowAction={setShowRow}
+        reloadFunc={refetch}
+        status={statusToTableSectionStatus(status, data)}
+      >
+        {status === 'success' && Array.isArray(data) ? (
+          parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
+            <Table key={i} maxShowingRow={showRow + 1}>
+              <InquiryTableHeader/>
+              {v1.map((v2, i) => (
+                <InquiryTableRow
+                  key={i}
+                  {...v2}
+                />
+              ))}
+            </Table>
+          ))
+        ):(
+          <Typo.Contents>
+            문의가 없어요
+          </Typo.Contents>
+        )}
+      </TableSection>
       {target !== null && isOpen && (
         <InquiryAnswerModal
           {...{

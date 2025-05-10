@@ -64,7 +64,7 @@ export default function({
         </Col>
       )}
       {status === 'pending' && (<Typo.Contents>로딩중...</Typo.Contents>)}
-      {status === 'error' && (<Typo.Contents>{error?.message}</Typo.Contents>)}
+      {status === 'error' && (<Typo.Contents>문제가 발생했습니다 나중에 다시 시도해주세요</Typo.Contents>)}
       {userInfo !== null && isIdOpen && (<Id
         isOpen={isIdOpen}
         setIsOpen={setIsIdOpen}

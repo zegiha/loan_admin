@@ -27,7 +27,7 @@ export default function BlackList() {
         setShowRowAction={v => setShowRow(v)}
         status={statusToTableSectionStatus(status, data)}
       >
-        {status === 'success' ? (
+        {status === 'success' &&
           parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
             <Table
               key={i}
@@ -41,10 +41,7 @@ export default function BlackList() {
                 />
               ))}
             </Table>
-          ))
-        ):(
-          <Typo.Contents>로딩중...</Typo.Contents>
-        )}
+          ))}
       </TableSection>
       {targetUser !== null && (
         <WarningModal

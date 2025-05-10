@@ -1,23 +1,54 @@
 import {globalRouter} from '@/shared/lib'
-import axios, {AxiosError, AxiosRequestConfig} from 'axios'
-import {adminControllerRefresh} from "@/entities/api/admin/admin";
+import axios, {AxiosError, AxiosRequestConfig, InternalAxiosRequestConfig} from 'axios'
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+
+async function checkLogin() {
+  try {
+    await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/profile`, {
+      withCredentials: true
+    })
+    return 'loggedIn'
+  } catch (e) {
+    try {
+      await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/refresh`, {
+        withCredentials: true
+      })
+      return 'updateLoggedIn'
+    } catch (e) {
+      return 'loggedOut'
+    }
+  }
+}
 
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: baseUrl,
   withCredentials: true,
 })
+
+interface InternalAxiosRequestConfigWithFlag extends InternalAxiosRequestConfig {
+  _retry?: boolean
+}
 
 instance.interceptors.response.use(
   res => res,
   async (err) => {
     if(err instanceof AxiosError && err.status === 401) {
-      try {
-        // globalRouter?.push('/login')
-        // await adminControllerRefresh()
-        return Promise.reject(err)
-      } catch (e) {
-        // if(e instanceof AxiosError && e.status === 401)
+      const originalReq = err.config as InternalAxiosRequestConfigWithFlag | undefined
+
+      const res = await checkLogin()
+
+      if(
+        res === 'updateLoggedIn' &&
+        originalReq?._retry
+      ) {
+        originalReq._retry = true
+        return instance(originalReq)
       }
+      if(res === 'loggedOut') {
+        globalRouter?.push('/login')
+      }
+      return Promise.reject(err)
     }
   }
 )
