@@ -7,6 +7,8 @@
  */
 
 export type ContactResponseDto = {
+  /** 문의 아이디 */
+  id: string
   /** 문의 제목 */
   title: string
   /** 문의 내용 */
@@ -16,7 +18,7 @@ export type ContactResponseDto = {
   /** 연락처 */
   tel: string
   /** 문의 생성일 */
-  createdAt?: string
+  createdAt: string
   /** 문의 수정일 */
   updatedAt?: string
 }

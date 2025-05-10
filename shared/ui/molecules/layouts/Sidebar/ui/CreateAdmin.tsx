@@ -35,10 +35,12 @@ export default function CreateAdmin() {
           </Typo.Contents>
         </CtaButton>
       </Row>
-      <CreateAdminModal
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
-      />
+      {isModalOpen && (
+        <CreateAdminModal
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+        />
+      )}
     </>
   ) : <></>
 }

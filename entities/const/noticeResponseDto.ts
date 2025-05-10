@@ -8,6 +8,8 @@
 import type { NoticeResponseDtoType } from './noticeResponseDtoType'
 
 export type NoticeResponseDto = {
+  /** 공지사항 아이디 */
+  id: string
   /** 공지사항 제목 */
   title: string
   /** 공지사항 내용 */

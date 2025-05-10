@@ -50,9 +50,8 @@ export default function({
             <Typo.Contents>닫기</Typo.Contents>
           </CtaButton>
           <CtaButton onClick={() => {
-            // TODO 블랙 등록 API 연결
             const handleAddToBlack = async () => {
-              if(await addToBlack(target)) {
+              if(await addToBlack(target.split('-')[0])) {
                 refetch()
                 setIsOpen(false)
               }

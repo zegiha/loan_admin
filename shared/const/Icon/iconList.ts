@@ -21,6 +21,8 @@ const iconList: {[K in TIconListKey]?: string} = {
   permission: 'approval_delegation',
   delete: 'delete',
   edit: 'edit',
+  noData: 'help_center',
+  progressRing: 'progress_activity'
 }
 
 export default iconList

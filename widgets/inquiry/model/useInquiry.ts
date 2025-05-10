@@ -16,13 +16,14 @@ export default function useInquiry() {
         v.forEach(v => {
           res.push({
             ...v,
-            createdAt: new Date(v.createdAt),
+            createdAt: new Date(v.createdAt ?? '2025-01-01'),
             detailFunc: () => {
               setTarget({
                 ...v,
                 inquiryId: v.id,
                 authorPhone: v.tel,
                 authorName: v.author,
+                createdAt: new Date(v.createdAt ?? '2025-01-01')
               })
               setIsOpen(true)
             }

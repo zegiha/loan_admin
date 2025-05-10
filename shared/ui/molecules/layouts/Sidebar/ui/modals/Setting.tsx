@@ -6,6 +6,7 @@ import Authority from '@/shared/ui/molecules/layouts/Sidebar/ui/modals/Authority
 import Delete from '@/shared/ui/molecules/layouts/Sidebar/ui/modals/Delete'
 import Id from '@/shared/ui/molecules/layouts/Sidebar/ui/modals/Id'
 import PW from '@/shared/ui/molecules/layouts/Sidebar/ui/modals/PW'
+import {useAuth} from "@/shared/model";
 
 export interface ISettingTableRow {
   label?: string
@@ -25,13 +26,17 @@ export default function({
   setIsOpen: TSetState<boolean>
 }) {
   const {
-    data, status, error,
+    data, status, error, refetch,
     userInfo,
     isIdOpen, setIsIdOpen,
     isAuthorityOpen, setIsAuthorityOpen,
     isPWOpen, setIsPWOpen,
     isDeleteOpen, setIsDeleteOpen,
   } = useSetting()
+
+  const {
+    setData
+  } = useAuth()
 
   return <Modal customKey={'setting'} isOpen={isOpen} setIsOpenAction={setIsOpen}>
     <ModalContainer size={'large'}>
@@ -64,17 +69,27 @@ export default function({
         isOpen={isIdOpen}
         setIsOpen={setIsIdOpen}
         currentId={userInfo.id}
+        refetch={() => {
+          refetch()
+          setData()
+        }}
       />)}
       {userInfo !== null && isAuthorityOpen && (<Authority
         isOpen={isAuthorityOpen}
         setIsOpen={setIsAuthorityOpen}
         currentAuthority={userInfo.authority}
       />)}
-      {isPWOpen && (<PW
+      {isPWOpen && userInfo !== null && (<PW
         isOpen={isPWOpen}
         setIsOpen={setIsPWOpen}
+        currentId={userInfo.id}
+        refetch={() => {
+          refetch()
+          setData()
+        }}
       />)}
-      {isDeleteOpen && (<Delete
+      {isDeleteOpen && userInfo !== null && (<Delete
+        id={userInfo.id}
         isOpen={isDeleteOpen}
         setIsOpen={setIsDeleteOpen}
       />)}

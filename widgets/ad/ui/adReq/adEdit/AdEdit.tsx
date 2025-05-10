@@ -1,6 +1,6 @@
 'use client'
 
-import {parseToTwoDimensionalArray, useTableSection} from '@/shared/lib'
+import {isEmpty, parseToTwoDimensionalArray, statusToTableSectionStatus, useTableSection} from '@/shared/lib'
 import {Typo} from '@/shared/ui/atoms'
 import {Table} from '@/shared/ui/molecules'
 import {TableSection} from '@/shared/ui/organisms'
@@ -25,6 +25,7 @@ export default function AdEdit() {
           showRow={showRow}
           setShowRowAction={setShowRow}
           reloadFunc={refetch}
+          status={statusToTableSectionStatus(status, data)}
         >
           {parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
             <Table key={i} maxShowingRow={showRow + 1}>

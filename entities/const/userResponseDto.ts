@@ -39,4 +39,6 @@ export type UserResponseDto = {
   isActive: boolean
   /** 블랙리스트 여부 */
   isBlacklist: boolean
+  /** 탈퇴 요청 여부 */
+  isWithdrawalRequested: boolean
 }

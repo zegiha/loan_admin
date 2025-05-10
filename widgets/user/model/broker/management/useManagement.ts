@@ -24,8 +24,8 @@ export default function() {
             brokerageStartPeriod: new Date(v.registerPeriodStart),
             brokerageEndPeriod: new Date(v.registerPeriodEnd),
             brokerageRegistrar: v.registrar,
-            brokerageRegistrationCertificateUrl: v.loanRegistrationCertificate,
-            businessRegistrationCertificateUrl: v.businessRegistrationCertificate,
+            brokerageRegistrationCertificateUrl: v.loanRegistrationCertificate ?? '',
+            businessRegistrationCertificateUrl: v.businessRegistrationCertificate ?? '',
             companyPhone: v.companyTel,
             blackListStatus: v.isBlacklist
           }

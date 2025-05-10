@@ -14,3 +14,17 @@
   top: 0;
   background-color: var(--container-containerNormal);
 }
+
+.exceptionTableContainer {
+	padding: 32px;
+	border: 1px solid var(--outline-default);
+	border-radius: 4px;
+	background-color: var(--container-containerNormal);
+}
+
+.progressRing {
+	position: relative;
+	opacity: 0.5;
+	width: 128px;
+	height: 128px;
+}

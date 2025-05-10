@@ -2,7 +2,6 @@ import {BrokerRegisterEntity} from '@/prevEntities'
 
 const registerEntityLabel: {[K in keyof BrokerRegisterEntity]?: string} = {
   id: '아이디',
-  password: '비밀번호',
   phone: '전화번호',
   exponentName: '대표자명',
   brokerageNumber: '대부(중개)등록번호',

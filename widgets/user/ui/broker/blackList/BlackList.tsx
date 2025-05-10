@@ -5,7 +5,7 @@ import BlackListAddModal from '@/widgets/user/ui/broker/blackList/BlackListAddMo
 import BlackListTableHeader from '@/widgets/user/ui/broker/blackList/BlackListTableHeader'
 import BlackListTableRow from '@/widgets/user/ui/broker/blackList/BlackListTableRow'
 import {TableSection, WarningModal} from "@/shared/ui/organisms";
-import {parseToTwoDimensionalArray} from "@/shared/lib";
+import {parseToTwoDimensionalArray, statusToTableSectionStatus} from "@/shared/lib";
 
 export default function BlackList() {
   const {
@@ -25,6 +25,7 @@ export default function BlackList() {
         addFunc={() => setIsAddModalOpen(true)}
         showRow={showRow}
         setShowRowAction={v => setShowRow(v)}
+        status={statusToTableSectionStatus(status, data)}
       >
         {status === 'success' ? (
           parseToTwoDimensionalArray(data, showRow).map((v1, i) => (

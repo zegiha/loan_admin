@@ -4,13 +4,18 @@ import {Col, Typo} from '@/shared/ui/atoms'
 import {Modal, ModalContainer, TextInput} from '@/shared/ui/molecules'
 import {SubmitSection} from '@/shared/ui/organisms'
 import {useState} from 'react'
+import {adminControllerLogin, adminControllerUpdateProfile, adminControllerVerify} from "@/entities/api/admin/admin";
 
 export default function PW({
   isOpen,
   setIsOpen,
+  currentId,
+  refetch,
 }: {
   isOpen: boolean
   setIsOpen: TSetState<boolean>
+  currentId: string
+  refetch: () => void
 }) {
   const [newPW, setNewPW] = useState<string>('')
   const [checkNewPW, setCheckNewPW] = useState<string>('')
@@ -50,7 +55,7 @@ export default function PW({
       <SubmitSection
         submitContents={'변경하기'}
         cancelContents={'취소'}
-        submitFunc={() => {
+        submitFunc={async () => {
           let message
 
           message = check_password_and_message(newPW)
@@ -72,9 +77,35 @@ export default function PW({
             alert('새로운 비밀번호가 확인 비밀번호와 다릅니다')
             return
           }
-          // TODO API 비밀번호 변경
-          alert('비밀번호가 변경됐습니다')
-          setIsOpen(false)
+          adminControllerVerify({password: currentPW})
+            .then(() => {
+              adminControllerUpdateProfile({
+                id: currentId,
+                password: newPW,
+                name: '',
+              })
+                .then(() => {
+                  adminControllerLogin({
+                    id: currentId,
+                    password: newPW
+                  })
+                    .then (() => {
+                      alert('비밀번호가 변경됐습니다')
+                      refetch()
+                      setIsOpen(false)
+                    })
+                    .catch(() => {
+                      alert('다시 로그인해주세요')
+                    })
+                })
+                .catch((err) => {
+                  console.error(err)
+                  alert('다시 시도해주세요')
+                })
+            })
+            .catch(() => {
+              alert('현재 비밀번호가 틀렸습니다')
+            })
         }}
         cancelFunc={() => setIsOpen(false)}
       />

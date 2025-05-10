@@ -7,7 +7,7 @@ import {useState} from 'react'
 
 export default function() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [target, setTarget] = useState<{name: string, id: string, reqId: string} | null>(null)
+  const [target, setTarget] = useState<{name?: string, id: string, reqId: string} | null>(null)
   const queryReq = useQuery<Array<AdminRegisterEntity>, Error, Array<IAdminRegisterReqTableRow>>({
     queryKey: ['adminRegister'],
     queryFn: getAdminRegister,

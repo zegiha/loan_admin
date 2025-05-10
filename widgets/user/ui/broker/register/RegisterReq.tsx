@@ -5,7 +5,7 @@ import RegisterReqTableHeader from '@/widgets/user/ui/broker/register/RegisterRe
 import RegisterReqTableRow from '@/widgets/user/ui/broker/register/RegisterReqTableRow'
 import {Typo} from '@/shared/ui/atoms'
 import {TableSection} from "@/shared/ui/organisms";
-import {parseToTwoDimensionalArray} from "@/shared/lib";
+import {parseToTwoDimensionalArray, statusToTableSectionStatus} from "@/shared/lib";
 
 export default function RegisterReq() {
   const {
@@ -22,6 +22,7 @@ export default function RegisterReq() {
         reloadFunc={() => refetch()}
         showRow={showRow}
         setShowRowAction={v => setShowRow(v)}
+        status={statusToTableSectionStatus(status, data)}
       >
         {status === 'success' && (
           parseToTwoDimensionalArray(data, showRow).map((v1, i) => (

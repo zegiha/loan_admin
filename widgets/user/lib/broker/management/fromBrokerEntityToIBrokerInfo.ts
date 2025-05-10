@@ -8,7 +8,7 @@ export default function(data: BrokerEntity): Array<IBrokerInfo> {
       title: '계정정보',
       content: [
         { label: '아이디', contents: data.id },
-        { label: '비밀번호', contents: data.password },
+        // { label: '비밀번호', contents: data.password },
         { label: '블랙리스트 등록 여부', contents: data.blackListStatus ? '예' : '아니오' },
         { label: '전화번호', contents: data.phone },
         { label: '광고용 전화번호', contents: data.advertisementPhone },

@@ -9,14 +9,14 @@ export default function({
 }: {
   isOpen: boolean
   setIsOpen: TSetState<boolean>
-  target: {name: string, id: string, reqId: string}
+  target: {id: string, reqId: string}
   setTarget: TSetState<{name: string, id: string, reqId: string} | null>
 }) {
   return (
     <WarningModal
       isOpen={isOpen}
       setIsOpen={setIsOpen}
-      title={`${target.name}님(${target.id})의\n최고 관리자 계정 생성을 승인할까요?`}
+      title={`${target.id}님\n최고 관리자 계정 생성을 승인할까요?`}
       subtitle={`최고 관리자 계정은 삭제할 수 없으니 한번 더 확인해주세요`}
       submitContents={'승인'}
       cancelContents={'거절'}

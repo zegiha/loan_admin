@@ -14,6 +14,7 @@ import Table from '@/shared/ui/molecules/table/Table'
 import TableRow from '@/shared/ui/molecules/table/TableRow'
 import TableHeader from '@/shared/ui/molecules/table/TableHeader'
 import TableLabeledRow from '@/shared/ui/molecules/table/TableLabeledRow'
+import ExceptionTable from "@/shared/ui/molecules/table/ExceptionTable";
 
 import Sidepeek from '@/shared/ui/molecules/sidepeek/Sidepeek'
 import SidepeekHeaderSection from '@/shared/ui/molecules/sidepeek/SidepeekHeaderSection'

@@ -4,6 +4,7 @@ import {Col, Row} from '@/shared/ui/atoms'
 import {Swiper} from "@/shared/ui/organisms";
 import TableSectionHeader from "@/shared/ui/organisms/layouts/TableSection/TableSectionHeader";
 import {ITableSection} from "@/shared/const";
+import ExceptionTable from "@/shared/ui/molecules/table/ExceptionTable";
 
 export default function TableSection({
   tableTitle,
@@ -12,6 +13,7 @@ export default function TableSection({
   showRow,
   setShowRowAction,
   children,
+  status,
 }: ITableSection) {
 
   return (
@@ -19,17 +21,21 @@ export default function TableSection({
       <TableSectionHeader
         {...{tableTitle, reloadFunc, addFunc, showRow, setShowRowAction}}
       />
-      {Array.isArray(children) ? (
-        <Row width={'fill'}>
-          <Swiper
-            pagination
-            navigation
-            gap={24}
-          >
-            {children}
-          </Swiper>
-        </Row>
-      ) : children}
+      {status === 'success' ? (
+        Array.isArray(children) ? (
+            <Row width={'fill'}>
+              <Swiper
+                pagination
+                navigation
+                gap={24}
+              >
+                {children}
+              </Swiper>
+            </Row>
+          ) : children
+      ):(
+        <ExceptionTable type={status}/>
+      )}
     </Col>
   )
 }

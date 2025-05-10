@@ -36,7 +36,7 @@ export default function Icon({
       style={style}
       {...motionProps}
     >
-      {iconKey}
+      {iconList[iconKey]}
     </motion.div>
   )
 }

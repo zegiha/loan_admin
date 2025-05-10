@@ -20,7 +20,9 @@ export type TIconListKey =
   'toLast' |
   'permission' |
   'delete' |
-  'edit'
+  'edit' |
+  'noData' |
+  'progressRing'
 ;
 
 export type TColor = 'dim' | 'normal' | 'variable' | 'primary' | 'none' | 'white';

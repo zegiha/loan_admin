@@ -23,7 +23,9 @@ import type {
 
 import type {
   Object,
+  UserControllerApproveWithdrawal200,
   UserControllerDeleteProfile200,
+  UserControllerRequestWithdrawal200,
   UserResponseDto,
 } from '../../const'
 
@@ -1585,4 +1587,500 @@ export function useUserControllerGetUser<
   query.queryKey = queryOptions.queryKey
 
   return query
+}
+
+/**
+ * 유저가 자신의 계정에 대해 탈퇴 요청을 합니다.
+ * @summary 계정 탈퇴 요청
+ */
+export const userControllerRequestWithdrawal = (
+  options?: SecondParameter<typeof customInstance>
+) => {
+  return customInstance<UserControllerRequestWithdrawal200>(
+    { url: `/user/withdrawal-request`, method: 'PATCH' },
+    options
+  )
+}
+
+export const getUserControllerRequestWithdrawalMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof userControllerRequestWithdrawal>>,
+    TError,
+    void,
+    TContext
+  >
+  request?: SecondParameter<typeof customInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof userControllerRequestWithdrawal>>,
+  TError,
+  void,
+  TContext
+> => {
+  const mutationKey = ['userControllerRequestWithdrawal']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof userControllerRequestWithdrawal>>,
+    void
+  > = () => {
+    return userControllerRequestWithdrawal(requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type UserControllerRequestWithdrawalMutationResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerRequestWithdrawal>>
+>
+
+export type UserControllerRequestWithdrawalMutationError = ErrorType<unknown>
+
+/**
+ * @summary 계정 탈퇴 요청
+ */
+export const useUserControllerRequestWithdrawal = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof userControllerRequestWithdrawal>>,
+      TError,
+      void,
+      TContext
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<typeof userControllerRequestWithdrawal>>,
+  TError,
+  void,
+  TContext
+> => {
+  const mutationOptions =
+    getUserControllerRequestWithdrawalMutationOptions(options)
+
+  return useMutation(mutationOptions, queryClient)
+}
+/**
+ * 어드민이 탈퇴 요청된 계정을 삭제합니다.
+ * @summary 탈퇴 요청 승인(계정 삭제)
+ */
+export const userControllerApproveWithdrawal = (
+  id: string,
+  options?: SecondParameter<typeof customInstance>
+) => {
+  return customInstance<UserControllerApproveWithdrawal200>(
+    { url: `/user/admin/withdrawal/${id}`, method: 'DELETE' },
+    options
+  )
+}
+
+export const getUserControllerApproveWithdrawalMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof userControllerApproveWithdrawal>>,
+    TError,
+    { id: string },
+    TContext
+  >
+  request?: SecondParameter<typeof customInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof userControllerApproveWithdrawal>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationKey = ['userControllerApproveWithdrawal']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof userControllerApproveWithdrawal>>,
+    { id: string }
+  > = props => {
+    const { id } = props ?? {}
+
+    return userControllerApproveWithdrawal(id, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type UserControllerApproveWithdrawalMutationResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerApproveWithdrawal>>
+>
+
+export type UserControllerApproveWithdrawalMutationError = ErrorType<unknown>
+
+/**
+ * @summary 탈퇴 요청 승인(계정 삭제)
+ */
+export const useUserControllerApproveWithdrawal = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof userControllerApproveWithdrawal>>,
+      TError,
+      { id: string },
+      TContext
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<typeof userControllerApproveWithdrawal>>,
+  TError,
+  { id: string },
+  TContext
+> => {
+  const mutationOptions =
+    getUserControllerApproveWithdrawalMutationOptions(options)
+
+  return useMutation(mutationOptions, queryClient)
+}
+/**
+ * 탈퇴 요청된 유저 목록을 조회합니다.
+ * @summary 탈퇴 요청 목록 조회
+ */
+export const userControllerGetWithdrawalRequests = (
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<UserResponseDto[]>(
+    { url: `/user/admin/withdrawal-requests`, method: 'GET', signal },
+    options
+  )
+}
+
+export const getUserControllerGetWithdrawalRequestsQueryKey = () => {
+  return [`/user/admin/withdrawal-requests`] as const
+}
+
+export const getUserControllerGetWithdrawalRequestsQueryOptions = <
+  TData = Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<
+      Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+      TError,
+      TData
+    >
+  >
+  request?: SecondParameter<typeof customInstance>
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getUserControllerGetWithdrawalRequestsQueryKey()
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>
+  > = ({ signal }) =>
+    userControllerGetWithdrawalRequests(requestOptions, signal)
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type UserControllerGetWithdrawalRequestsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>
+>
+export type UserControllerGetWithdrawalRequestsQueryError = ErrorType<unknown>
+
+export function useUserControllerGetWithdrawalRequests<
+  TData = Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+  TError = ErrorType<unknown>,
+>(
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useUserControllerGetWithdrawalRequests<
+  TData = Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useUserControllerGetWithdrawalRequests<
+  TData = Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary 탈퇴 요청 목록 조회
+ */
+
+export function useUserControllerGetWithdrawalRequests<
+  TData = Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerGetWithdrawalRequests>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions =
+    getUserControllerGetWithdrawalRequestsQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  query.queryKey = queryOptions.queryKey
+
+  return query
+}
+
+/**
+ * 사용자를 검색합니다.
+ * @summary 사용자 검색
+ */
+export const userControllerSearch = (
+  query: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<UserResponseDto[]>(
+    { url: `/user/search/${query}`, method: 'GET', signal },
+    options
+  )
+}
+
+export const getUserControllerSearchQueryKey = (query: string) => {
+  return [`/user/search/${query}`] as const
+}
+
+export const getUserControllerSearchQueryOptions = <
+  TData = Awaited<ReturnType<typeof userControllerSearch>>,
+  TError = ErrorType<unknown>,
+>(
+  query: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerSearch>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getUserControllerSearchQueryKey(query)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof userControllerSearch>>
+  > = ({ signal }) => userControllerSearch(query, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: !!query,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof userControllerSearch>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type UserControllerSearchQueryResult = NonNullable<
+  Awaited<ReturnType<typeof userControllerSearch>>
+>
+export type UserControllerSearchQueryError = ErrorType<unknown>
+
+export function useUserControllerSearch<
+  TData = Awaited<ReturnType<typeof userControllerSearch>>,
+  TError = ErrorType<unknown>,
+>(
+  query: string,
+  options: {
+    query: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerSearch>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerSearch>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerSearch>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useUserControllerSearch<
+  TData = Awaited<ReturnType<typeof userControllerSearch>>,
+  TError = ErrorType<unknown>,
+>(
+  query: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerSearch>>,
+        TError,
+        TData
+      >
+    > &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof userControllerSearch>>,
+          TError,
+          Awaited<ReturnType<typeof userControllerSearch>>
+        >,
+        'initialData'
+      >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+export function useUserControllerSearch<
+  TData = Awaited<ReturnType<typeof userControllerSearch>>,
+  TError = ErrorType<unknown>,
+>(
+  query: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerSearch>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+}
+/**
+ * @summary 사용자 검색
+ */
+
+export function useUserControllerSearch<
+  TData = Awaited<ReturnType<typeof userControllerSearch>>,
+  TError = ErrorType<unknown>,
+>(
+  query: string,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<
+        Awaited<ReturnType<typeof userControllerSearch>>,
+        TError,
+        TData
+      >
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>
+} {
+  const queryOptions = getUserControllerSearchQueryOptions(query, options)
+
+  const _query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> }
+
+  _query.queryKey = queryOptions.queryKey
+
+  return _query
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import {parseToTwoDimensionalArray, useTableSection} from '@/shared/lib'
+import {parseToTwoDimensionalArray, statusToTableSectionStatus, useTableSection} from '@/shared/lib'
 import {Typo} from '@/shared/ui/atoms'
 import {Table} from '@/shared/ui/molecules'
 import {TableSection} from '@/shared/ui/organisms'
@@ -16,7 +16,7 @@ export default function() {
     isOpen, setIsOpen,
     target, setTarget,
     data, status, error, refetch
-  } = useAdRegister()
+  } = useAdRegister(`${showRow}`)
 
   return (
     <>
@@ -25,6 +25,7 @@ export default function() {
         showRow={showRow}
         setShowRowAction={setShowRow}
         reloadFunc={() => refetch()}
+        status={statusToTableSectionStatus(status, data)}
       >
         {status === 'success' &&
           parseToTwoDimensionalArray(data, showRow).map((v1, i) => (

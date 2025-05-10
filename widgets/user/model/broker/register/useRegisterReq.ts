@@ -26,7 +26,8 @@ export default function useRegisterReq() {
             advertisementPhone: v.advertisementTel,
             brokerageStartPeriod: yyyyMmDdToDate(v.registerPeriodStart),
             brokerageEndPeriod: yyyyMmDdToDate(v.registerPeriodEnd),
-            brokerageRegistrationCertificateUrl: v.loanRegistrationCertificate,
+            brokerageRegistrationCertificateUrl: v.loanRegistrationCertificate ?? '',
+            businessRegistrationCertificateUrl: v.businessRegistrationCertificate ?? '',
             companyPhone: v.companyTel,
             reqDate: new Date(),
           }

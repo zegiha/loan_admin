@@ -4,8 +4,11 @@ import {BrokerEntitySummary, getAdRegisterSummaryEntity, getBrokerSummaryEntityB
 import {IAdRegisterTableRow} from '@/widgets/ad/const/adReq/adRegister/type'
 import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'
+import {useAdvertiseControllerFindAllWaitingRegistration} from "@/entities/api/advertise/advertise";
 
-export default function() {
+export default function(
+  limit: string
+) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [target, setTarget] = useState<BrokerEntitySummary & {adReqId: string} | null>(null)
 

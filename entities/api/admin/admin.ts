@@ -25,6 +25,7 @@ import type {
   AdminAccountCreateDto,
   AdminLoginDto,
   AdminResponseDto,
+  AdminVerifyDto,
 } from '../../const'
 
 import { customInstance } from '../../../shared/lib/axios/customAxios'
@@ -893,6 +894,91 @@ export const useAdminControllerUpdateProfile = <
 > => {
   const mutationOptions =
     getAdminControllerUpdateProfileMutationOptions(options)
+
+  return useMutation(mutationOptions, queryClient)
+}
+export const adminControllerVerify = (
+  adminVerifyDto: BodyType<AdminVerifyDto>,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<void>(
+    {
+      url: `/admin/verify`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: adminVerifyDto,
+      signal,
+    },
+    options
+  )
+}
+
+export const getAdminControllerVerifyMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminControllerVerify>>,
+    TError,
+    { data: BodyType<AdminVerifyDto> },
+    TContext
+  >
+  request?: SecondParameter<typeof customInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof adminControllerVerify>>,
+  TError,
+  { data: BodyType<AdminVerifyDto> },
+  TContext
+> => {
+  const mutationKey = ['adminControllerVerify']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof adminControllerVerify>>,
+    { data: BodyType<AdminVerifyDto> }
+  > = props => {
+    const { data } = props ?? {}
+
+    return adminControllerVerify(data, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type AdminControllerVerifyMutationResult = NonNullable<
+  Awaited<ReturnType<typeof adminControllerVerify>>
+>
+export type AdminControllerVerifyMutationBody = BodyType<AdminVerifyDto>
+export type AdminControllerVerifyMutationError = ErrorType<unknown>
+
+export const useAdminControllerVerify = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof adminControllerVerify>>,
+      TError,
+      { data: BodyType<AdminVerifyDto> },
+      TContext
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<typeof adminControllerVerify>>,
+  TError,
+  { data: BodyType<AdminVerifyDto> },
+  TContext
+> => {
+  const mutationOptions = getAdminControllerVerifyMutationOptions(options)
 
   return useMutation(mutationOptions, queryClient)
 }

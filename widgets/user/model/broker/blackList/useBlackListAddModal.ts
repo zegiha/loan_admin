@@ -1,6 +1,6 @@
 'use client'
 
-import {userControllerBlack} from '@/entities/api/user/user'
+import {getUserControllerFindAllQueryOptions, userControllerBlack, userControllerSearch} from '@/entities/api/user/user'
 import {useEffect, useState} from 'react'
 
 export default function() {
@@ -14,22 +14,16 @@ export default function() {
     {id: 'compy07', companyName: '24시 대부'},
     {id: 'ximya_kim', companyName: 'Beasts And Natives Alike'},
   ]
-  const getSimilar = (target: string) => {
-    const res: Array<string> = []
-    dummyUsers.forEach(user => {
-      const targetChars = target.replaceAll(' ', '').split('')
-      if (
-        targetChars.some(char => user.id.includes(char) || user.companyName.includes(char))
-      ) {
-        res.push(`${user.id}-${user.companyName}`)
-      }
-    })
-    return res
+  const getSimilar = async (target: string) => {
+    return await userControllerSearch(target)
+      .then(data => {
+        return data.map(v => `${v.id}-${v.companyName}`)
+      })
   }
 
-  useEffect(() => {
-    if(target !== '') {
-      const similar = getSimilar(target)
+  const handleSimilar = async () => {
+    if(target !== '' && !target.includes('-')) {
+      const similar = await getSimilar(target)
       if(similar.length > 0) {
         setSelections(similar)
         setSelectionPlaceholder(undefined)
@@ -41,6 +35,10 @@ export default function() {
       setSelections(undefined)
       setSelectionPlaceholder(undefined)
     }
+  }
+
+  useEffect(() => {
+    handleSimilar()
   }, [target])
 
   const addToBlack = async (id: string) => {

@@ -5,7 +5,7 @@ import AdminRegisterReq from '@/widgets/user/ui/admin/adminRegisterReq/AdminRegi
 export default function() {
   return (
     <SectionHeader headerContents={'관리자 계정 관리'}>
-      <AdminRegisterReq/>
+      {/*<AdminRegisterReq/>*/}
       <AdminManagement/>
     </SectionHeader>
   )

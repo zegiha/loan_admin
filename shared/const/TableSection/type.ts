@@ -9,5 +9,6 @@ export interface ITableSectionHeader {
 }
 
 export interface ITableSection extends ITableSectionHeader{
+  status: 'error' | 'success' | 'empty' | 'pending'
   children: Array<ReactNode> | ReactNode
 }

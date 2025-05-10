@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'loan-project-mng.s3.amazonaws.com',
+        hostname: 'd3b0fhpuvmp33e.cloudfront.net',
         port: '',
         pathname: '/**',
       },
