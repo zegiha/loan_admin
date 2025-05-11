@@ -6,6 +6,6 @@
  * OpenAPI spec version: 1.0
  */
 
-export type AdvertiseControllerRequestCountExtendParams = {
+export type AdsPublicControllerRequestCountExtendParams = {
   deposit_name: string
 }

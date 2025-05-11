@@ -181,6 +181,78 @@ export function useAdminControllerFindAll<
   return query
 }
 
+export const adminControllerDeleteAdmin = (
+  options?: SecondParameter<typeof customInstance>
+) => {
+  return customInstance<void>({ url: `/admin`, method: 'DELETE' }, options)
+}
+
+export const getAdminControllerDeleteAdminMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof adminControllerDeleteAdmin>>,
+    TError,
+    void,
+    TContext
+  >
+  request?: SecondParameter<typeof customInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof adminControllerDeleteAdmin>>,
+  TError,
+  void,
+  TContext
+> => {
+  const mutationKey = ['adminControllerDeleteAdmin']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof adminControllerDeleteAdmin>>,
+    void
+  > = () => {
+    return adminControllerDeleteAdmin(requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type AdminControllerDeleteAdminMutationResult = NonNullable<
+  Awaited<ReturnType<typeof adminControllerDeleteAdmin>>
+>
+
+export type AdminControllerDeleteAdminMutationError = ErrorType<unknown>
+
+export const useAdminControllerDeleteAdmin = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof adminControllerDeleteAdmin>>,
+      TError,
+      void,
+      TContext
+    >
+    request?: SecondParameter<typeof customInstance>
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<typeof adminControllerDeleteAdmin>>,
+  TError,
+  void,
+  TContext
+> => {
+  const mutationOptions = getAdminControllerDeleteAdminMutationOptions(options)
+
+  return useMutation(mutationOptions, queryClient)
+}
 export const adminControllerCreate = (
   adminAccountCreateDto: BodyType<AdminAccountCreateDto>,
   options?: SecondParameter<typeof customInstance>,

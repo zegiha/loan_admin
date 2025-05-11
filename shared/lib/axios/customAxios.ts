@@ -37,7 +37,6 @@ instance.interceptors.response.use(
       const originalReq = err.config as InternalAxiosRequestConfigWithFlag | undefined
 
       const res = await checkLogin()
-
       if(
         res === 'updateLoggedIn' &&
         originalReq?._retry
