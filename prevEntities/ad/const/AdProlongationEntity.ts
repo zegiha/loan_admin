@@ -1,9 +1,9 @@
-import {AdEntity} from '@/prevEntities'
+import { AdEntity } from '@/prevEntities'
 
 export default interface AdProlongationEntity {
-  prolongationId: string
-  userId: string
-  adName: AdEntity['name']
-  depositorName: string
-  beDepositedTotalAmount: number
+  user_id: string
+  company_id: string
+  ad_types: string
+  deposit_name: string
+  deposit_fee: number
 }

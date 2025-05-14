@@ -1,28 +1,39 @@
-import {TSetState} from '@/shared/const'
-import {Col, Typo} from '@/shared/ui/atoms'
-import {Sidepeek, SidepeekHeaderSection, Table, TableLabeledRow} from '@/shared/ui/molecules'
-import {AdImg, SubmitSection} from '@/shared/ui/organisms'
+import {
+  adsPrivateControllerApproveUpdate,
+  adsPrivateControllerRejectUpdate,
+} from '@/entities/api/advertisement-private/advertisement-private'
+import { TSetState } from '@/shared/const'
+import { Col, Typo } from '@/shared/ui/atoms'
+import {
+  Sidepeek,
+  SidepeekHeaderSection,
+  Table,
+  TableLabeledRow,
+} from '@/shared/ui/molecules'
+import { AdImg, SubmitSection } from '@/shared/ui/organisms'
 import useAdEditDetail from '@/widgets/ad/model/adReq/adEdit/useAdEditDetail'
+import { useEffect } from 'react'
 
 export default function AdEditDetail({
   isOpen,
   setIsOpen,
   target,
-  setTarget,
 }: {
   isOpen: boolean
   setIsOpen: TSetState<boolean>
-  target: {id: string, companyName: string, editId: string}
-  setTarget: TSetState<{id: string, companyName: string, editId: string} | null>
+  target: string
 }) {
-  const {
-    status, data, error,
-  } = useAdEditDetail(target)
+  const { data, error, refetch } = useAdEditDetail(target)
 
   const closeFunc = () => {
     setIsOpen(false)
-    setTarget(null)
   }
+
+  useEffect(() => {
+    if (data) {
+      console.log(data)
+    }
+  }, [data])
 
   return (
     <Sidepeek
@@ -35,65 +46,90 @@ export default function AdEditDetail({
         header={'수정 요청 상세보기'}
         closeFunc={closeFunc}
       />
-      {status === 'success' && (
+      {data && (
         <>
           <Col width={'fill'} gap={2}>
             <Typo.Caption>요청자 정보</Typo.Caption>
             <Table>
               <TableLabeledRow
                 label={'요청자 아이디'}
-                contents={data.id}
+                contents={data.ad.user_id}
               />
               <TableLabeledRow
                 label={'요청자 업체명'}
-                contents={data.companyName}
+                contents={data.ad.company_id}
               />
             </Table>
           </Col>
           <Col width={'fill'} gap={2}>
             <Typo.Caption>현재 광고 정보</Typo.Caption>
             <Table>
-              {data.adCurrent.map((v, i) => (
-                <TableLabeledRow
-                  key={i}
-                  label={v.label}
-                  contents={v.label !== '광고 이미지' ? v.contents :
-                    <AdImg src={v.contents}/>
-                  }
-                />
-              ))}
+              {data.adCurrent.length > 0 &&
+                data.adCurrent.map((v: any, i: any) => (
+                  <TableLabeledRow
+                    key={i}
+                    label={v.label}
+                    contents={
+                      v.label !== '광고 이미지' ? (
+                        v.contents
+                      ) : (
+                        <AdImg src={v.contents} />
+                      )
+                    }
+                  />
+                ))}
             </Table>
           </Col>
           <Col width={'fill'} gap={2}>
             <Typo.Caption>수정된 광고 정보</Typo.Caption>
             <Table>
-              {data.adEdited.map((v, i) => (
-                <TableLabeledRow
-                  key={i}
-                  label={v.label}
-                  contents={v.label !== '광고 이미지' ? v.contents :
-                    <AdImg src={v.contents}/>
-                  }
-                />
-              ))}
+              {data.adEdited.length > 0 &&
+                data.adEdited.map((v: any, i: any) => (
+                  <TableLabeledRow
+                    key={i}
+                    label={v.label}
+                    contents={
+                      v.label !== '광고 이미지' ? (
+                        v.contents
+                      ) : (
+                        <AdImg src={v.contents} />
+                      )
+                    }
+                  />
+                ))}
             </Table>
           </Col>
           <SubmitSection
-            submitFunc={() => {
-              // TODO API 연결, 광고 수정 승인
-              closeFunc()
+            submitFunc={async () => {
+              try {
+                await adsPrivateControllerApproveUpdate(target)
+                refetch()
+                setIsOpen(false)
+              } catch (e) {
+                console.error(e)
+                alert('나중에 다시 시도해주세요')
+              }
             }}
             submitContents={'승인'}
-            cancelFunc={() => {
-              // TODO API 연결, 광고 수정 거절
-              closeFunc()
+            cancelFunc={async () => {
+              try {
+                await adsPrivateControllerRejectUpdate(target)
+                refetch()
+                setIsOpen(false)
+              } catch (e) {
+                console.error(e)
+                alert('나중에 다시 시도해주세요')
+              }
             }}
             cancelContents={'거절'}
           />
         </>
       )}
-      {status === 'pending' && <Typo.Contents>로딩중...</Typo.Contents>}
-      {status === 'error' && (<Typo.Contents>문제가 발생했습니다 나중에 다시 시도해주세요</Typo.Contents>)}
+      {error && (
+        <Typo.Contents>
+          문제가 발생했습니다 나중에 다시 시도해주세요
+        </Typo.Contents>
+      )}
     </Sidepeek>
   )
 }

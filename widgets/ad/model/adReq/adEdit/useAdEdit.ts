@@ -1,39 +1,38 @@
 'use client'
 
-import {getAdEditSummaryEntity, getBrokerSummaryEntityById} from '../../../../../prevEntities'
-import {IAdEditTableRow} from '@/widgets/ad/const/adReq/adEdit/type'
-import {useQuery} from '@tanstack/react-query'
-import {useState} from 'react'
+import { IAdEditTableRow } from '@/widgets/ad/const/adReq/adEdit/type'
+import { useState } from 'react'
+import { useAdsPrivateControllerFindAllWaitingUpdate } from '@/entities/api/advertisement-private/advertisement-private'
 
-export default function useAdEdit() {
-  const [target, setTarget] = useState<{id: string, companyName: string, editId: string} | null>(null)
+export default function useAdEdit(limit: string) {
+  const [target, setTarget] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const queryReq = useQuery<Array<IAdEditTableRow>, Error>({
-    queryKey: ['adEdit'],
-    queryFn: async () => {
-      const adEdit = await getAdEditSummaryEntity()
-      const res: Array<IAdEditTableRow> = []
-
-      for(let i = 0; i < adEdit.length; i++) {
-        const user = await getBrokerSummaryEntityById(adEdit[i].userId)
-        res.push({
-          ...adEdit[i],
-          ...user,
-          detailFunc: () => {
-            setTarget({...user, ...adEdit[i]})
-            setIsOpen(true)
-          }
+  const queryReq = useAdsPrivateControllerFindAllWaitingUpdate({
+    query: {
+      select: v => {
+        const res: Array<IAdEditTableRow> = []
+        v.forEach(v => {
+          res.push({
+            id: v.user_id ?? '',
+            companyName: v.company_id ?? '',
+            adName: v.ad_types?.[0] ?? '',
+            detailFunc: () => {
+              setTarget(v.id ?? '')
+              setIsOpen(true)
+            },
+          })
         })
-      }
-
-      return res
+        return res
+      },
     },
   })
 
   return {
-    target, setTarget,
-    isOpen, setIsOpen,
+    target,
+    setTarget,
+    isOpen,
+    setIsOpen,
     ...queryReq,
   }
 }

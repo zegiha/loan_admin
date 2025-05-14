@@ -1,10 +1,8 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   images: {
-    formats: [
-      'image/webp',
-    ],
+    formats: ['image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -18,7 +16,13 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
-    ]
+      {
+        protocol: 'https',
+        hostname: 'example.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   typescript: {
     ignoreBuildErrors: true,
@@ -26,7 +30,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  compress: true
-};
+  compress: true,
+}
 
-export default nextConfig;
+export default nextConfig

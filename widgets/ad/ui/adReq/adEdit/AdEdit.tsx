@@ -1,21 +1,23 @@
 'use client'
 
-import {isEmpty, parseToTwoDimensionalArray, statusToTableSectionStatus, useTableSection} from '@/shared/lib'
-import {Typo} from '@/shared/ui/atoms'
-import {Table} from '@/shared/ui/molecules'
-import {TableSection} from '@/shared/ui/organisms'
+import {
+  isEmpty,
+  parseToTwoDimensionalArray,
+  statusToTableSectionStatus,
+  useTableSection,
+} from '@/shared/lib'
+import { Typo } from '@/shared/ui/atoms'
+import { Table } from '@/shared/ui/molecules'
+import { TableSection } from '@/shared/ui/organisms'
 import useAdEdit from '@/widgets/ad/model/adReq/adEdit/useAdEdit'
 import AdEditDetail from '@/widgets/ad/ui/adReq/adEdit/AdEditDetail'
 import AdEditTableHeader from '@/widgets/ad/ui/adReq/adEdit/AdEditTableHeader'
 import AdEditTableRow from '@/widgets/ad/ui/adReq/adEdit/AdEditTableRow'
 
 export default function AdEdit() {
-  const {showRow, setShowRow} = useTableSection()
-  const {
-    target, setTarget,
-    isOpen, setIsOpen,
-    status, data, error, refetch
-  } = useAdEdit()
+  const { showRow, setShowRow } = useTableSection()
+  const { target, setTarget, isOpen, setIsOpen, status, data, error, refetch } =
+    useAdEdit(`${showRow}`)
 
   return (
     <>
@@ -29,12 +31,9 @@ export default function AdEdit() {
         >
           {parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
             <Table key={i} maxShowingRow={showRow + 1}>
-              <AdEditTableHeader/>
+              <AdEditTableHeader />
               {v1.map((v2, i) => (
-                <AdEditTableRow
-                  key={i}
-                  {...v2}
-                />
+                <AdEditTableRow key={i} {...v2} />
               ))}
             </Table>
           ))}
@@ -43,12 +42,7 @@ export default function AdEdit() {
       {status === 'pending' && <Typo.Contents>로딩중...</Typo.Contents>}
       {status === 'error' && <Typo.Contents>{error?.message}</Typo.Contents>}
       {target !== null && isOpen && (
-        <AdEditDetail
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          target={target}
-          setTarget={setTarget}
-        />
+        <AdEditDetail isOpen={isOpen} setIsOpen={setIsOpen} target={target} />
       )}
     </>
   )

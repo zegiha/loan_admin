@@ -1,21 +1,30 @@
 'use client'
 
-import {parseToTwoDimensionalArray, statusToTableSectionStatus, useTableSection} from '@/shared/lib'
-import {Typo} from '@/shared/ui/atoms'
-import {Table} from '@/shared/ui/molecules'
-import {TableSection} from '@/shared/ui/organisms'
+import {
+  parseToTwoDimensionalArray,
+  statusToTableSectionStatus,
+  useTableSection,
+} from '@/shared/lib'
+import { Typo } from '@/shared/ui/atoms'
+import { Table } from '@/shared/ui/molecules'
+import { TableSection } from '@/shared/ui/organisms'
 import useAdProlongation from '@/widgets/ad/model/adReq/adProlongation/useAdProlongation'
 import AdProlongationPermission from '@/widgets/ad/ui/adReq/adProlongation/AdProlongationPermission'
 import AdProlongationTableHeader from '@/widgets/ad/ui/adReq/adProlongation/AdProlongationTableHeader'
 import AdProlongationTableRow from '@/widgets/ad/ui/adReq/adProlongation/AdProlongationTableRow'
 
-export default function() {
-  const {showRow, setShowRow} = useTableSection()
+export default function () {
+  const { showRow, setShowRow } = useTableSection()
   const {
-    isOpen, setIsOpen,
-    targetId, setTargetId,
-    status, data, error, refetch,
-  } = useAdProlongation()
+    isOpen,
+    setIsOpen,
+    targetId,
+    setTargetId,
+    status,
+    data,
+    error,
+    refetch,
+  } = useAdProlongation(`${showRow}`)
 
   return (
     <>
@@ -29,23 +38,25 @@ export default function() {
             status={statusToTableSectionStatus(status, data)}
           >
             {parseToTwoDimensionalArray(data, showRow).map((v1, i) => (
-              <Table
-                key={i}
-                maxShowingRow={showRow + 1}
-              >
-                <AdProlongationTableHeader/>
+              <Table key={i} maxShowingRow={showRow + 1}>
+                <AdProlongationTableHeader />
                 {v1.map((v2, i) => (
-                  <AdProlongationTableRow
-                    key={i}
-                    {...v2}
-                  />
+                  <AdProlongationTableRow key={i} {...v2} />
                 ))}
               </Table>
             ))}
           </TableSection>
           {isOpen && (
             <AdProlongationPermission
-              {...{isOpen, setIsOpen, targetId, setTargetId}}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              targetId={targetId}
+              setTargetId={
+                setTargetId as React.Dispatch<
+                  React.SetStateAction<string | null>
+                >
+              }
+              refetch={refetch}
             />
           )}
         </>

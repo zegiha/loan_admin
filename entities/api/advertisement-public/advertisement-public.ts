@@ -637,7 +637,7 @@ export const adsPublicControllerFindOne = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<AdResponseDto>(
+  return customInstance<any>(
     { url: `/ads/id/${id}`, method: 'GET', signal },
     options
   )
