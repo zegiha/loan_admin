@@ -14,9 +14,7 @@ export default function({
   return <TableRow>
     <Typo.Contents width={100} textOverflowLine={1}>{id}</Typo.Contents>
     <Typo.Contents width={100} textOverflowLine={1}>{companyName}</Typo.Contents>
-    <Typo.Contents width={'fill'}>{toCommaString(
-      adNames.map(v => adNameToKorean(v))
-    )}</Typo.Contents>
+    <Typo.Contents width={'fill'}>{adNames.join(', ')}</Typo.Contents>
     <Typo.Contents width={72}>{depositorName}</Typo.Contents>
     <Typo.Contents width={100}>{formatPriceToCommaWithWon(beDepositedTotalAmount)}</Typo.Contents>
     <TextButton

@@ -4,17 +4,24 @@ import {Col, Typo} from '@/shared/ui/atoms'
 import {Sidepeek, SidepeekHeaderSection, Table, TableLabeledRow} from '@/shared/ui/molecules'
 import {AdImg, SubmitSection} from '@/shared/ui/organisms'
 import useAdRegisterDetail from '@/widgets/ad/model/adReq/adRegister/useAdRegisterDetail'
+import {useEffect} from "react";
+import {
+  adsPrivateControllerApprove,
+  adsPrivateControllerReject
+} from "@/entities/api/advertisement-private/advertisement-private";
 
 export default function({
   isOpen,
   setIsOpen,
   target,
   setTarget,
+  refetch,
 }: {
   isOpen: boolean
   setIsOpen: TSetState<boolean>
-  target: BrokerEntitySummary & {adReqId: string}
-  setTarget: TSetState<BrokerEntitySummary & {adReqId: string} | null>
+  target: string
+  setTarget: TSetState<string | null>
+  refetch: () => void
 }) {
   const {
     data, status, error
@@ -56,14 +63,26 @@ export default function({
          ))}
          <SubmitSection
            submitContents={'승인'}
-           submitFunc={() => {
-             // TODO 광고 등록 요청 승인 API
-             setIsOpen(false)
+           submitFunc={async () => {
+             try {
+               await adsPrivateControllerApprove(target)
+               refetch()
+               setIsOpen(false)
+             } catch(e) {
+               console.error(e)
+               alert('나중에 다시 시도해주세요')
+             }
            }}
            cancelContents={'거절'}
-           cancelFunc={() => {
-             // TODO 광고 등록 거절 API
-             setIsOpen(false)
+           cancelFunc={async () => {
+             try {
+               await adsPrivateControllerReject(target)
+               refetch()
+               setIsOpen(false)
+             } catch(e) {
+               console.error(e)
+               alert('나중에 다시 시도해주세요')
+             }
            }}
          />
        </SidepeekHeaderSection>

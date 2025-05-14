@@ -10,7 +10,6 @@ import AdRegisterTableHeader from '@/widgets/ad/ui/adReq/adRegister/AdRegisterTa
 import AdRegisterTableRow from '@/widgets/ad/ui/adReq/adRegister/AdRegisterTableRow'
 
 export default function() {
-  // TODO 더보기 제작
   const {showRow, setShowRow} = useTableSection()
   const {
     isOpen, setIsOpen,
@@ -49,6 +48,7 @@ export default function() {
           setIsOpen={setIsOpen}
           target={target}
           setTarget={setTarget}
+          refetch={refetch}
         />
       )}
     </>
