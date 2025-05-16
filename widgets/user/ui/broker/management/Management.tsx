@@ -1,5 +1,6 @@
 'use client'
 
+import {userControllerDeleteProfile} from '@/entities/api/user/user'
 import {parseToTwoDimensionalArray, statusToTableSectionStatus, useTableSection} from '@/shared/lib'
 import {Typo} from '@/shared/ui/atoms'
 import {Table} from '@/shared/ui/molecules'
@@ -62,7 +63,16 @@ export default function Management() {
           title={`${targetUser.id}님의 계정을 삭제할까요?`}
           subtitle={`${targetUser.id}님이 맞는지 한번 더 확인해주세요`}
           submitContents={'계정 삭제'}
-          submitFunc={() => setIsDeleteOpen(false)}
+          submitFunc={async () => {
+            userControllerDeleteProfile(targetUser.id)
+              .then(() => {
+                refetch()
+                setIsDeleteOpen(false)
+              })
+              .catch((err) => {
+                alert('다시시도해주세요')
+              })
+          }}
         />
       )}
       {targetUser !== null && isSidepeekOpen && <MoreInfoSidepeek

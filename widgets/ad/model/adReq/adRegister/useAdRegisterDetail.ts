@@ -83,10 +83,20 @@ export default function (target: string) {
           ]
         })
         v.forEach(v => {
-          res.push({
-            subTitle: v.ad_name,
-            data: adResposeDtoToIAdRegisterDetail(v)
-          })
+          if(
+            v.ad_name !== '실시간 대출문의 업체 등록' &&
+            v.ad_name !== '줄광고 점프 추가 사용'
+          ) {
+            res.push({
+              subTitle: v.ad_name,
+              data: adResposeDtoToIAdRegisterDetail(v)
+            })
+          } else {
+            res.push({
+              subTitle: v.ad_name,
+                data: [{label: '입력 정보 없음', contents: ''}]
+            })
+          }
         })
         return res
       },
