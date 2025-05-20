@@ -12,7 +12,6 @@ import {
 } from '@/shared/ui/molecules'
 import { AdImg, SubmitSection } from '@/shared/ui/organisms'
 import useAdEditDetail from '@/widgets/ad/model/adReq/adEdit/useAdEditDetail'
-import { useEffect } from 'react'
 
 export default function AdEditDetail({
   isOpen,
@@ -28,12 +27,6 @@ export default function AdEditDetail({
   const closeFunc = () => {
     setIsOpen(false)
   }
-
-  useEffect(() => {
-    if (data) {
-      console.log(data)
-    }
-  }, [data])
 
   return (
     <Sidepeek
@@ -53,11 +46,11 @@ export default function AdEditDetail({
             <Table>
               <TableLabeledRow
                 label={'요청자 아이디'}
-                contents={data.ad.user_id}
+                contents={data.user_id}
               />
               <TableLabeledRow
                 label={'요청자 업체명'}
-                contents={data.ad.company_id}
+                contents={data.company_id}
               />
             </Table>
           </Col>

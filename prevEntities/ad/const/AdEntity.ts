@@ -4,10 +4,13 @@ type TAdEntityKeys =
   | 'title'
   | 'sub_title'
   | 'contents'
+  | 'product_type'
   | 'loan_available_location'
   | 'image_url'
+  | 'cover_img'
+  | 'loan_limit'
   | 'ad_name'
-type TAdEntityValues = string | Array<TLocation> | Array<TProduction>
+type TAdEntityValues = string | Array<TLocation> | Array<TProduction> | number | undefined | null
 
 type AdEntity =
   | {

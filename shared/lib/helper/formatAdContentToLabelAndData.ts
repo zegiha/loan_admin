@@ -1,5 +1,4 @@
 import { AdEntity, TAdEntityKeys, TAdEntityValues } from '../../../prevEntities'
-import { locationMap, productionMap } from '@/shared/const'
 import { isTLocation, isTProduction } from '@/shared/lib'
 
 export default function formatAdContentToLabelAndData(
@@ -14,26 +13,35 @@ export default function formatAdContentToLabelAndData(
           'title',
           'sub_title',
           'contents',
+          'product_type',
           'loan_available_location',
           'image_url',
-          'ad_name',
+          'cover_img',
+          'loan_limit',
         ].includes(key)
       ) {
-        if (Array.isArray(value) && value.every(item => isTLocation(item))) {
+        if (Array.isArray(value) && value.length > 0 && value.every(item => isTLocation(item))) {
+          console.log(value)
           res.push({
             label: adContentsKeyToKorean(key),
-            contents: value.map(v => locationMap[v]).join(', '),
+            contents: value.join(', '),
           })
-        } else if (Array.isArray(value) && value.every(v => isTProduction(v))) {
+        } else if (Array.isArray(value) && value.length > 0 && value.every(v => isTProduction(v))) {
           res.push({
             label: adContentsKeyToKorean(key),
-            contents: value.map(v => productionMap[v]).join(', '),
+            contents: value.join(', '),
           })
-        } else if (!Array.isArray(value)) {
-          res.push({
-            label: adContentsKeyToKorean(key),
-            contents: value,
-          })
+        } else if (!Array.isArray(value) && !!value) {
+          if(typeof value === 'number')
+            res.push({
+              label: adContentsKeyToKorean(key),
+              contents: value.toLocaleString('ko-KR'),
+            })
+          else
+            res.push({
+              label: adContentsKeyToKorean(key),
+              contents: value,
+            })
         }
       }
     }
@@ -52,10 +60,16 @@ function adContentsKeyToKorean(v: Omit<TAdEntityKeys, 'ad_name'>): string {
       return '내용'
     case 'loan_available_location':
       return '대출 가능 지역'
+    case 'product_type':
+      return '대출 가능 상품'
     case 'image_url':
+      return '광고 이미지'
+    case 'cover_img':
       return '광고 이미지'
     case 'ad_name':
       return '광고 옵션'
+    case 'loan_limit':
+      return '대출 한도'
     default:
       return ''
   }

@@ -1,14 +1,8 @@
 'use client'
 
-import {AdRegisterEntity, BrokerEntitySummary, getAdRegisterEntityById} from '../../../../../prevEntities'
-import {adNameToKorean} from '@/shared/lib'
-import formatAdContentToLabelAndData from '@/shared/lib/helper/formatAdContentToLabelAndData'
 import {IAdRegisterDetail} from '@/widgets/ad/const/adReq/adRegister/type'
-import {useQuery} from '@tanstack/react-query'
 import {useAdsPrivateControllerFindAllByGroupId} from "@/entities/api/advertisement-private/advertisement-private";
 import {AdResponseDto} from "@/entities/const";
-import {AdEntity} from "@/prevEntities";
-import {useEffect} from "react";
 
 export default function (target: string) {
   const adResposeDtoToIAdRegisterDetail = (v: AdResponseDto): IAdRegisterDetail['data'] => {
@@ -70,7 +64,6 @@ export default function (target: string) {
   const queryReq = useAdsPrivateControllerFindAllByGroupId(target, {
     query: {
       select: v => {
-        console.log(v)
         const firstContents = v[0]
         const res: Array<IAdRegisterDetail> = []
         res.push({
@@ -78,8 +71,8 @@ export default function (target: string) {
           data: [
             {label: '계정 아이디', contents: firstContents.user_id},
             {label: '업체명', contents: firstContents.company_id},
-            {label: '입금자명', contents: firstContents.deposit_name},
-            {label: '입금될 금액', contents: firstContents.deposit_fee.toLocaleString('ko-kr')},
+            {label: '입금자명', contents: firstContents.deposit_name ?? ''},
+            {label: '입금될 금액', contents: firstContents?.deposit_fee?.toLocaleString('ko-kr') ?? ''},
           ]
         })
         v.forEach(v => {
