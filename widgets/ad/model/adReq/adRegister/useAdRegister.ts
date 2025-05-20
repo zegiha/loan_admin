@@ -17,6 +17,7 @@ export default function(
       select: v => {
         const res: Array<IAdRegisterTableRow> = []
         v.forEach(v => {
+          console.log(v)
           res.push({
             id: v.user_id,
             companyName: v.company_id,

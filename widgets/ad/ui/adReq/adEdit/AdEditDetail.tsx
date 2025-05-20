@@ -17,12 +17,14 @@ export default function AdEditDetail({
   isOpen,
   setIsOpen,
   target,
+  refetch,
 }: {
   isOpen: boolean
   setIsOpen: TSetState<boolean>
   target: string
+  refetch: () => void
 }) {
-  const { data, error, refetch } = useAdEditDetail(target)
+  const { data, status } = useAdEditDetail(target)
 
   const closeFunc = () => {
     setIsOpen(false)
@@ -118,7 +120,7 @@ export default function AdEditDetail({
           />
         </>
       )}
-      {error && (
+      {status === 'error' && (
         <Typo.Contents>
           문제가 발생했습니다 나중에 다시 시도해주세요
         </Typo.Contents>

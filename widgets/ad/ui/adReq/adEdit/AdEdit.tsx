@@ -42,7 +42,12 @@ export default function AdEdit() {
       {status === 'pending' && <Typo.Contents>로딩중...</Typo.Contents>}
       {status === 'error' && <Typo.Contents>{error?.message}</Typo.Contents>}
       {target !== null && isOpen && (
-        <AdEditDetail isOpen={isOpen} setIsOpen={setIsOpen} target={target} />
+        <AdEditDetail
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          target={target}
+          refetch={refetch}
+        />
       )}
     </>
   )

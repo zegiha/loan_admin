@@ -1,7 +1,7 @@
 import { AdEditEntity, AdEditSummaryEntity } from '../../../../../prevEntities'
 
 export interface IAdEditTableRow
-  extends Omit<AdEditSummaryEntity, 'editId' | 'userId'> {
+  extends Omit<AdEditSummaryEntity, 'editId' | 'userId' | 'editReqDate'> {
   id: string
   companyName: string
   detailFunc: () => void

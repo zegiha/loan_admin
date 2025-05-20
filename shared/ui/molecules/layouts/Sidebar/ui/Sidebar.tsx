@@ -15,7 +15,7 @@ const navigationInfo: Array<{iconKey: TIconListKey, navigationName: string, path
   {iconKey: 'advertisementNavigationIcon', navigationName: '광고', pathname: '/ad'},
   {iconKey: 'customerCenterNavigationIcon', navigationName: '고객센터', pathname: '/cs'},
   // {iconKey: 'loanInquiryNavigationIcon', navigationName: '실시간 대출 문의', pathname: '/inquiry'},
-  {iconKey: 'certifiedCompanyNavigationIcon', navigationName: '정식업체', pathname: '/company/certified'}
+  // {iconKey: 'certifiedCompanyNavigationIcon', navigationName: '정식업체', pathname: '/company/certified'}
 ]
 
 export default function Sidebar() {

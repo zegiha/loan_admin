@@ -9,4 +9,5 @@
 export type AdsPublicControllerFindLineAdsParams = {
   location?: string
   product?: string
+  search?: string
 }
