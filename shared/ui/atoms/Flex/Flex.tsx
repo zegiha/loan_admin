@@ -1,3 +1,5 @@
+'use client'
+
 import {IFlex} from '@/shared/const'
 import {processSortingProp, processWidth} from '@/shared/lib'
 import {CSSProperties} from "react";

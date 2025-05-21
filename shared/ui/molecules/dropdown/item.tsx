@@ -1,3 +1,5 @@
+'use client'
+
 import {Icon, Row, Typo} from '@/shared/ui/atoms'
 import classNames from 'classnames'
 import {AnimatePresence} from 'framer-motion'

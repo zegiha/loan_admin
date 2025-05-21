@@ -1,3 +1,5 @@
+'use client'
+
 import iconList from '@/shared/const/Icon/iconList'
 import {IconHelper as helper} from '@/shared/lib'
 import {IIcon} from '@/shared/const/Icon/iconType'
