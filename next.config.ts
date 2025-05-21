@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  // assetPrefix: 'https://d3b0fhpuvmp33e.cloudfront.net',
   images: {
     formats: ['image/webp'],
     remotePatterns: [
