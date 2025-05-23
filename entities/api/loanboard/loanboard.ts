@@ -24,6 +24,7 @@ import type {
 import type {
   CreateLoanboardDto,
   LoanboardControllerFindAllParams,
+  LoanboardRelationResponseDto,
   LoanboardResponseDto,
   PaginationResponseDto,
 } from '../../const'
@@ -552,7 +553,7 @@ export const loanboardControllerGetRegisterAvailableCompany = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<void>(
+  return customInstance<LoanboardRelationResponseDto>(
     { url: `/loanboard/available-company/${boardId}`, method: 'GET', signal },
     options
   )
@@ -568,7 +569,7 @@ export const getLoanboardControllerGetRegisterAvailableCompanyQueryOptions = <
   TData = Awaited<
     ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
   >,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<LoanboardRelationResponseDto>,
 >(
   boardId: string,
   options?: {
@@ -616,13 +617,13 @@ export type LoanboardControllerGetRegisterAvailableCompanyQueryResult =
     Awaited<ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>>
   >
 export type LoanboardControllerGetRegisterAvailableCompanyQueryError =
-  ErrorType<unknown>
+  ErrorType<LoanboardRelationResponseDto>
 
 export function useLoanboardControllerGetRegisterAvailableCompany<
   TData = Awaited<
     ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
   >,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<LoanboardRelationResponseDto>,
 >(
   boardId: string,
   options: {
@@ -657,7 +658,7 @@ export function useLoanboardControllerGetRegisterAvailableCompany<
   TData = Awaited<
     ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
   >,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<LoanboardRelationResponseDto>,
 >(
   boardId: string,
   options?: {
@@ -692,7 +693,7 @@ export function useLoanboardControllerGetRegisterAvailableCompany<
   TData = Awaited<
     ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
   >,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<LoanboardRelationResponseDto>,
 >(
   boardId: string,
   options?: {
@@ -719,7 +720,7 @@ export function useLoanboardControllerGetRegisterAvailableCompany<
   TData = Awaited<
     ReturnType<typeof loanboardControllerGetRegisterAvailableCompany>
   >,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<LoanboardRelationResponseDto>,
 >(
   boardId: string,
   options?: {

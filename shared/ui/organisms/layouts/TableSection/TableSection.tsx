@@ -14,6 +14,7 @@ export default function TableSection({
   setShowRowAction,
   children,
   status,
+  onSlideChangeCallback,
 }: ITableSection) {
 
   return (
@@ -28,6 +29,7 @@ export default function TableSection({
                 pagination
                 navigation
                 gap={24}
+                onSlideChangeCallback={onSlideChangeCallback}
               >
                 {children}
               </Swiper>

@@ -43,6 +43,7 @@ import adNameToKorean from '@/shared/lib/helper/adNameToKorean'
 import numberToStringWithComma from '@/shared/lib/helper/numberToStringWithComma'
 import yyyyMmDdToDate from '@/shared/lib/helper/yyyyMmDdToDate'
 import isEmpty from "@/shared/lib/helper/isEmpty";
+import formatPhoneWithHyphen from '@/shared/lib/helper/formatPhoneWithHyphen'
 
 import statusToTableSectionStatus from "@/shared/lib/tableSection/statusToTableSectionStatus";
 
@@ -81,6 +82,7 @@ export {
   useTableSection,
   yyyyMmDdToDate,
   isEmpty,
+  formatPhoneWithHyphen,
 
   statusToTableSectionStatus,
 

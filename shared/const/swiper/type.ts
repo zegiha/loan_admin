@@ -1,5 +1,5 @@
-import {Swiper as SwiperType} from 'swiper'
 import {ReactNode} from "react";
+import {Swiper as SwiperType} from 'swiper'
 import {AutoplayOptions} from "swiper/types";
 
 export interface ISwiper {
@@ -11,6 +11,7 @@ export interface ISwiper {
   loop?: boolean
   gap?: number
   direction?: "horizontal" | "vertical"
+  onSlideChangeCallback?: (swiper: SwiperType) => void
 }
 
 export interface ISwiperDefault {

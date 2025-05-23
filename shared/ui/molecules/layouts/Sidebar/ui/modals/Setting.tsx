@@ -32,6 +32,7 @@ export default function({
     isAuthorityOpen, setIsAuthorityOpen,
     isPWOpen, setIsPWOpen,
     isDeleteOpen, setIsDeleteOpen,
+    logoutFunc,
   } = useSetting()
 
   const {
@@ -52,7 +53,14 @@ export default function({
               />
             ))}
           </Table>
-          <Row width={'fill'} justifyContents={'end'}>
+          <Row width={'fill'} justifyContents={'end'} gap={8}>
+            <CtaButton
+              width={'hug'}
+              onClick={logoutFunc}
+              color={'gray'}
+            >
+              <Typo.Contents>로그아웃</Typo.Contents>
+            </CtaButton>
             <CtaButton
               width={'hug'}
               onClick={() => setIsDeleteOpen(true)}

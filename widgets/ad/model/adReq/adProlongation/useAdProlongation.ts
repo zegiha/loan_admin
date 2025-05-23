@@ -1,12 +1,7 @@
 'use client'
 
 import { useAdsPrivateControllerFindAllWaitingExtend } from '@/entities/api/advertisement-private/advertisement-private'
-import {
-  getAdProlongationEntity,
-  getBrokerSummaryEntityById,
-} from '../../../../../prevEntities'
 import { IAdProlongation } from '@/widgets/ad/const/adReq/adProlongation/type'
-import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
 export default function useAdProlongation(limit: string) {

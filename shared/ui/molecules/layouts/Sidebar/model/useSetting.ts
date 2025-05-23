@@ -1,5 +1,7 @@
 'use client'
 import {useAdminControllerProfile} from '@/entities/api/admin/admin'
+import {authControllerLogout} from '@/entities/api/auth/auth'
+import {useRouter} from 'next/navigation'
 import {AdminEntity} from '../../../../../../prevEntities'
 import {useEffect, useState} from 'react'
 
@@ -9,6 +11,8 @@ export default function useSetting() {
   const [isPWOpen, setIsPWOpen] = useState<boolean>(false)
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false)
   const [userInfo, setUserInfo] = useState<Omit<AdminEntity, 'name'> | null>(null)
+
+  const router = useRouter()
 
   const queryRes = useAdminControllerProfile({
     query: {
@@ -43,6 +47,16 @@ export default function useSetting() {
       })
     }
   }, [queryRes.status])
+
+  const logoutFunc = () => {
+    authControllerLogout()
+      .then(() => {
+        router.replace('/login')
+      })
+      .catch(() => {
+        alert('나중에 시도해주세요')
+      })
+  }
 
   // const queryRes = useQuery<Omit<AdminEntity, 'name'>, Error, Array<ISettingTableRow>>({
   //   queryKey: ['loggedInUserInfo'],
@@ -84,5 +98,6 @@ export default function useSetting() {
     isAuthorityOpen, setIsAuthorityOpen,
     isPWOpen, setIsPWOpen,
     isDeleteOpen, setIsDeleteOpen,
+    logoutFunc,
   }
 }

@@ -1,5 +1,6 @@
 import palette from '@/shared/const/design/palette'
 import semantic from '@/shared/const/design/semantic'
+import skeleton from '@/shared/const/design/skeleton.module.css'
 
 import transition from '@/shared/const/animation/framerTransition'
 
@@ -36,23 +37,20 @@ import ITableLabeledRow from '@/shared/const/table/ITableLabeledRow'
 import ITableLabeledRowWithoutReactNode from '@/shared/const/table/ITableLabeledRowWithoutReactNode'
 
 import TLocation from '@/shared/const/location/TLocation'
-import locationMap from '@/shared/const/location/locationMap'
 import locationValues from '@/shared/const/location/locationValues'
 
 import TProduction from '@/shared/const/production/TProduction'
-import productionMap from '@/shared/const/production/productionMap'
 import productionValues from '@/shared/const/production/productionValues'
 
 
 export {
   palette,
   semantic,
+  skeleton,
   transition,
   IconList,
   tableDropdownOptions,
-  locationMap,
   locationValues,
-  productionMap,
   productionValues,
 }
 export type {

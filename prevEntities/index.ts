@@ -2,7 +2,6 @@ import AdEntity from '@/prevEntities/ad/const/AdEntity'
 import AdRegisterEntity from '@/prevEntities/ad/const/AdRegisterEntity'
 import AdRegisterSummaryEntity from '@/prevEntities/ad/const/AdRegisterSummaryEntity'
 import {TAdEntityKeys, TAdEntityValues} from '@/prevEntities/ad/const/AdEntity'
-import getAdRegisterEntityById from '@/prevEntities/ad/api/getAdRegisterEntityById'
 import getAdRegisterSummaryEntity from '@/prevEntities/ad/api/getAdRegisterSummaryEntity'
 
 import BrokerEntity from '@/prevEntities/broker/const/BrokerEntity'
@@ -27,11 +26,9 @@ import getAdminRegister from '@/prevEntities/admin/api/getAdminRegister'
 
 import AdEditEntity from '@/prevEntities/ad/const/AdEditEntity'
 import AdEditSummaryEntity from '@/prevEntities/ad/const/AdEditSummaryEntiy'
-import getAdEditEntityById from '@/prevEntities/ad/api/getAdEditEntityById'
 import getAdEditSummaryEntity from '@/prevEntities/ad/api/getAdEditSummaryEntity'
 
 import AdProlongationEntity from '@/prevEntities/ad/const/AdProlongationEntity'
-import getAdProlongationEntity from '@/prevEntities/ad/api/getAdProlongationEntity'
 
 import AnnouncementEntity from '@/prevEntities/announcement/const/AnnouncementEntity'
 import AnnouncementSummaryEntity from '@/prevEntities/announcement/const/AnnouncementSummaryEntity'
@@ -44,7 +41,6 @@ import getInquiryEntityById from '@/prevEntities/inquiry/api/getInquiryEntityByI
 import getInquirySummaryEntity from '@/prevEntities/inquiry/api/getInquirySummaryEntity'
 
 export {
-  getAdRegisterEntityById,
   getAdRegisterSummaryEntity,
 
   getBrokerById,
@@ -60,10 +56,7 @@ export {
   getAdmin,
   getAdminRegister,
 
-  getAdEditEntityById,
   getAdEditSummaryEntity,
-
-  getAdProlongationEntity,
 
   getAnnouncementEntityById,
   getAnnouncementSummaryEntity,

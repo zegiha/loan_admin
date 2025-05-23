@@ -1,3 +1,4 @@
+import {Swiper as SwiperType} from 'swiper'
 import {ReactNode} from "react";
 
 export interface ITableSectionHeader {
@@ -10,5 +11,6 @@ export interface ITableSectionHeader {
 
 export interface ITableSection extends ITableSectionHeader{
   status: 'error' | 'success' | 'empty' | 'pending'
+  onSlideChangeCallback?: (swiper: SwiperType) => void
   children: Array<ReactNode> | ReactNode
 }

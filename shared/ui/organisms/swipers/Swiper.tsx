@@ -16,7 +16,8 @@ export default function Swiper({
   loop,
   gap=0,
   direction,
-  buttonColor
+  buttonColor,
+  onSlideChangeCallback,
 }: ISwiper) {
   const {
     swiperRef,
@@ -32,7 +33,10 @@ export default function Swiper({
         modules={[Autoplay]}
         onSwiper={initSwiper}
         onUpdate={onUpdate}
-        onSlideChange={onSlideChange}
+        onSlideChange={(swiper) => {
+          onSlideChange()
+          onSlideChangeCallback && onSlideChangeCallback(swiper)
+        }}
         autoplay={autoplay}
         loop={loop}
         spaceBetween={gap}
