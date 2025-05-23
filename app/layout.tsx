@@ -8,8 +8,8 @@ import React from "react";
 const wantedSans = localFont({src: '../public/fonts/WantedSansVariable.woff2'})
 
 export const metadata: Metadata = {
-  title: "대부중개 어드민 웹사이트",
-  description: "대부중개 어드민 웹사이트",
+  title: "대출센터 관리자",
+  description: "대출센터 관리자용 웹사이트",
 };
 
 export default function RootLayout({
