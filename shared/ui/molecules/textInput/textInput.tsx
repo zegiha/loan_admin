@@ -27,7 +27,7 @@ export default function TextInput({
   placeholderIcon?: TIconListKey
   onChangeAction: (v: string) => void
   error_checker?: Array<(v: string) => string | null>
-  input_type?: 'text' | 'password' | 'textarea'
+  input_type?: 'text' | 'password' | 'textarea' | 'number'
   selectionPlaceholder?: string
   selections?: Array<string>
   height?: number

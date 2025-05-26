@@ -17,7 +17,7 @@ export default defineConfig({
           name: 'customInstance',
         },
       },
-      clean: true,
+      // clean: true,
     },
     hooks: {
       afterAllFilesWrite: 'prettier --write "./entities/**/*.{ts,tsx}"',

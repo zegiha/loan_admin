@@ -27,7 +27,9 @@ export default function() {
             brokerageRegistrationCertificateUrl: v.loanRegistrationCertificate ?? '',
             businessRegistrationCertificateUrl: v.businessRegistrationCertificate ?? '',
             companyPhone: v.companyTel,
-            blackListStatus: v.isBlacklist
+            blackListStatus: v.isBlacklist,
+            remainJump: 'remainScrollAdJumpCount' in v ? v.remainScrollAdJumpCount as number : -1,
+            remainAvailableCompany: 'remainRealTimeLoanInquiryCompanyRegistration' in v ? v.remainRealTimeLoanInquiryCompanyRegistration as number : -1,
           }
           res.push({
             ...broker,
@@ -46,10 +48,16 @@ export default function() {
     }
   })
 
+  const closeFunc = () => {
+    setTargetUser(null)
+    queryRes.refetch()
+  }
+
   return {
     isDeleteOpen, setIsDeleteOpen,
     isSidepeekOpen, setIsSidepeekOpen,
     targetUser, setTargetUser,
+    closeFunc,
     ...queryRes,
   }
 }

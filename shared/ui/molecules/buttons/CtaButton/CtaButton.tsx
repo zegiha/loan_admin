@@ -10,6 +10,7 @@ export default function CtaButton({
   height='normal',
   flex,
   color='primary',
+  disabled,
 }: {
   onClick: () => void
   children: ReactNode
@@ -17,6 +18,7 @@ export default function CtaButton({
   flex?: number
   height?: 'normal' | 'large' | 'small'
   color?: 'primary' | 'gray' | 'red'
+  disabled?: boolean
 }) {
   const {
     getWidth,
@@ -25,7 +27,11 @@ export default function CtaButton({
   } = CtaButtonHelper
 
   return <button
-    className={classNames([style.default, style[color]])}
+    className={classNames([
+      style.default,
+      style[color],
+      disabled && style.disabled
+    ])}
     style={{
       height: getHeight(height),
       width: getWidth(width),
@@ -33,7 +39,9 @@ export default function CtaButton({
       padding: width === 'hug' ? getPadding(height) : undefined,
       flex: `${flex} 0 0`,
     }}
-    onClick={() => onClick()}
+    onClick={() => {
+      if(!disabled) onClick()
+    }}
   >
     {children}
   </button>

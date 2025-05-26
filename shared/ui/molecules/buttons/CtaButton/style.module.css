@@ -8,10 +8,18 @@
 }
 
 .gray {background-color: var(--container-containerNormal);}
+.gray.disabled:hover {background-color: var(--container-containerNormal);}
 .gray:hover {background-color: var(--container-containerHigh);}
 
 .primary {background-color: var(--primary-primaryNormal);}
+.primary.disabled:hover {background-color: var(--primary-primaryNormal);}
 .primary:hover {background-color: var(--primary-primaryHigh);}
 
 .red {background-color: var(--red600);}
+.red.disabled:hover {background-color: var(--red600);}
 .red:hover {background-color: var(--red700);}
+
+.disabled {
+  opacity: 0.64;
+  cursor: not-allowed;
+}

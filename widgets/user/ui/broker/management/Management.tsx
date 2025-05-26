@@ -2,7 +2,6 @@
 
 import {userControllerDeleteProfile} from '@/entities/api/user/user'
 import {parseToTwoDimensionalArray, statusToTableSectionStatus, useTableSection} from '@/shared/lib'
-import {Typo} from '@/shared/ui/atoms'
 import {Table} from '@/shared/ui/molecules'
 import {TableSection, WarningModal} from '@/shared/ui/organisms'
 import useManagement from '@/widgets/user/model/broker/management/useManagement'
@@ -17,6 +16,7 @@ export default function Management() {
     isDeleteOpen, setIsDeleteOpen,
     isSidepeekOpen, setIsSidepeekOpen,
     targetUser,
+    closeFunc,
     status, data, error, refetch
   } = useManagement()
 
@@ -59,7 +59,10 @@ export default function Management() {
       {targetUser !== null && isDeleteOpen && (
         <WarningModal
           isOpen={isDeleteOpen}
-          setIsOpen={setIsDeleteOpen}
+          setIsOpen={(v) => {
+            if(!v) closeFunc()
+            setIsDeleteOpen(v)
+          }}
           title={`${targetUser.id}님의 계정을 삭제할까요?`}
           subtitle={`${targetUser.id}님이 맞는지 한번 더 확인해주세요`}
           submitContents={'계정 삭제'}
@@ -77,7 +80,10 @@ export default function Management() {
       )}
       {targetUser !== null && isSidepeekOpen && <MoreInfoSidepeek
         isOpen={isSidepeekOpen}
-        setIsOpen={setIsSidepeekOpen}
+        setIsOpen={(v) => {
+          if(!v) closeFunc()
+          setIsSidepeekOpen(v)
+        }}
         targetUser={targetUser}
       />}
     </>

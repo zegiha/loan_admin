@@ -9,5 +9,8 @@ export default interface BrokerEntity
     > {
   // TODO 추가로 사용자 정보에 들어갈만한거 있으면 넣기
 
+  remainJump: number
+  remainAvailableCompany: number
+
   blackListStatus: boolean
 }

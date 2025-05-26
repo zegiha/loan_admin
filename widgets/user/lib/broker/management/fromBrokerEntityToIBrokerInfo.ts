@@ -36,5 +36,20 @@ export default function(data: BrokerEntity): Array<IBrokerInfo> {
         { label: '대부업 등록증', contents: data.brokerageRegistrationCertificateUrl },
       ],
     },
+    {
+      title: '소모성 광고',
+      content: [
+        {
+          label: '줄광고 점프', contents: data.remainJump !== -1 ?
+            data.remainJump.toString() :
+            '불러오기에 실패했어요'
+        },
+        {
+          label: '실시간 대출문의 업체 등록', contents: data.remainAvailableCompany !== -1 ?
+            data.remainAvailableCompany.toString() :
+            '불러오기에 실패했어요'
+        },
+      ],
+    },
   ];
 }
