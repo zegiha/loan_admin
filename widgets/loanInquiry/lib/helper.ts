@@ -15,7 +15,7 @@ export function formatLoanboardResponseToTableLabeledRow(v: LoanboardResponseDto
     {label: '성별', contents: v.gender === 'MALE' ? '남성' : '여성'},
     {label: '나이', contents: `${v.age}세`},
     {label: '전화번호', contents: formatPhoneWithHyphen(v.tel)},
-    {label: '직업 유무', contents: v.job_status ? '예' : '아니오'},
+    {label: '직업 유무', contents: v.job_status},
     {label: '월소득', contents: v.monthly_income ?? '없음'}
   ])
 
